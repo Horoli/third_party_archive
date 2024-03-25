@@ -1,4 +1,4 @@
-part of '../third_party_archive.dart';
+part of third_party_archive;
 
 class ViewHome extends StatefulWidget {
   const ViewHome({super.key});
@@ -11,12 +11,28 @@ class ViewHomeState extends State<ViewHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
+      body: Column(
         children: [
-          Container(color: Colors.red).expand(),
-          Container().expand(),
+          ListView.builder(
+            itemCount: 5,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                color: Colors.red,
+              ).sizedBox(height: 100);
+            },
+          ).expand(),
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

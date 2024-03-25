@@ -16,6 +16,7 @@ dependencies:
     git:
       url: "https://github.com/Horoli/horoli_package.git"
       ref: "master"
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:
