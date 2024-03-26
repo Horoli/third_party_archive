@@ -12,11 +12,11 @@ import 'package:horoli_package/model/lib.dart';
 import 'package:third_party_archive/main.dart';
 import 'package:third_party_archive/third_party_archive.dart';
 
-ServiceTag TServiceTag = ServiceTag.getInstance();
+// ServiceTag TServiceTag = ServiceTag.getInstance();
 
 void main() {
-  test('test', () async {
-    final RestfulResult asd = await TServiceTag.get();
-    print(asd.data);
-  });
+  // test('test', () async {
+  //   final RestfulResult asd = await TServiceTag.get();
+  //   print(asd.data);
+  // });
 }

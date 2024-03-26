@@ -4,12 +4,15 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:horoli_package/horoli_package.dart';
 import 'package:horoli_package/model/lib.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:device_info_plus/device_info_plus.dart';
 
 import 'preset/constants.dart' as CONSTANTS;
 import 'preset/url.dart' as URL;
@@ -19,7 +22,13 @@ import 'preset/label.dart' as LABEL;
 part 'app_root.dart';
 part 'global.dart';
 
-part 'view/home.dart';
+part 'model/third_party.dart';
 
-part 'service/tag.dart';
+part 'view/page/third_party.dart';
+part 'view/home.dart';
+part 'view/loading.dart';
+
 part 'service/get_tag.dart';
+part 'service/get_third_party.dart';
+
+part 'widget/tile_third_party.dart';

@@ -1,1 +1,10 @@
 String APP_TITLE = 'ThirdParty Archive';
+
+String TAG_CRAFT = 'CRAFT';
+String TAG_TRADE = 'TRADE';
+String TAG_INFO = 'INFO';
+String TAG_COMMUNITY = 'COMMUNITY';
+String TAG_CURRENCY = 'CURRENCY';
+String TAG_BUILD = 'BUILD';
+String TAG_PATCHNOTE = 'PATCHNOTE';
+String TAG_ITEMFILTER = 'ITEMFILTER';

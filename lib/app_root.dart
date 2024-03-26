@@ -1,4 +1,4 @@
-part of 'third_party_archive.dart';
+part of third_party_archive;
 
 class AppRoot extends StatefulWidget {
   const AppRoot({super.key});
@@ -9,6 +9,7 @@ class AppRoot extends StatefulWidget {
 
 class AppRootState extends State<AppRoot> {
   Map<String, Widget Function(BuildContext)> routes = {
+    PATH.ROUTE_LOADING: (BuildContext context) => ViewLoading(),
     PATH.ROUTE_HOME: (BuildContext context) => ViewHome()
   };
 
@@ -16,7 +17,7 @@ class AppRootState extends State<AppRoot> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: LABEL.APP_TITLE,
-      initialRoute: PATH.ROUTE_HOME,
+      initialRoute: PATH.ROUTE_LOADING,
       routes: routes,
     );
   }
