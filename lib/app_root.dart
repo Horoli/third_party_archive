@@ -9,12 +9,12 @@ class AppRoot extends StatefulWidget {
 
 class AppRootState extends State<AppRoot> {
   Map<String, Widget Function(BuildContext)> routes = {
-    PATH.ROUTE_HOME: (BuildContext context) => const ViewHome()
+    PATH.ROUTE_HOME: (BuildContext context) => ViewHome()
   };
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: LABEL.APP_TITLE,
       initialRoute: PATH.ROUTE_HOME,
       routes: routes,
