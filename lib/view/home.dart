@@ -24,10 +24,12 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
     return FutureBuilder<List<String>>(
       future: futureTags,
       builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+        print(snapshot);
         if (snapshot.connectionState == ConnectionState.waiting) {
+          // TODO : splash image
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
+          return Text('Error: ${snapshot}');
         } else {
           List<String> tags = snapshot.data!;
 
