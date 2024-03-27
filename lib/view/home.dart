@@ -56,31 +56,6 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
     );
   }
 
-  Widget buildNavigationButton({
-    required String label,
-    required int index,
-  }) {
-    return TextButton(
-      child: Text(label),
-      onPressed: () {
-        _tabController.animateTo(index);
-        if (isPort) Navigator.pop(context);
-      },
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    futureTags = fetchTags();
-  }
-
-  Future<List<String>> fetchTags() async {
-    await getController.get();
-    await Future.delayed(const Duration(milliseconds: 2000));
-    return getController.result.data;
-  }
-
   Widget buildPortait(List<String> tags) {
     return Scaffold(
       appBar: AppBar(
@@ -136,6 +111,31 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+
+  Widget buildNavigationButton({
+    required String label,
+    required int index,
+  }) {
+    return TextButton(
+      child: Text(label),
+      onPressed: () {
+        _tabController.animateTo(index);
+        if (isPort) Navigator.pop(context);
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    futureTags = fetchTags();
+  }
+
+  Future<List<String>> fetchTags() async {
+    await getController.get();
+    await Future.delayed(const Duration(milliseconds: 2000));
+    return getController.result.data;
   }
 
   @override
