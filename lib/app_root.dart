@@ -9,7 +9,7 @@ class AppRoot extends StatefulWidget {
 
 class AppRootState extends State<AppRoot> {
   Map<String, Widget Function(BuildContext)> routes = {
-    PATH.ROUTE_LOADING: (BuildContext context) => ViewLoading(),
+    // PATH.ROUTE_LOADING: (BuildContext context) => ViewLoading(),
     PATH.ROUTE_HOME: (BuildContext context) => ViewHome()
   };
 
@@ -17,7 +17,7 @@ class AppRootState extends State<AppRoot> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: LABEL.APP_TITLE,
-      initialRoute: PATH.ROUTE_LOADING,
+      initialRoute: PATH.ROUTE_HOME,
       routes: routes,
     );
   }
