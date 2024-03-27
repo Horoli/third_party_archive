@@ -15,19 +15,23 @@ class PageThirdPartyState extends State<PageThirdParty> {
   GetThirdParty controller = Get.put(GetThirdParty());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: GetBuilder<GetThirdParty>(builder: (_) {
-      if (controller.result.data == null) {
-        return const Center(child: CircularProgressIndicator());
-      }
-      List thirdParties = controller.result.data;
+    return Scaffold(
+      body: GetBuilder<GetThirdParty>(
+        builder: (_) {
+          if (controller.result.data == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          List thirdParties = controller.result.data;
 
-      return ListView.builder(
-        itemCount: thirdParties.length,
-        itemBuilder: (context, index) {
-          return Text('${thirdParties[index]}');
+          return ListView.builder(
+            itemCount: thirdParties.length,
+            itemBuilder: (context, index) {
+              return Text('${thirdParties[index]}');
+            },
+          );
         },
-      );
-    }));
+      ),
+    );
   }
 
   @override

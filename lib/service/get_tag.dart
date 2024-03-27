@@ -5,8 +5,8 @@ class GetTag extends GetxController {
 
   // RxList<String> tags = <String>[].obs;
 
-  Future<RestfulResult> get() async {
-    Uri uri = Uri.http(URL.LOCAL_URL, URL.TAG);
+  Future<void> get({int type = CONSTANTS.TAG_TYPE_PATHOFEXILE}) async {
+    Uri uri = Uri.http(URL.LOCAL_URL, '${URL.TAG}/$type');
     Map<String, String> headers = {};
 
     http.get(uri, headers: headers).then((rep) {
@@ -27,12 +27,9 @@ class GetTag extends GetxController {
         );
 
         update();
-        return result;
       }
     }).catchError((error) {
       throw error;
     });
-
-    return result;
   }
 }

@@ -7,13 +7,13 @@ class ViewHome extends StatefulWidget {
   State<ViewHome> createState() => ViewHomeState();
 }
 
-class ViewHomeState extends State<ViewHome>
-    with SingleTickerProviderStateMixin {
+class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
   bool get isPort => MediaQuery.of(context).orientation == Orientation.portrait;
   double get width => MediaQuery.of(context).size.width;
   double get height => MediaQuery.of(context).size.height;
 
   late TabController _tabController;
+  bool initController = false;
   late Future<List<String>> futureTags;
   late Map<String, Widget> pages;
 
@@ -31,33 +31,23 @@ class ViewHomeState extends State<ViewHome>
         } else {
           List<String> tags = snapshot.data!;
 
+          if (initController) {
+            _tabController.dispose();
+          } else {
+            initController = true;
+          }
           _tabController = TabController(length: tags.length, vsync: this);
           pages = {
             for (String tag in tags) tag: PageThirdParty(tag: tag),
           };
           return Scaffold(
-            appBar: AppBar(
-                // bottom: TabBar(
-                //   controller: _tabController,
-                //   tabs: snapshot.data!.map((tag) => Tab(text: tag)).toList(),
-                // ),
-                ),
-            body: Row(
-              children: [
-                ListView.builder(
-                  itemCount: tags.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      buildNavigationButton(
-                    label: tags[index],
-                    index: index,
-                  ),
-                ).expand(),
-                TabBarView(
-                  controller: _tabController,
-                  children: pages.values.toList(),
-                ).expand(),
-              ],
-            ),
+            // appBar: AppBar(
+            //   bottom: TabBar(
+            //     controller: _tabController,
+            //     tabs: snapshot.data!.map((tag) => Tab(text: tag)).toList(),
+            //   ),
+            // ),
+            body: isPort ? buildPortait(tags) : buildLandscape(tags),
           );
         }
       },
@@ -89,71 +79,66 @@ class ViewHomeState extends State<ViewHome>
     return getController.result.data;
   }
 
+  Widget buildPortait(List<String> tags) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+      ),
+      drawer: Drawer(
+        width: 150,
+        child: ListView.builder(
+          itemCount: tags.length,
+          itemBuilder: (BuildContext context, int index) =>
+              buildNavigationButton(label: tags[index], index: index),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TabBarView(
+          controller: _tabController,
+          children: pages.values.toList(),
+        ),
+      ),
+    );
+  }
+
+  Widget buildLandscape(List<String> tags) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                color: Colors.grey,
+                child: ListView.builder(
+                  itemCount: tags.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      buildNavigationButton(
+                    label: tags[index],
+                    index: index,
+                  ),
+                ),
+              ).sizedBox(width: 200),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TabBarView(
+                  controller: _tabController,
+                  children: pages.values.toList(),
+                ),
+              ).expand(flex: 5),
+              // TODO : 공백(광고)
+              Container(color: Colors.blue).sizedBox(width: 200)
+            ],
+          ).expand(),
+          Container(color: Colors.blue[100]).sizedBox(height: kToolbarHeight)
+        ],
+      ),
+    );
+  }
+
   @override
   void dispose() {
+    _tabController.dispose();
     super.dispose();
   }
 }
-
-  // @override
-  // Widget build(BuildContext context) {
-
-  //   return isPort ? buildPortait() : buildLandscape();
-  // }
-
-  // Widget buildPortait() {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       backgroundColor: Colors.grey,
-  //     ),
-  //     drawer: Drawer(
-  //       width: 150,
-  //       child: ListView.builder(
-  //         itemCount: tags.length,
-  //         itemBuilder: (BuildContext context, int index) =>
-  //             buildNavigationButton(label: tags[index], index: index),
-  //       ),
-  //     ),
-  //     body: Padding(
-  //       padding: const EdgeInsets.all(8.0),
-  //       child: TabBarView(
-  //         controller: ctrlTab,
-  //         children: pages.values.toList(),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget buildLandscape() {
-  //   return Scaffold(
-  //     body: Column(
-  //       children: [
-  //         Row(
-  //           children: [
-  //             Container(
-  //               color: Colors.grey,
-  //               child: ListView.builder(
-  //                 itemCount: tags.length,
-  //                 itemBuilder: (BuildContext context, int index) =>
-  //                     buildNavigationButton(
-  //                   label: tags[index],
-  //                   index: index,
-  //                 ),
-  //               ),
-  //             ).sizedBox(width: 200),
-  //             Padding(
-  //               padding: const EdgeInsets.all(8.0),
-  //               child: TabBarView(
-  //                 controller: ctrlTab,
-  //                 children: pages.values.toList(),
-  //               ),
-  //             ).expand(flex: 5),
-  //             // TODO : 공백(광고)
-  //             Container(color: Colors.blue).sizedBox(width: 200)
-  //           ],
-  //         ).expand(),
-  //         Container(color: Colors.blue[100]).sizedBox(height: kToolbarHeight)
-  //       ],
-  //     ),
-  //   );
-  // }
