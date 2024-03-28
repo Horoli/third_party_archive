@@ -21,12 +21,12 @@ class PageThirdPartyState extends State<PageThirdParty> {
           if (controller.result.data == null) {
             return const Center(child: CircularProgressIndicator());
           }
-          List thirdParties = controller.result.data;
+          List<ThirdParty> thirdParties = controller.result.data;
 
           return ListView.builder(
             itemCount: thirdParties.length,
             itemBuilder: (context, index) {
-              return Text('${thirdParties[index]}');
+              return TileThirdParty(thirdParty: thirdParties[index]);
             },
           );
         },
@@ -41,7 +41,10 @@ class PageThirdPartyState extends State<PageThirdParty> {
   }
 
   Future<void> get() async {
-    await controller.get(tag: widget.tag);
+    await controller.get(
+      tag: widget.tag,
+      id: GUuid,
+    );
   }
 
   @override

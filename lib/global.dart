@@ -1,5 +1,8 @@
 part of third_party_archive;
 
+late final SharedPreferences GSharedPreference;
+late String GUuid;
+
 // late ServiceTag GServiceTag;
 // final List<String> tags = [
 //   LABEL.TAG_PATCHNOTE,

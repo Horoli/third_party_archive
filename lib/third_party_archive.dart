@@ -10,9 +10,12 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:horoli_package/horoli_package.dart';
 import 'package:horoli_package/model/lib.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:device_info_plus/device_info_plus.dart';
 
 import 'preset/constants.dart' as CONSTANTS;
 import 'preset/url.dart' as URL;

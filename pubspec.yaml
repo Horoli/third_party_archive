@@ -19,6 +19,9 @@ dependencies:
   http: ^1.2.1
   get: ^4.6.6
   device_info_plus: ^10.0.1
+  url_launcher: ^6.2.5
+  shared_preferences: ^2.2.2
+  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_test:
