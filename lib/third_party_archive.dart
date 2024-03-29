@@ -21,6 +21,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart' as http;
 
 import 'preset/constants.dart' as CONSTANTS;
+import 'preset/image.dart' as IMAGE;
 import 'preset/url.dart' as URL;
 import 'preset/path.dart' as PATH;
 import 'preset/label.dart' as LABEL;
@@ -38,3 +39,6 @@ part 'service/get_tag.dart';
 part 'service/get_third_party.dart';
 
 part 'widget/tile_third_party.dart';
+part 'widget/home_abstract.dart';
+part 'widget/home_portrait.dart';
+part 'widget/home_landscape.dart';

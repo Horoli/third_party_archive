@@ -38,5 +38,6 @@ class GetTag extends GetxController {
 
   Future<void> changeSelectedTag(String tag) async {
     selectedTag.value = tag;
+    update();
   }
 }

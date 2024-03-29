@@ -24,6 +24,7 @@ class TileThirdPartyState extends State<TileThirdParty> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
+      color: Colors.transparent,
       duration: const Duration(milliseconds: 200),
       height: isExpanded ? expandHeight : collapsedHeight,
       child: Row(
@@ -122,14 +123,20 @@ class TileThirdPartyState extends State<TileThirdParty> {
         ).flex(),
         const Padding(padding: EdgeInsets.all(8)),
         ElevatedButton(
-          child: const Text('copy'),
+          child: const Text('URL copy'),
           onPressed: () {
             Clipboard.setData(ClipboardData(text: thirdParty.url['main']!));
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Copied to clipboard')),
             );
           },
-        ),
+        ).flex(),
+        const Padding(padding: EdgeInsets.all(8)),
+        if (thirdParty.url['manual'] != "")
+          ElevatedButton(
+            child: const Text('manual'),
+            onPressed: () {},
+          ).flex(),
       ],
     );
   }

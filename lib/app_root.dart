@@ -16,9 +16,8 @@ class AppRootState extends State<AppRoot> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      darkTheme: ThemeData.dark(),
+      theme: ThemeData.dark(),
       title: LABEL.APP_TITLE,
       initialRoute: PATH.ROUTE_HOME,
       routes: routes,
