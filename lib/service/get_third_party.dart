@@ -3,10 +3,16 @@ part of third_party_archive;
 class GetThirdParty extends GetxController {
   RestfulResult result = RestfulResult(statusCode: 0, message: '');
 
-  Future<void> get({required String tag, required String id}) async {
+  Future<void> get({
+    required String tag,
+    required String id,
+    required String platform,
+  }) async {
     Uri uri = URL.IS_LOCAL
-        ? Uri.http(URL.LOCAL_URL, '${URL.THIRD_PARTY}/$tag/id/$id')
-        : Uri.https(URL.FORIEGN_URL, '${URL.THIRD_PARTY}/$tag/id/$id');
+        ? Uri.http(
+            URL.LOCAL_URL, '${URL.THIRD_PARTY}/$tag/platform/$platform/id/$id')
+        : Uri.https(URL.FORIEGN_URL,
+            '${URL.THIRD_PARTY}/$tag/platform/$platform/id/$id');
     Map<String, String> headers = {"Content-Type": "application/json"};
 
     http.get(uri, headers: headers).then((rep) {

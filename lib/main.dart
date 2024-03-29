@@ -1,18 +1,51 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/services.dart';
 import 'package:third_party_archive/third_party_archive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 Future<void> main() async {
   await init();
-  await createUUID();
+  await deviceCheck();
   runApp(const AppRoot());
 }
 
 Future<void> init() async {
   WidgetsFlutterBinding.ensureInitialized();
   GSharedPreference = await SharedPreferences.getInstance();
+}
+
+Future<void> deviceCheck() async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
+  if (kIsWeb) {
+    await createUUID();
+    GPlatform = 'web';
+    return;
+  }
+
+  try {
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo info = await deviceInfo.androidInfo;
+      GUuid = info.id;
+      // type : SP1A.210812.016
+      GPlatform = 'android';
+    } else if (Platform.isIOS) {
+      IosDeviceInfo info = await deviceInfo.iosInfo;
+    } else if (Platform.isLinux) {
+      LinuxDeviceInfo info = await deviceInfo.linuxInfo;
+    } else if (Platform.isMacOS) {
+      MacOsDeviceInfo info = await deviceInfo.macOsInfo;
+    } else if (Platform.isWindows) {
+      WindowsDeviceInfo info = await deviceInfo.windowsInfo;
+    }
+  } on PlatformException {
+    print('Failed to get platform version');
+  }
 }
 
 Future<void> createUUID() async {

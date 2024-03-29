@@ -3,10 +3,13 @@ part of third_party_archive;
 class GetTag extends GetxController {
   RestfulResult result = RestfulResult(statusCode: 0, message: '');
 
+  RxString selectedTag = 'CRAFT'.obs;
   // RxList<String> tags = <String>[].obs;
 
   Future<void> get({int type = CONSTANTS.TAG_TYPE_PATHOFEXILE}) async {
-    Uri uri = Uri.http(URL.LOCAL_URL, '${URL.TAG}/$type');
+    Uri uri = URL.IS_LOCAL
+        ? Uri.http(URL.LOCAL_URL, '${URL.TAG}/$type')
+        : Uri.https(URL.FORIEGN_URL, '${URL.TAG}/$type');
     Map<String, String> headers = {};
 
     http.get(uri, headers: headers).then((rep) {
@@ -31,5 +34,9 @@ class GetTag extends GetxController {
     }).catchError((error) {
       throw error;
     });
+  }
+
+  Future<void> changeSelectedTag(String tag) async {
+    selectedTag.value = tag;
   }
 }

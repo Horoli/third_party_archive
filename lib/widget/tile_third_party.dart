@@ -1,6 +1,6 @@
 part of third_party_archive;
 
-class TileThirdParty extends StatelessWidget {
+class TileThirdParty extends StatefulWidget {
   final ThirdParty thirdParty;
   const TileThirdParty({
     required this.thirdParty,
@@ -8,58 +8,129 @@ class TileThirdParty extends StatelessWidget {
   });
 
   @override
+  State<StatefulWidget> createState() => TileThirdPartyState();
+}
+
+class TileThirdPartyState extends State<TileThirdParty> {
+  ThirdParty get thirdParty => widget.thirdParty;
+
+  final double logoSize = 100;
+
+  bool isExpanded = false;
+  final double subCollapseHeight = kToolbarHeight;
+  double collapsedHeight = kToolbarHeight * 2.3;
+  double expandHeight = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      height: isExpanded ? expandHeight : collapsedHeight,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
             children: [
               Image.memory(
                 base64Decode(thirdParty.images['thumbnail']!),
-              ).expand(),
+              ).sizedBox(height: logoSize, width: logoSize),
               Text(thirdParty.label),
             ],
-          ).expand(),
+          ),
+          const Padding(padding: EdgeInsets.all(4)),
           Column(
             children: [
-              Text(thirdParty.description['main']!).expand(),
-              Text(thirdParty.description['sub']!).expand(),
+              Text(thirdParty.description['main']!)
+                  .sizedBox(height: kToolbarHeight),
+              buildSubText(thirdParty.description['sub']!),
             ],
           ).expand(flex: 3),
-          ElevatedButton(
-            child: const Text('open'),
-            onPressed: () async {
-              await launchUrl(Uri.parse(
-                thirdParty.url['main']!,
-              ));
-              await postUserAction(
-                id: GUuid,
-                label: thirdParty.label,
-                url: thirdParty.url['main']!,
-              );
-            },
-          )
+          const Padding(padding: EdgeInsets.all(4)),
+          buildButtonSet().sizedBox(height: logoSize),
         ],
       ),
-    ).sizedBox(height: kToolbarHeight * 2);
+    );
   }
 
-  Future<void> postUserAction({
-    required String id,
-    required String label,
-    required String url,
-  }) async {
-    Uri uri = URL.IS_LOCAL
-        ? Uri.http(URL.LOCAL_URL, '${URL.USER_ACTION}/$id')
-        : Uri.https(URL.FORIEGN_URL, '${URL.USER_ACTION}/$id');
-    Map<String, String> headers = {"Content-Type": "application/json"};
-    String jsonBody = jsonEncode({
-      "label": label,
-      "url": url,
-    });
+  Widget buildSubText(String text) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        TextPainter wordWrapTp = TextPainter(
+          text: TextSpan(
+            text: text,
+          ),
+          textDirection: TextDirection.ltr,
+        )..layout(maxWidth: constraints.maxWidth);
+        print('wordWrapTp.height ${wordWrapTp.height}');
+        expandHeight =
+            collapsedHeight - kToolbarHeight + wordWrapTp.height + 35;
 
-    http.post(uri, headers: headers, body: jsonBody).then((rep) {
-      Map rawData = jsonDecode(rep.body);
-    });
+        // print('expandHeight $expandHeight');
+
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          height: isExpanded ? wordWrapTp.height + 35 : subCollapseHeight,
+          child: Stack(
+            children: [
+              Text(text),
+              if (wordWrapTp.height > kToolbarHeight)
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white.withOpacity(0.1),
+                      shadowColor: Colors.transparent,
+                      padding: EdgeInsets.zero,
+                      minimumSize: Size.zero,
+                    ),
+                    child: Icon(
+                      isExpanded ? Icons.expand_less : Icons.expand_more,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
+                    },
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildButtonSet() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          child: const Text('open'),
+          onPressed: () async {
+            await launchUrl(Uri.parse(
+              thirdParty.url['main']!,
+            ));
+            await postUserAction(
+              id: GUuid,
+              label: thirdParty.label,
+              url: thirdParty.url['main']!,
+              platform: GPlatform,
+            );
+          },
+        ).flex(),
+        const Padding(padding: EdgeInsets.all(8)),
+        ElevatedButton(
+          child: const Text('copy'),
+          onPressed: () {
+            Clipboard.setData(ClipboardData(text: thirdParty.url['main']!));
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Copied to clipboard')),
+            );
+          },
+        ),
+      ],
+    );
   }
 }

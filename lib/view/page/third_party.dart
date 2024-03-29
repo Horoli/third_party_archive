@@ -43,6 +43,7 @@ class PageThirdPartyState extends State<PageThirdParty> {
   Future<void> get() async {
     await controller.get(
       tag: widget.tag,
+      platform: GPlatform,
       id: GUuid,
     );
   }

@@ -4,7 +4,7 @@ class ThirdParty {
   int type;
   String label;
   Map<String, String> description;
-  Map<String, String> images;
+  Map<String, dynamic> images;
   Map<String, String> url;
   List<String> tags;
   Map<String, dynamic> userAction;
@@ -23,7 +23,7 @@ class ThirdParty {
       type: item['type'],
       label: item['label'],
       description: Map<String, String>.from(item['description']),
-      images: Map<String, String>.from(item['images']),
+      images: Map<String, dynamic>.from(item['images']),
       url: Map<String, String>.from(item['url']),
       tags: List<String>.from(item['tags']),
       userAction: Map.from(item['userAction']),
