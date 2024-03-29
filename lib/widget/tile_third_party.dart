@@ -62,7 +62,7 @@ class TileThirdPartyState extends State<TileThirdParty> {
           ),
           textDirection: TextDirection.ltr,
         )..layout(maxWidth: constraints.maxWidth);
-        print('wordWrapTp.height ${wordWrapTp.height}');
+        // print('wordWrapTp.height ${wordWrapTp.height}');
         expandHeight =
             collapsedHeight - kToolbarHeight + wordWrapTp.height + 35;
 

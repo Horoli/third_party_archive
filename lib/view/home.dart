@@ -22,49 +22,51 @@ class ViewHomeState extends State<ViewHome> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<String>>(
-      future: futureTags,
-      builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-        print(snapshot);
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // TODO : splash image
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot}');
-        } else {
-          List<String> tags = snapshot.data!;
-
-          if (initController) {
-            _tabController.dispose();
+    return Scaffold(
+      body: FutureBuilder<List<String>>(
+        future: futureTags,
+        builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+          // print(snapshot);
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // TODO : splash image
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot}');
           } else {
-            initController = true;
-          }
-          _tabController = TabController(length: tags.length, vsync: this);
-          pages = {
-            for (String tag in tags) tag: PageThirdParty(tag: tag),
-          };
+            List<String> tags = snapshot.data!;
 
-          return isPort
-              ? WidgetHomePortrait(
-                  pages: pages,
-                  isPort: isPort,
-                  tags: tags,
-                  context: context,
-                  tabController: _tabController,
-                  getController: getController,
-                )
-              : WidgetHomeLandscape(
-                  height: height,
-                  ctrlScroll: ctrlScroll,
-                  pages: pages,
-                  isPort: isPort,
-                  tags: tags,
-                  context: context,
-                  tabController: _tabController,
-                  getController: getController,
-                );
-        }
-      },
+            if (initController) {
+              _tabController.dispose();
+            } else {
+              initController = true;
+            }
+            _tabController = TabController(length: tags.length, vsync: this);
+            pages = {
+              for (String tag in tags) tag: PageThirdParty(tag: tag),
+            };
+
+            return isPort
+                ? WidgetHomePortrait(
+                    pages: pages,
+                    isPort: isPort,
+                    tags: tags,
+                    context: context,
+                    tabController: _tabController,
+                    getController: getController,
+                  )
+                : WidgetHomeLandscape(
+                    height: height,
+                    ctrlScroll: ctrlScroll,
+                    pages: pages,
+                    isPort: isPort,
+                    tags: tags,
+                    context: context,
+                    tabController: _tabController,
+                    getController: getController,
+                  );
+          }
+        },
+      ),
     );
   }
 

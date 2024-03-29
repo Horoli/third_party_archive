@@ -1,4 +1,4 @@
-const String APP_TITLE = 'ThirdParty Archive';
+const String APP_TITLE = 'ThirdPartyArchive';
 
 const String TAG_CRAFT = 'CRAFT';
 const String TAG_TRADE = 'TRADE';
