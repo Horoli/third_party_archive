@@ -26,7 +26,7 @@ class WidgetHomePortrait extends WidgetHome {
         child: ListView(
           children: [
             const DrawerHeader(
-              child: Text('Drawer Header'),
+              child: Text(LABEL.APP_TITLE),
             ),
             ...List.generate(
               tags.length,

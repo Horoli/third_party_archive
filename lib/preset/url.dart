@@ -1,6 +1,6 @@
-const bool IS_LOCAL = true;
-const String LOCAL_URL = 'localhost:4003';
-const String FORIEGN_URL = '';
+const bool IS_LOCAL = false;
+const String LOCAL_URL = 'localhost:2017';
+const String FORIEGN_URL = 'thirdparty-api.horoli.kr';
 
 const String VERSION = 'v1';
 
