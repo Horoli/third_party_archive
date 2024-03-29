@@ -60,6 +60,7 @@ class WidgetHomeLandscape extends WidgetHome {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TabBarView(
+                              physics: const NeverScrollableScrollPhysics(),
                               controller: tabController,
                               children: pages.values.toList(),
                             ),

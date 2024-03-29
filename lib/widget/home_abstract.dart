@@ -20,12 +20,16 @@ abstract class WidgetHome extends StatelessWidget {
     required String label,
     required int index,
   }) {
+    Color buttonColor = const Color.fromARGB(255, 72, 57, 99);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
-        // style: ButtonStyle(
-        //   backgroundColor: MaterialStateProperty.all(Colors.red),
-        // ),
+        style: selected
+            ? ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(buttonColor),
+              )
+            : null,
         onPressed: () async {
           await getController.changeSelectedTag(label);
           tabController.animateTo(index);
