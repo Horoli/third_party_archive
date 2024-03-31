@@ -25,17 +25,6 @@ Future<void> postUserAction({
   });
 }
 
-Widget buildWallpaper() {
-  return Container(
-    decoration: const BoxDecoration(
-      image: DecorationImage(
-        fit: BoxFit.cover,
-        image: AssetImage(IMAGE.APPLICTION_WALLPAPER),
-        opacity: 0.3,
-      ),
-    ),
-  );
-}
 
 // late ServiceTag GServiceTag;
 // final List<String> tags = [

@@ -17,9 +17,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:uuid/uuid.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:simple_icons/simple_icons.dart';
 
 import 'package:http/http.dart' as http;
 
+import 'preset/message.dart' as MSG;
 import 'preset/constants.dart' as CONSTANTS;
 import 'preset/image.dart' as IMAGE;
 import 'preset/url.dart' as URL;

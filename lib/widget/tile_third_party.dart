@@ -127,7 +127,7 @@ class TileThirdPartyState extends State<TileThirdParty> {
           onPressed: () {
             Clipboard.setData(ClipboardData(text: thirdParty.url['main']!));
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Copied to clipboard')),
+              const SnackBar(content: Text(MSG.COPY_TO_CLIPBOARD)),
             );
           },
         ).flex(),

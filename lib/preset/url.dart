@@ -7,3 +7,6 @@ const String VERSION = 'v1';
 const String TAG = '${VERSION}/tag';
 const String THIRD_PARTY = '${VERSION}/third_party';
 const String USER_ACTION = '${VERSION}/user_action';
+
+const String GIT_HUB = 'https://github.com/Horoli/';
+const String GMAIL = 'sunha321@gmail.com';

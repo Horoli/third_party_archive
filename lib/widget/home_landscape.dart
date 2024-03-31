@@ -66,13 +66,15 @@ class WidgetHomeLandscape extends WidgetHome {
                             ),
                           ).expand(flex: 5),
                           const VerticalDivider(),
-                          // TODO : empty place(ad)
-                          Container().expand()
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: buildAdPlace(),
+                          ).expand()
                         ],
                       ).sizedBox(width: landscapeWidth).expand(),
                       // footer
                       const Divider(),
-                      Container().sizedBox(height: height / 10)
+                      buildFooter().sizedBox(height: height / 10)
                     ],
                   ),
                 ),
@@ -82,5 +84,10 @@ class WidgetHomeLandscape extends WidgetHome {
         ],
       ),
     );
+  }
+
+  // TODO : empty place(for ad)
+  Widget buildAdPlace() {
+    return Container();
   }
 }

@@ -24,21 +24,28 @@ class WidgetHomePortrait extends WidgetHome {
       drawer: Drawer(
         width: 200,
         child: GetX<GetTag>(builder: (_) {
-          return ListView(
+          return Column(
             children: [
-              const DrawerHeader(
-                child: Text(LABEL.APP_TITLE),
-              ),
-              ...List.generate(
-                tags.length,
-                (index) {
-                  return buildNavigationButton(
-                    selected: tags[index] == getController.selectedTag.value,
-                    label: tags[index],
-                    index: index,
-                  );
-                },
-              ).toList()
+              ListView(
+                children: [
+                  const DrawerHeader(
+                    child: Text(LABEL.APP_TITLE),
+                  ),
+                  ...List.generate(
+                    tags.length,
+                    (index) {
+                      return buildNavigationButton(
+                        selected:
+                            tags[index] == getController.selectedTag.value,
+                        label: tags[index],
+                        index: index,
+                      );
+                    },
+                  ).toList(),
+                ],
+              ).expand(),
+              const Divider(),
+              buildFooter().sizedBox(height: kToolbarHeight),
             ],
           );
         }),
@@ -56,6 +63,22 @@ class WidgetHomePortrait extends WidgetHome {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget buildFooter() {
+    return Column(
+      children: [
+        buildCopyrightText(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildGithubIconButton(),
+            buildGmailIconButton(),
+          ],
+        ).expand()
+      ],
     );
   }
 }

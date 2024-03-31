@@ -39,4 +39,54 @@ abstract class WidgetHome extends StatelessWidget {
       ),
     );
   }
+
+  Widget buildWallpaper() {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage(IMAGE.APPLICTION_WALLPAPER),
+          opacity: 0.3,
+        ),
+      ),
+    );
+  }
+
+  Widget buildCopyrightText() {
+    return Text('Copyright © 2024 Horoli');
+  }
+
+  Widget buildGithubIconButton() {
+    return IconButton(
+      icon: const Icon(SimpleIcons.github),
+      onPressed: () async {
+        await launchUrl(Uri.parse(URL.GIT_HUB));
+      },
+    );
+  }
+
+  Widget buildGmailIconButton() {
+    return IconButton(
+      icon: const Icon(SimpleIcons.gmail),
+      onPressed: () {
+        Clipboard.setData(const ClipboardData(text: URL.GMAIL));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text(MSG.COPY_TO_CLIPBOARD)),
+        );
+      },
+    );
+  }
+
+  Widget buildFooter() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        buildCopyrightText(),
+        const Padding(padding: EdgeInsets.all(8)),
+        buildGithubIconButton(),
+        const Padding(padding: EdgeInsets.all(8)),
+        buildGmailIconButton(),
+      ],
+    );
+  }
 }
