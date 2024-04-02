@@ -108,7 +108,7 @@ class TileThirdPartyState extends State<TileThirdParty> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          child: const Text('open'),
+          child: const Text('링크 열기'),
           onPressed: () async {
             await launchUrl(Uri.parse(
               thirdParty.url['main']!,
@@ -123,7 +123,7 @@ class TileThirdPartyState extends State<TileThirdParty> {
         ).flex(),
         const Padding(padding: EdgeInsets.all(8)),
         ElevatedButton(
-          child: const Text('URL copy'),
+          child: const Text('URL 복사'),
           onPressed: () {
             Clipboard.setData(ClipboardData(text: thirdParty.url['main']!));
             ScaffoldMessenger.of(context).showSnackBar(
@@ -134,8 +134,12 @@ class TileThirdPartyState extends State<TileThirdParty> {
         const Padding(padding: EdgeInsets.all(8)),
         if (thirdParty.url['manual'] != "")
           ElevatedButton(
-            child: const Text('manual'),
-            onPressed: () {},
+            child: const Text('사용법 보기'),
+            onPressed: () async {
+              await launchUrl(Uri.parse(
+                thirdParty.url['manual']!,
+              ));
+            },
           ).flex(),
       ],
     );

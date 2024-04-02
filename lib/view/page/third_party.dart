@@ -22,6 +22,10 @@ class PageThirdPartyState extends State<PageThirdParty> {
         }
         List<ThirdParty> thirdParties = controller.result.data;
 
+        // thirdParties.sort((a, b) {
+        //   return b.userAction['click'].compareTo(a.userAction['click']);
+        // });
+
         return ListView.separated(
           separatorBuilder: (context, index) => const Divider(),
           itemCount: thirdParties.length,
