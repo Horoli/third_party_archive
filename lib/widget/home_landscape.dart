@@ -25,7 +25,7 @@ class WidgetHomeLandscape extends WidgetHome {
         children: [
           buildWallpaper(),
           Scrollbar(
-            thumbVisibility: true,
+            thumbVisibility: false,
             controller: ctrlScroll,
             child: SingleChildScrollView(
               controller: ctrlScroll,
