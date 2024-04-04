@@ -1,4 +1,4 @@
-package com.example.third_party_archive
+package com.horoli.third_party_archive
 
 import io.flutter.embedding.android.FlutterActivity
 

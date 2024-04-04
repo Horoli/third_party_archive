@@ -41,3 +41,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# android app key
+/android/app/proguard-rules.pro
+/android/app/key.jks
+/android/app/key.properties
