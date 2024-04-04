@@ -2,7 +2,7 @@ name: third_party_archive
 description: "PathOfExile third party archive"
 publish_to: "none"
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ">=3.2.6 <4.0.0"
@@ -29,6 +29,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
