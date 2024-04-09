@@ -12,28 +12,53 @@ class GetTag extends GetxController {
         : Uri.https(URL.FORIEGN_URL, '${URL.TAG}/$type');
     Map<String, String> headers = {};
 
-    http.get(uri, headers: headers).then((rep) {
-      Map rawData = jsonDecode(rep.body);
-
-      if (rawData['statusCode'] == 200) {
-        Map<String, dynamic> data = Map.from(rawData['data']);
-        List getTags = List.from(data['tags']);
-        List<String> getTagsLabel =
-            getTags.map((tagObject) => tagObject['label'].toString()).toList();
-
-        // tags.assignAll(getTagsLabel);
-
-        result = RestfulResult(
-          statusCode: rawData['statusCode'],
-          message: rawData['message'] ?? '',
-          data: getTagsLabel,
-        );
-
-        update();
-      }
-    }).catchError((error) {
+    http.Response rep =
+        await http.get(uri, headers: headers).catchError((error) {
       throw error;
     });
+
+    Map rawData = jsonDecode(rep.body);
+
+    if (rawData['statusCode'] == 200) {
+      Map<String, dynamic> data = Map.from(rawData['data']);
+      List getTags = List.from(data['tags']);
+      List<String> getTagsLabel =
+          getTags.map((tagObject) => tagObject['label'].toString()).toList();
+
+      result = RestfulResult(
+        statusCode: rawData['statusCode'],
+        message: rawData['message'] ?? '',
+        data: getTagsLabel,
+      );
+
+      update();
+
+      // tags.assignAll(getTagsLabel);
+      // response
+
+      // response.then((rep) {
+      //   Map rawData = jsonDecode(rep.body);
+
+      //   if (rawData['statusCode'] == 200) {
+      //     Map<String, dynamic> data = Map.from(rawData['data']);
+      //     List getTags = List.from(data['tags']);
+      //     List<String> getTagsLabel =
+      //         getTags.map((tagObject) => tagObject['label'].toString()).toList();
+
+      //     // tags.assignAll(getTagsLabel);
+
+      //     result = RestfulResult(
+      //       statusCode: rawData['statusCode'],
+      //       message: rawData['message'] ?? '',
+      //       data: getTagsLabel,
+      //     );
+
+      //     update();
+      //   }
+      // }).catchError((error) {
+      //   throw error;
+      // });
+    }
   }
 
   Future<void> changeSelectedTag(String tag) async {

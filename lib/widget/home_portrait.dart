@@ -1,20 +1,17 @@
 part of third_party_archive;
 
 class WidgetHomePortrait extends WidgetHome {
-  Map<String, Widget> pages;
-
   WidgetHomePortrait({
-    required this.pages,
-    required super.isPort,
-    required super.tags,
-    required super.context,
-    required super.tabController,
-    required super.getController,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  WidgetHomePortraitState createState() => WidgetHomePortraitState();
+}
+
+class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
+  @override
+  Widget buildContents(AsyncSnapshot<List<String>> snapshot) {
     return Scaffold(
       appBar: AppBar(
         title: GetX<GetTag>(
@@ -50,20 +47,21 @@ class WidgetHomePortrait extends WidgetHome {
           );
         }),
       ),
-      body: Stack(
-        children: [
-          buildWallpaper(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TabBarView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: tabController,
-              children: pages.values.toList(),
-            ),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: tabController,
+          children: pages.values.toList(),
+        ),
       ),
     );
+  }
+
+  @override
+  Future<List<String>> fetchTags() async {
+    await getController.get();
+    return getController.result.data;
   }
 
   @override
@@ -79,6 +77,62 @@ class WidgetHomePortrait extends WidgetHome {
           ],
         ).expand()
       ],
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      buildShowModalBottomSheet();
+    });
+  }
+
+  Future<void> buildShowModalBottomSheet() async {
+    int now = DateTime.now().millisecondsSinceEpoch;
+    int oneDay = now + 1000 * 60 * 60 * 24;
+    await showModalBottomSheet(
+      context: context,
+      isDismissible: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return buildBottomSheet(context).sizedBox(height: height / 2.2);
+      },
+    );
+  }
+
+  Widget buildBottomSheet(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                child: Text('다시보지 않기'),
+                onPressed: () {
+                  // localStorage에 마지막으로 본 날짜를 저장
+                  Navigator.pop(context);
+                },
+              ),
+              ElevatedButton(
+                child: Text('닫기'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ).sizedBox(height: kToolbarHeight),
+          Padding(padding: EdgeInsets.all(4)),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.red,
+            ),
+          ).sizedBox(width: double.infinity).expand(),
+        ],
+      ),
     );
   }
 }

@@ -15,25 +15,47 @@ class GetThirdParty extends GetxController {
             '${URL.THIRD_PARTY}/$tag/platform/$platform/id/$id');
     Map<String, String> headers = {"Content-Type": "application/json"};
 
-    http.get(uri, headers: headers).then((rep) {
-      Map rawData = jsonDecode(rep.body);
-
-      if (rawData['statusCode'] == 200) {
-        Map<String, dynamic> data = Map.from(rawData['data']);
-
-        List<ThirdParty> getThirdParties = List.from(data['thirdParties'])
-            .map((e) => ThirdParty.fromMap(item: e))
-            .toList();
-
-        result = RestfulResult(
-          statusCode: rawData['statusCode'],
-          message: rawData['message'] ?? '',
-          data: getThirdParties,
-        );
-        update();
-      }
-    }).catchError((error) {
+    http.Response rep =
+        await http.get(uri, headers: headers).catchError((error) {
       throw error;
     });
+
+    Map rawData = jsonDecode(rep.body);
+
+    if (rawData['statusCode'] == 200) {
+      Map<String, dynamic> data = Map.from(rawData['data']);
+
+      List<ThirdParty> getThirdParties = List.from(data['thirdParties'])
+          .map((e) => ThirdParty.fromMap(item: e))
+          .toList();
+
+      result = RestfulResult(
+        statusCode: rawData['statusCode'],
+        message: rawData['message'] ?? '',
+        data: getThirdParties,
+      );
+      update();
+
+      // http.get(uri, headers: headers).then((rep) {
+      //   Map rawData = jsonDecode(rep.body);
+
+      //   if (rawData['statusCode'] == 200) {
+      //     Map<String, dynamic> data = Map.from(rawData['data']);
+
+      //     List<ThirdParty> getThirdParties = List.from(data['thirdParties'])
+      //         .map((e) => ThirdParty.fromMap(item: e))
+      //         .toList();
+
+      //     result = RestfulResult(
+      //       statusCode: rawData['statusCode'],
+      //       message: rawData['message'] ?? '',
+      //       data: getThirdParties,
+      //     );
+      //     update();
+      //   }
+      // }).catchError((error) {
+      //   throw error;
+      // });
+    }
   }
 }
