@@ -1,7 +1,7 @@
 part of third_party_archive;
 
 class WidgetHomeLandscape extends WidgetHome {
-  WidgetHomeLandscape({
+  const WidgetHomeLandscape({
     super.key,
   });
 

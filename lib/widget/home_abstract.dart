@@ -1,19 +1,7 @@
 part of third_party_archive;
 
 abstract class WidgetHome extends StatefulWidget {
-  // bool isPort;
-  // BuildContext context;
-  // TabController tabController;
-  // List<String> tags;
-  // GetTag getController;
-  // Map<String, Widget> pages;
-  WidgetHome({
-    // required this.pages,
-    // required this.isPort,
-    // required this.context,
-    // required this.tabController,
-    // required this.tags,
-    // required this.getController,
+  const WidgetHome({
     super.key,
   });
 
@@ -35,6 +23,8 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   @override
   Widget build(context) {
     return Scaffold(
+      appBar: isPort ? buildAppBar() : null,
+      drawer: isPort ? buildDrawer() : null,
       body: FutureBuilder(
         future: fetchTags(),
         builder: (context, AsyncSnapshot<List<String>> snapshot) {
@@ -147,4 +137,43 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
 
   Future<List<String>> fetchTags() async =>
       throw UnimplementedError('fetchTags unimplemented');
+
+  PreferredSizeWidget buildAppBar() {
+    return AppBar(
+      title: GetX<GetTag>(
+        builder: (_) => Text(getController.selectedTag.value),
+      ),
+    );
+  }
+
+  Widget buildDrawer() {
+    return Drawer(
+      width: 200,
+      child: GetX<GetTag>(builder: (_) {
+        return Column(
+          children: [
+            ListView(
+              children: [
+                const DrawerHeader(
+                  child: Text(LABEL.APP_TITLE),
+                ),
+                ...List.generate(
+                  tags.length,
+                  (index) {
+                    return buildNavigationButton(
+                      selected: tags[index] == getController.selectedTag.value,
+                      label: tags[index],
+                      index: index,
+                    );
+                  },
+                ).toList(),
+              ],
+            ).expand(),
+            const Divider(),
+            buildFooter().sizedBox(height: kToolbarHeight),
+          ],
+        );
+      }),
+    );
+  }
 }

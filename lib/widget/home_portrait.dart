@@ -1,7 +1,7 @@
 part of third_party_archive;
 
 class WidgetHomePortrait extends WidgetHome {
-  WidgetHomePortrait({
+  const WidgetHomePortrait({
     super.key,
   });
 
@@ -12,48 +12,12 @@ class WidgetHomePortrait extends WidgetHome {
 class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
   @override
   Widget buildContents(AsyncSnapshot<List<String>> snapshot) {
-    return Scaffold(
-      appBar: AppBar(
-        title: GetX<GetTag>(
-          builder: (_) => Text(getController.selectedTag.value),
-        ),
-      ),
-      drawer: Drawer(
-        width: 200,
-        child: GetX<GetTag>(builder: (_) {
-          return Column(
-            children: [
-              ListView(
-                children: [
-                  const DrawerHeader(
-                    child: Text(LABEL.APP_TITLE),
-                  ),
-                  ...List.generate(
-                    tags.length,
-                    (index) {
-                      return buildNavigationButton(
-                        selected:
-                            tags[index] == getController.selectedTag.value,
-                        label: tags[index],
-                        index: index,
-                      );
-                    },
-                  ).toList(),
-                ],
-              ).expand(),
-              const Divider(),
-              buildFooter().sizedBox(height: kToolbarHeight),
-            ],
-          );
-        }),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TabBarView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: tabController,
-          children: pages.values.toList(),
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TabBarView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: tabController,
+        children: pages.values.toList(),
       ),
     );
   }
@@ -88,20 +52,29 @@ class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
     });
   }
 
+  // localStorage에 저장된 시간이 없거나, 현재 시간보다 작은 경우 출력
   Future<void> buildShowModalBottomSheet() async {
     int now = DateTime.now().millisecondsSinceEpoch;
-    int oneDay = now + 1000 * 60 * 60 * 24;
-    await showModalBottomSheet(
-      context: context,
-      isDismissible: false,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return buildBottomSheet(context).sizedBox(height: height / 2.2);
-      },
+    int afterOneDay = now + 1000 * 60 * 60 * 24;
+    int? getDays = GSharedPreference.getInt(
+      CONSTANTS.STORAGE_SHOW_AD,
     );
+
+    if (getDays == null || getDays <= now) {
+      await showModalBottomSheet(
+        context: context,
+        isDismissible: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          return buildBottomSheet(context, afterOneDay).sizedBox(
+            height: height / 2.2,
+          );
+        },
+      );
+    }
   }
 
-  Widget buildBottomSheet(BuildContext context) {
+  Widget buildBottomSheet(BuildContext context, int afterOneDay) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -110,25 +83,32 @@ class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
-                child: Text('다시보지 않기'),
-                onPressed: () {
+                child: const Text(LABEL.BTN_DONT_SEE_AGAIN),
+                onPressed: () async {
+                  // 현재시간 + 1일을 저장
+                  await GSharedPreference.setInt(
+                    CONSTANTS.STORAGE_SHOW_AD,
+                    afterOneDay,
+                  );
                   // localStorage에 마지막으로 본 날짜를 저장
                   Navigator.pop(context);
                 },
               ),
               ElevatedButton(
-                child: Text('닫기'),
+                child: const Text(LABEL.BTN_CLOSE),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
             ],
           ).sizedBox(height: kToolbarHeight),
-          Padding(padding: EdgeInsets.all(4)),
+          const Padding(padding: EdgeInsets.all(4)),
           Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.red,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(IMAGE.TEST),
+              ),
             ),
           ).sizedBox(width: double.infinity).expand(),
         ],

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:third_party_archive/third_party_archive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:third_party_archive/preset/constants.dart' as CONSTANTS;
 
 Future<void> main() async {
   await init();
@@ -24,7 +25,7 @@ Future<void> deviceCheck() async {
 
   if (kIsWeb) {
     await createUUID();
-    GPlatform = 'web';
+    GPlatform = CONSTANTS.PLATFORM_WEB;
     return;
   }
 
@@ -33,7 +34,7 @@ Future<void> deviceCheck() async {
       AndroidDeviceInfo info = await deviceInfo.androidInfo;
       GUuid = info.id;
       // type : SP1A.210812.016
-      GPlatform = 'android';
+      GPlatform = CONSTANTS.PLATFORM_ANDROID;
     } else if (Platform.isIOS) {
       IosDeviceInfo info = await deviceInfo.iosInfo;
     } else if (Platform.isLinux) {
