@@ -26,7 +26,10 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
             child: Column(
               children: [
                 // header
-                Container().sizedBox(height: height / 10),
+                const LeagueTimer(
+                  start: '2024-03-29T19:00:00Z',
+                  end: '2024-07-16T21:00:00Z',
+                ).sizedBox(height: height / 10),
                 const Divider(),
                 // contents
                 Row(

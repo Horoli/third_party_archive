@@ -8,8 +8,11 @@ import 'package:third_party_archive/third_party_archive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:third_party_archive/preset/constants.dart' as CONSTANTS;
+import 'package:timezone/data/latest.dart' as TZ;
 
 Future<void> main() async {
+  TZ.initializeTimeZones();
+
   await init();
   await deviceCheck();
   runApp(const AppRoot());

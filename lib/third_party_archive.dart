@@ -3,6 +3,7 @@ library third_party_archive;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -19,6 +20,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:uuid/uuid.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:simple_icons/simple_icons.dart';
+import 'package:timezone/timezone.dart' as TZ;
 
 import 'package:http/http.dart' as http;
 
@@ -42,6 +44,7 @@ part 'service/get_tag.dart';
 part 'service/get_third_party.dart';
 
 part 'widget/tile_third_party.dart';
+part 'widget/league_timer.dart';
 part 'widget/home_abstract.dart';
 part 'widget/home_portrait.dart';
 part 'widget/home_landscape.dart';

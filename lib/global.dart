@@ -1,5 +1,6 @@
 part of third_party_archive;
 
+late final TZ.Location GDetroit = TZ.getLocation('Asia/Seoul');
 late final SharedPreferences GSharedPreference;
 late String GUuid;
 late String GPlatform;

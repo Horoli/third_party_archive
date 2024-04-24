@@ -60,6 +60,53 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   Widget buildContents(AsyncSnapshot<List<String>> snapshot) =>
       throw UnimplementedError();
 
+  PreferredSizeWidget buildAppBar() {
+    return AppBar(
+      title: GetX<GetTag>(
+        builder: (_) => Text(getController.selectedTag.value),
+      ),
+    );
+  }
+
+  Widget buildDrawer() {
+    return Drawer(
+      width: 200,
+      child: GetX<GetTag>(builder: (_) {
+        return Column(
+          children: [
+            ListView(
+              children: [
+                const DrawerHeader(
+                  child: Column(
+                    children: [
+                      Text(LABEL.APP_TITLE),
+                      LeagueTimer(
+                        start: '2024-03-29T19:00:00Z',
+                        end: '2024-07-16T21:00:00Z',
+                      ),
+                    ],
+                  ),
+                ),
+                ...List.generate(
+                  tags.length,
+                  (index) {
+                    return buildNavigationButton(
+                      selected: tags[index] == getController.selectedTag.value,
+                      label: tags[index],
+                      index: index,
+                    );
+                  },
+                ).toList(),
+              ],
+            ).expand(),
+            const Divider(),
+            buildFooter().sizedBox(height: kToolbarHeight),
+          ],
+        );
+      }),
+    );
+  }
+
   Widget buildNavigationButton({
     required bool selected,
     required String label,
@@ -98,7 +145,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   }
 
   Widget buildCopyrightText() {
-    return Text('Copyright © 2024 Horoli');
+    return const Text('Copyright © 2024 Horoli');
   }
 
   Widget buildGithubIconButton() {
@@ -137,43 +184,4 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
 
   Future<List<String>> fetchTags() async =>
       throw UnimplementedError('fetchTags unimplemented');
-
-  PreferredSizeWidget buildAppBar() {
-    return AppBar(
-      title: GetX<GetTag>(
-        builder: (_) => Text(getController.selectedTag.value),
-      ),
-    );
-  }
-
-  Widget buildDrawer() {
-    return Drawer(
-      width: 200,
-      child: GetX<GetTag>(builder: (_) {
-        return Column(
-          children: [
-            ListView(
-              children: [
-                const DrawerHeader(
-                  child: Text(LABEL.APP_TITLE),
-                ),
-                ...List.generate(
-                  tags.length,
-                  (index) {
-                    return buildNavigationButton(
-                      selected: tags[index] == getController.selectedTag.value,
-                      label: tags[index],
-                      index: index,
-                    );
-                  },
-                ).toList(),
-              ],
-            ).expand(),
-            const Divider(),
-            buildFooter().sizedBox(height: kToolbarHeight),
-          ],
-        );
-      }),
-    );
-  }
 }
