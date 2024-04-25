@@ -77,7 +77,6 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
   }
 
   List<LeagueInformation> setLeagues() {
-    print(leagues);
     return leagues.map((league) {
       return LeagueInformation(
         league: league,
