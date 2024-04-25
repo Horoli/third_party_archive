@@ -16,7 +16,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
   @override
   Widget buildContents(AsyncSnapshot<Map> snapshot) {
     return Scrollbar(
-      thumbVisibility: false,
+      thumbVisibility: true,
       controller: ctrlScroll,
       child: SingleChildScrollView(
         controller: ctrlScroll,
@@ -27,8 +27,6 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
               children: [
                 // header
                 ListView(children: setLeagues()).sizedBox(height: height / 10),
-                // LeagueInformation(league: leagues[0])
-                //     .sizedBox(height: height / 10),
                 const Divider(),
                 // contents
                 Row(
