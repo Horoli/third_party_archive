@@ -1,25 +1,25 @@
 part of third_party_archive;
 
-class LeagueTimer extends StatefulWidget {
-  final String start;
-  final String end;
+class LeagueInformation extends StatefulWidget {
+  final PathOfExileLeague league;
 
-  const LeagueTimer({
-    required this.start,
-    required this.end,
+  const LeagueInformation({
+    required this.league,
     super.key,
   });
 
   @override
-  LeagueTimerState createState() => LeagueTimerState();
+  LeagueInformationState createState() => LeagueInformationState();
 }
 
-class LeagueTimerState extends State<LeagueTimer> {
+class LeagueInformationState extends State<LeagueInformation> {
+  PathOfExileLeague get league => widget.league;
+
   late final Timer setTimer;
   late DateTime startDate =
-      TZ.TZDateTime.from(DateTime.parse(widget.start), GDetroit);
+      TZ.TZDateTime.from(DateTime.parse(league.period['start']), GDetroit);
   late DateTime endDate =
-      TZ.TZDateTime.from(DateTime.parse(widget.end), GDetroit);
+      TZ.TZDateTime.from(DateTime.parse(league.period['end']), GDetroit);
   @override
   Widget build(context) {
     final TimeCalculator timeCal = TimeCalculator(
@@ -28,7 +28,8 @@ class LeagueTimerState extends State<LeagueTimer> {
     );
     return Column(
       children: [
-        // Text('${timeCal.basedOnNowToStart()}'),
+        Text('${league.label}'),
+        Text('${league.version}'),
         Text('${timeCal.basedOnStartToNow()}'),
         Text('${timeCal.basedOnNowToEnd()}'),
       ],

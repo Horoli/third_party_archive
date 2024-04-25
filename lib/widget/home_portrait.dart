@@ -11,7 +11,7 @@ class WidgetHomePortrait extends WidgetHome {
 
 class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
   @override
-  Widget buildContents(AsyncSnapshot<List<String>> snapshot) {
+  Widget buildContents(AsyncSnapshot<Map> snapshot) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TabBarView(
@@ -23,7 +23,7 @@ class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
   }
 
   @override
-  Future<List<String>> fetchTags() async {
+  Future<Map> fetchTags() async {
     await getController.get();
     return getController.result.data;
   }

@@ -35,16 +35,17 @@ part 'app_root.dart';
 part 'global.dart';
 
 part 'model/third_party.dart';
+part 'model/league.dart';
 
 part 'view/page/third_party.dart';
 part 'view/home.dart';
 part 'view/loading.dart';
 
-part 'service/get_tag.dart';
+part 'service/get_dashboard.dart';
 part 'service/get_third_party.dart';
 
 part 'widget/tile_third_party.dart';
-part 'widget/league_timer.dart';
+part 'widget/league_information.dart';
 part 'widget/home_abstract.dart';
 part 'widget/home_portrait.dart';
 part 'widget/home_landscape.dart';

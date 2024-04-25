@@ -14,7 +14,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
   final ScrollController ctrlScroll = ScrollController();
 
   @override
-  Widget buildContents(AsyncSnapshot<List<String>> snapshot) {
+  Widget buildContents(AsyncSnapshot<Map> snapshot) {
     return Scrollbar(
       thumbVisibility: false,
       controller: ctrlScroll,
@@ -26,15 +26,14 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
             child: Column(
               children: [
                 // header
-                const LeagueTimer(
-                  start: '2024-03-29T19:00:00Z',
-                  end: '2024-07-16T21:00:00Z',
-                ).sizedBox(height: height / 10),
+                ListView(children: setLeagues()).sizedBox(height: height / 10),
+                // LeagueInformation(league: leagues[0])
+                //     .sizedBox(height: height / 10),
                 const Divider(),
                 // contents
                 Row(
                   children: [
-                    GetBuilder<GetTag>(
+                    GetBuilder<GetDashboard>(
                       builder: (_) => ListView.builder(
                         itemCount: tags.length,
                         itemBuilder: (
@@ -77,8 +76,17 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
     );
   }
 
+  List<LeagueInformation> setLeagues() {
+    print(leagues);
+    return leagues.map((league) {
+      return LeagueInformation(
+        league: league,
+      );
+    }).toList();
+  }
+
   @override
-  Future<List<String>> fetchTags() async {
+  Future<Map> fetchTags() async {
     await getController.get();
     return getController.result.data;
   }

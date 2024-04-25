@@ -15,10 +15,11 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   double get width => MediaQuery.of(context).size.width;
   bool get isPort => MediaQuery.of(context).orientation == Orientation.portrait;
 
-  final GetTag getController = Get.put(GetTag());
+  final GetDashboard getController = Get.put(GetDashboard());
   late TabController tabController = TabController(length: 1, vsync: this);
   Map<String, Widget> pages = {};
   List<String> tags = [];
+  List<PathOfExileLeague> leagues = [];
 
   @override
   Widget build(context) {
@@ -27,9 +28,10 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       drawer: isPort ? buildDrawer() : null,
       body: FutureBuilder(
         future: fetchTags(),
-        builder: (context, AsyncSnapshot<List<String>> snapshot) {
+        builder: (context, AsyncSnapshot<Map> snapshot) {
           if (snapshot.data != null) {
-            tags = snapshot.data!;
+            tags = snapshot.data!['tags'];
+            leagues = snapshot.data!['leagues'];
 
             tabController.dispose();
             tabController = TabController(
@@ -57,12 +59,12 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
-  Widget buildContents(AsyncSnapshot<List<String>> snapshot) =>
+  Widget buildContents(AsyncSnapshot<Map> snapshot) =>
       throw UnimplementedError();
 
   PreferredSizeWidget buildAppBar() {
     return AppBar(
-      title: GetX<GetTag>(
+      title: GetX<GetDashboard>(
         builder: (_) => Text(getController.selectedTag.value),
       ),
     );
@@ -71,19 +73,17 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   Widget buildDrawer() {
     return Drawer(
       width: 200,
-      child: GetX<GetTag>(builder: (_) {
+      child: GetX<GetDashboard>(builder: (_) {
         return Column(
           children: [
             ListView(
               children: [
-                const DrawerHeader(
+                DrawerHeader(
                   child: Column(
                     children: [
-                      Text(LABEL.APP_TITLE),
-                      LeagueTimer(
-                        start: '2024-03-29T19:00:00Z',
-                        end: '2024-07-16T21:00:00Z',
-                      ),
+                      // Text(LABEL.APP_TITLE),
+                      // Text('${leagues[0].label}'),
+                      LeagueInformation(league: leagues[0]),
                     ],
                   ),
                 ),
@@ -182,6 +182,6 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
-  Future<List<String>> fetchTags() async =>
+  Future<Map> fetchTags() async =>
       throw UnimplementedError('fetchTags unimplemented');
 }

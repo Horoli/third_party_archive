@@ -1,15 +1,18 @@
 part of third_party_archive;
 
-class GetTag extends GetxController {
+class GetDashboard extends GetxController {
   RestfulResult result = RestfulResult(statusCode: 0, message: '');
 
   RxString selectedTag = 'CRAFT'.obs;
-  // RxList<String> tags = <String>[].obs;
 
   Future<void> get({int type = CONSTANTS.TAG_TYPE_PATHOFEXILE}) async {
+    // Uri uri = URL.IS_LOCAL
+    //     ? Uri.http(URL.LOCAL_URL, '${URL.TAG}/$type')
+    //     : Uri.https(URL.FORIEGN_URL, '${URL.TAG}/$type');
+
     Uri uri = URL.IS_LOCAL
-        ? Uri.http(URL.LOCAL_URL, '${URL.TAG}/$type')
-        : Uri.https(URL.FORIEGN_URL, '${URL.TAG}/$type');
+        ? Uri.http(URL.LOCAL_URL, '${URL.DASHBOARD}/$type')
+        : Uri.https(URL.FORIEGN_URL, '${URL.DASHBOARD}/$type');
     Map<String, String> headers = {};
 
     http.Response rep =
@@ -22,14 +25,21 @@ class GetTag extends GetxController {
     if (rawData['statusCode'] == 200) {
       Map<String, dynamic> data = Map.from(rawData['data']);
       List getTags = List.from(data['tags']);
+      List<PathOfExileLeague> getLeagues = List.from(data['leagues'])
+          .map((e) => PathOfExileLeague.fromMap(item: e))
+          .toList();
+
       List<String> getTagsLabel =
           getTags.map((tagObject) => tagObject['label'].toString()).toList();
 
       result = RestfulResult(
-        statusCode: rawData['statusCode'],
-        message: rawData['message'] ?? '',
-        data: getTagsLabel,
-      );
+          statusCode: rawData['statusCode'],
+          message: rawData['message'] ?? '',
+          // data: getTagsLabel,
+          data: {
+            'tags': getTagsLabel,
+            'leagues': getLeagues,
+          });
 
       update();
 
