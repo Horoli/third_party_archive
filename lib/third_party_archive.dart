@@ -3,7 +3,7 @@ library third_party_archive;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
+import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -21,6 +21,7 @@ import 'package:uuid/uuid.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:timezone/timezone.dart' as TZ;
+import 'package:intl/intl.dart';
 
 import 'package:http/http.dart' as http;
 

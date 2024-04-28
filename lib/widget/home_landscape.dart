@@ -26,7 +26,10 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
             child: Column(
               children: [
                 // header
-                ListView(children: setLeagues()).sizedBox(height: height / 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: setLeagues(),
+                ).sizedBox(height: height / 9),
                 const Divider(),
                 // contents
                 Row(
@@ -74,10 +77,13 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
     );
   }
 
-  List<LeagueInformation> setLeagues() {
+  List<Widget> setLeagues() {
     return leagues.map((league) {
-      return LeagueInformation(
-        league: league,
+      return Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: LeagueInformation(
+          league: league,
+        ),
       );
     }).toList();
   }

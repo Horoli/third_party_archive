@@ -26,14 +26,53 @@ class LeagueInformationState extends State<LeagueInformation> {
       start: startDate,
       end: endDate,
     );
-    return Column(
-      children: [
-        Text('${league.label}'),
-        Text('${league.version}'),
-        Text('${timeCal.basedOnStartToNow()}'),
-        Text('${timeCal.basedOnNowToEnd()}'),
-      ],
-    );
+
+    return LayoutBuilder(builder: (context, BoxConstraints constraints) {
+      print(constraints.maxHeight);
+      if (constraints.maxHeight < 90) {
+        return Container();
+      }
+      return Container(
+        width: 400,
+        decoration: BoxDecoration(
+            border: Border.all(
+          color: ui.Color.fromARGB(255, 26, 26, 26),
+        )),
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(league.label),
+                  Text(league.version),
+                ],
+              ),
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      Text('start : ${timeCal.convert(startDate)}'),
+                      Text('Running for : '),
+                      Text('${timeCal.basedOnStartToNow()}'),
+                    ],
+                  ).expand(),
+                  Column(
+                    children: [
+                      Text('end : ${timeCal.convert(endDate)}'),
+                      Text('${league.period['endState']} ends in: '),
+                      Text('${timeCal.basedOnNowToEnd()}'),
+                    ],
+                  ).expand()
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   @override
@@ -64,6 +103,11 @@ class TimeCalculator {
   });
 
   final DateTime _now = TZ.TZDateTime.now(GDetroit);
+
+  String convert(DateTime date) {
+    DateTime convertDate = TZ.TZDateTime.from(date, GDetroit);
+    return DateFormat('yyyy-MM-dd hh:mm').format(convertDate);
+  }
 
   String _getString(int difference) {
     int days = difference ~/ 86400;

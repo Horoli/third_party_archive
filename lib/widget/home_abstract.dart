@@ -78,9 +78,10 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
           children: [
             ListView(
               children: [
-                DrawerHeader(
-                  child: LeagueInformation(league: leagues[0]),
-                ),
+                DrawerHeader(child: Text('ThirdParty Archive')
+
+                    // child: LeagueInformation(league: leagues[0]),
+                    ),
                 ...List.generate(
                   tags.length,
                   (index) {

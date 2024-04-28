@@ -60,7 +60,7 @@ class TileThirdPartyState extends State<TileThirdParty> {
           text: TextSpan(
             text: text,
           ),
-          textDirection: TextDirection.ltr,
+          textDirection: ui.TextDirection.ltr,
         )..layout(maxWidth: constraints.maxWidth);
         // print('wordWrapTp.height ${wordWrapTp.height}');
         expandHeight =
