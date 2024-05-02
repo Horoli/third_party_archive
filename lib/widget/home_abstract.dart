@@ -15,7 +15,8 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   double get width => MediaQuery.of(context).size.width;
   bool get isPort => MediaQuery.of(context).orientation == Orientation.portrait;
 
-  final GetDashboard getController = Get.put(GetDashboard());
+  final GetDashboard getCtrlDashboard = Get.put(GetDashboard());
+  final GetPoeDBPlayer getCtrlPoeDBPlayer = Get.put(GetPoeDBPlayer());
   late TabController tabController = TabController(length: 1, vsync: this);
   Map<String, Widget> pages = {};
   List<String> tags = [];
@@ -65,7 +66,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   PreferredSizeWidget buildAppBar() {
     return AppBar(
       title: GetX<GetDashboard>(
-        builder: (_) => Text(getController.selectedTag.value),
+        builder: (_) => Text(getCtrlDashboard.selectedTag.value),
       ),
     );
   }
@@ -86,7 +87,8 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
                   tags.length,
                   (index) {
                     return buildNavigationButton(
-                      selected: tags[index] == getController.selectedTag.value,
+                      selected:
+                          tags[index] == getCtrlDashboard.selectedTag.value,
                       label: tags[index],
                       index: index,
                     );
@@ -118,7 +120,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
               )
             : null,
         onPressed: () async {
-          await getController.changeSelectedTag(label);
+          await getCtrlDashboard.changeSelectedTag(label);
           tabController.animateTo(index);
           if (isPort) Navigator.pop(context);
         },

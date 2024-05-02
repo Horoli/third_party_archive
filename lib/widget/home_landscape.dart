@@ -42,8 +42,8 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                           int index,
                         ) {
                           return buildNavigationButton(
-                            selected:
-                                tags[index] == getController.selectedTag.value,
+                            selected: tags[index] ==
+                                getCtrlDashboard.selectedTag.value,
                             label: tags[index],
                             index: index,
                           );
@@ -90,8 +90,8 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
 
   @override
   Future<Map> fetchTags() async {
-    await getController.get();
-    return getController.result.data;
+    await getCtrlDashboard.get();
+    return getCtrlDashboard.result.data;
   }
 
   // TODO : empty place(for ad)

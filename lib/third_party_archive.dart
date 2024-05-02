@@ -42,6 +42,7 @@ part 'view/page/third_party.dart';
 part 'view/home.dart';
 part 'view/loading.dart';
 
+part 'service/get_poedb_player.dart';
 part 'service/get_dashboard.dart';
 part 'service/get_third_party.dart';
 

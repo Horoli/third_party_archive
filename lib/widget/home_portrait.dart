@@ -24,8 +24,8 @@ class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
 
   @override
   Future<Map> fetchTags() async {
-    await getController.get();
-    return getController.result.data;
+    await getCtrlDashboard.get();
+    return getCtrlDashboard.result.data;
   }
 
   @override
