@@ -6,10 +6,6 @@ class GetDashboard extends GetxController {
   RxString selectedTag = 'CRAFT'.obs;
 
   Future<void> get({int type = CONSTANTS.TAG_TYPE_PATHOFEXILE}) async {
-    // Uri uri = URL.IS_LOCAL
-    //     ? Uri.http(URL.LOCAL_URL, '${URL.TAG}/$type')
-    //     : Uri.https(URL.FORIEGN_URL, '${URL.TAG}/$type');
-
     Uri uri = URL.IS_LOCAL
         ? Uri.http(URL.LOCAL_URL, '${URL.DASHBOARD}/$type')
         : Uri.https(URL.FORIEGN_URL, '${URL.DASHBOARD}/$type');
@@ -24,7 +20,10 @@ class GetDashboard extends GetxController {
 
     if (rawData['statusCode'] == 200) {
       Map<String, dynamic> data = Map.from(rawData['data']);
+
+      int getCurrentPlayers = data['currentPlayers'];
       List getTags = List.from(data['tags']);
+
       List<PathOfExileLeague> getLeagues = List.from(data['leagues'])
           .map((e) => PathOfExileLeague.fromMap(item: e))
           .toList();
@@ -37,6 +36,7 @@ class GetDashboard extends GetxController {
           message: rawData['message'] ?? '',
           // data: getTagsLabel,
           data: {
+            'currentPlayers': getCurrentPlayers,
             'tags': getTagsLabel,
             'leagues': getLeagues,
           });

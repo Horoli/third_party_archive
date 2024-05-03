@@ -35,19 +35,12 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                 Row(
                   children: [
                     GetBuilder<GetDashboard>(
-                      builder: (_) => ListView.builder(
-                        itemCount: tags.length,
-                        itemBuilder: (
-                          BuildContext context,
-                          int index,
-                        ) {
-                          return buildNavigationButton(
-                            selected: tags[index] ==
-                                getCtrlDashboard.selectedTag.value,
-                            label: tags[index],
-                            index: index,
-                          );
-                        },
+                      builder: (_) => ListView(
+                        children: [
+                          ...buildTagList(),
+                          const Divider(),
+                          buildCurrentPlayer(),
+                        ],
                       ),
                     ).sizedBox(width: 200),
                     const VerticalDivider(),

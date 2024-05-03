@@ -16,11 +16,11 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   bool get isPort => MediaQuery.of(context).orientation == Orientation.portrait;
 
   final GetDashboard getCtrlDashboard = Get.put(GetDashboard());
-  final GetPoeDBPlayer getCtrlPoeDBPlayer = Get.put(GetPoeDBPlayer());
   late TabController tabController = TabController(length: 1, vsync: this);
   Map<String, Widget> pages = {};
   List<String> tags = [];
   List<PathOfExileLeague> leagues = [];
+  int currentPlayers = 0;
 
   @override
   Widget build(context) {
@@ -33,6 +33,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
           if (snapshot.data != null) {
             tags = snapshot.data!['tags'];
             leagues = snapshot.data!['leagues'];
+            currentPlayers = snapshot.data!['currentPlayers'];
 
             tabController.dispose();
             tabController = TabController(
@@ -63,6 +64,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   Widget buildContents(AsyncSnapshot<Map> snapshot) =>
       throw UnimplementedError();
 
+  // Only for portrait mode : common scaffold를 사용함에 따라 abstarct에 set
   PreferredSizeWidget buildAppBar() {
     return AppBar(
       title: GetX<GetDashboard>(
@@ -71,6 +73,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
+  // Only for portrait mode : common scaffold를 사용함에 따라 abstarct에 set
   Widget buildDrawer() {
     return Drawer(
       width: 200,
@@ -79,28 +82,44 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
           children: [
             ListView(
               children: [
-                DrawerHeader(child: Text('ThirdParty Archive')
-
-                    // child: LeagueInformation(league: leagues[0]),
-                    ),
-                ...List.generate(
-                  tags.length,
-                  (index) {
-                    return buildNavigationButton(
-                      selected:
-                          tags[index] == getCtrlDashboard.selectedTag.value,
-                      label: tags[index],
-                      index: index,
-                    );
-                  },
-                ).toList(),
+                const DrawerHeader(child: Text('ThirdParty Archive')),
+                ...buildTagList(),
               ],
             ).expand(),
+            const Divider(),
+            buildCurrentPlayer(),
             const Divider(),
             buildFooter().sizedBox(height: kToolbarHeight),
           ],
         );
       }),
+    );
+  }
+
+  List<Widget> buildTagList() {
+    return List.generate(
+      tags.length,
+      (index) {
+        return buildNavigationButton(
+          selected: tags[index] == getCtrlDashboard.selectedTag.value,
+          label: tags[index],
+          index: index,
+        );
+      },
+    ).toList();
+  }
+
+  Widget buildCurrentPlayer() {
+    return Column(
+      children: [
+        Text('현재 Steam 유저수 : $currentPlayers'),
+        TextButton(
+          child: const Text('시즌별 유저통계 보러가기'),
+          onPressed: () async {
+            await launchUrl(Uri.parse(URL.POE_DB_CONCURRENT_PLAYER));
+          },
+        ),
+      ],
     );
   }
 

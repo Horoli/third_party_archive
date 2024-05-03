@@ -28,7 +28,7 @@ class LeagueInformationState extends State<LeagueInformation> {
     );
 
     return LayoutBuilder(builder: (context, BoxConstraints constraints) {
-      print(constraints.maxHeight);
+      // print(constraints.maxHeight);
       if (constraints.maxHeight < 90) {
         return Container();
       }

@@ -11,8 +11,8 @@ const String DASHBOARD = '${VERSION}/dashboard';
 const String THIRD_PARTY = '${VERSION}/third_party';
 const String USER_ACTION = '${VERSION}/user_action';
 
-const String POE_DB = 'poedb.tw';
-const String POE_DB_PLAYER = 'api/leaguePlayers';
+const String POE_DB_CONCURRENT_PLAYER =
+    'https://poedb.tw/League#ConcurrentPlayers';
 
 const String GIT_HUB = 'https://github.com/Horoli/';
 const String GMAIL = 'sunha321@gmail.com';
