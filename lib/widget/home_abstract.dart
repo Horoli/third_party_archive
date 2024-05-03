@@ -80,11 +80,15 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       child: GetX<GetDashboard>(builder: (_) {
         return Column(
           children: [
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('ThirdParty Archive'),
+              ),
+            ).sizedBox(height: kToolbarHeight),
+            const Divider(),
             ListView(
-              children: [
-                const DrawerHeader(child: Text('ThirdParty Archive')),
-                ...buildTagList(),
-              ],
+              children: buildTagList(),
             ).expand(),
             const Divider(),
             buildCurrentPlayer(),
