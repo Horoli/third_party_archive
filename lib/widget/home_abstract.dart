@@ -21,12 +21,14 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   List<String> tags = [];
   List<PathOfExileLeague> leagues = [];
   int currentPlayers = 0;
+  String selectedCategory = LABEL.THIRD_PARTY;
 
   @override
   Widget build(context) {
     return Scaffold(
-      appBar: isPort ? buildAppBar() : null,
+      appBar: isPort ? buildPortraitAppBar() : null,
       drawer: isPort ? buildDrawer() : null,
+      // persistentFooterButtons: [buildFooter()],
       body: FutureBuilder(
         future: fetchTags(),
         builder: (context, AsyncSnapshot<Map> snapshot) {
@@ -50,10 +52,10 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
             children: [
               buildWallpaper(),
               buildContents(snapshot),
-              if (snapshot.connectionState == ConnectionState.waiting)
-                const Center(
-                  child: CircularProgressIndicator(),
-                ).sizedBox(height: height, width: width),
+              // if (snapshot.connectionState == ConnectionState.waiting)
+              //   const Center(
+              //     child: CircularProgressIndicator(),
+              //   ).sizedBox(height: height, width: width),
             ],
           );
         },
@@ -64,13 +66,16 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   Widget buildContents(AsyncSnapshot<Map> snapshot) =>
       throw UnimplementedError();
 
-  // Only for portrait mode : common scaffold를 사용함에 따라 abstarct에 set
-  PreferredSizeWidget buildAppBar() {
+  PreferredSizeWidget buildPortraitAppBar() {
     return AppBar(
       title: GetX<GetDashboard>(
         builder: (_) => Text(getCtrlDashboard.selectedTag.value),
       ),
     );
+  }
+
+  PreferredSizeWidget buildLandscapeAppBar() {
+    return AppBar();
   }
 
   // Only for portrait mode : common scaffold를 사용함에 따라 abstarct에 set

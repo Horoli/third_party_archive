@@ -31,6 +31,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: setLeagues(),
                 ).sizedBox(height: height / 9),
+                buildCategorySelect(),
                 const Divider(),
                 // contents
                 Row(
@@ -38,21 +39,24 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                     GetBuilder<GetDashboard>(
                       builder: (_) => ListView(
                         children: [
-                          ...buildTagList(),
+                          // buildCategorySelect(),
+                          if (selectedCategory == LABEL.THIRD_PARTY)
+                            ...buildTagList(),
                           const Divider(),
                           buildCurrentPlayer(),
                         ],
                       ),
                     ).sizedBox(width: 200),
                     const VerticalDivider(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TabBarView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        controller: tabController,
-                        children: pages.values.toList(),
-                      ),
-                    ).expand(flex: 5),
+                    if (selectedCategory == LABEL.THIRD_PARTY)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TabBarView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          controller: tabController,
+                          children: pages.values.toList(),
+                        ),
+                      ).expand(flex: 5),
                     const VerticalDivider(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -68,6 +72,30 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildCategorySelect() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          child: Text(LABEL.THIRD_PARTY),
+          onPressed: () {
+            setState(() {
+              selectedCategory = LABEL.THIRD_PARTY;
+            });
+          },
+        ),
+        ElevatedButton(
+          child: Text(LABEL.ETC),
+          onPressed: () {
+            setState(() {
+              selectedCategory = LABEL.ETC;
+            });
+          },
+        ),
+      ],
     );
   }
 
