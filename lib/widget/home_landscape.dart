@@ -90,12 +90,12 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
 
   // TODO : empty place(for ad)
   Widget buildAdPlace() {
-    if (GPlatform == 'web') {
-      GKakaoAdfit.registry();
-      return HtmlElementView(
-        viewType: GKakaoAdfit.tag,
-      );
-    }
+    // if (GPlatform == 'web') {
+    //   GKakaoAdfit.registry();
+    //   return HtmlElementView(
+    //     viewType: GKakaoAdfit.tag,
+    //   );
+    // }
     return Container();
   }
 }
