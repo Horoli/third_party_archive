@@ -5,6 +5,8 @@ late final SharedPreferences GSharedPreference;
 late String GUuid;
 late String GPlatform;
 
+late final KakaoAdfit GKakaoAdfit;
+
 Future<void> postUserAction({
   required String id,
   required String label,

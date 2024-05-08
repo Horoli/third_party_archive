@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:third_party_archive/adfit/adfit.dart';
 import 'package:third_party_archive/third_party_archive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -15,6 +16,8 @@ Future<void> main() async {
 
   await init();
   await deviceCheck();
+
+  GKakaoAdfit = KakaoAdfit.getInstance();
   runApp(const AppRoot());
 }
 

@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:horoli_package/horoli_package.dart';
 import 'package:horoli_package/model/lib.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:third_party_archive/adfit/adfit.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:uuid/uuid.dart';

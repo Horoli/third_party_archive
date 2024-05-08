@@ -11,6 +11,7 @@ class WidgetHomeLandscape extends WidgetHome {
 
 class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
   double landscapeWidth = 1024 + 512;
+
   final ScrollController ctrlScroll = ScrollController();
 
   @override
@@ -89,6 +90,12 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
 
   // TODO : empty place(for ad)
   Widget buildAdPlace() {
+    if (GPlatform == 'web') {
+      GKakaoAdfit.registry();
+      return HtmlElementView(
+        viewType: GKakaoAdfit.tag,
+      );
+    }
     return Container();
   }
 }
