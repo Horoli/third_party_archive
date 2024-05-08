@@ -74,9 +74,9 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
-  PreferredSizeWidget buildLandscapeAppBar() {
-    return AppBar();
-  }
+  // PreferredSizeWidget buildLandscapeAppBar() {
+  //   return AppBar();
+  // }
 
   // Only for portrait mode : common scaffold를 사용함에 따라 abstarct에 set
   Widget buildDrawer() {
@@ -137,8 +137,6 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     required String label,
     required int index,
   }) {
-    Color buttonColor = const Color.fromARGB(255, 72, 57, 99);
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(

@@ -39,7 +39,6 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                     GetBuilder<GetDashboard>(
                       builder: (_) => ListView(
                         children: [
-                          // buildCategorySelect(),
                           if (selectedCategory == LABEL.THIRD_PARTY)
                             ...buildTagList(),
                           const Divider(),
@@ -48,15 +47,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                       ),
                     ).sizedBox(width: 200),
                     const VerticalDivider(),
-                    if (selectedCategory == LABEL.THIRD_PARTY)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TabBarView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          controller: tabController,
-                          children: pages.values.toList(),
-                        ),
-                      ).expand(flex: 5),
+                    buildMainContents().expand(flex: 5),
                     const VerticalDivider(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -75,13 +66,35 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
     );
   }
 
+  Widget buildMainContents() {
+    if (selectedCategory == LABEL.THIRD_PARTY) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: tabController,
+          children: pages.values.toList(),
+        ),
+      );
+    }
+    return const Center(
+      child: Text('컨텐츠 준비 중입니다'),
+    );
+  }
+
   Widget buildCategorySelect() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
           child: Text(LABEL.THIRD_PARTY),
-          onPressed: () {
+          style: selectedCategory == LABEL.THIRD_PARTY
+              ? ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(buttonColor),
+                )
+              : null,
+          onPressed: () async {
+            await getCtrlDashboard.changeSelectedTag(LABEL.TAG_CRAFT);
             setState(() {
               selectedCategory = LABEL.THIRD_PARTY;
             });
@@ -89,6 +102,11 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
         ),
         ElevatedButton(
           child: Text(LABEL.ETC),
+          style: selectedCategory == LABEL.ETC
+              ? ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(buttonColor),
+                )
+              : null,
           onPressed: () {
             setState(() {
               selectedCategory = LABEL.ETC;
