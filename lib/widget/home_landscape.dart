@@ -41,7 +41,8 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                         children: [
                           if (selectedCategory == LABEL.THIRD_PARTY)
                             ...buildTagList(),
-                          const Divider(),
+                          if (selectedCategory == LABEL.THIRD_PARTY)
+                            const Divider(),
                           buildCurrentPlayer(),
                         ],
                       ),
@@ -77,9 +78,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
         ),
       );
     }
-    return const Center(
-      child: Text('컨텐츠 준비 중입니다'),
-    );
+    return RandomBuildSelector();
   }
 
   Widget buildCategorySelect() {
@@ -129,7 +128,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
   }
 
   @override
-  Future<Map> fetchTags() async {
+  Future<Map> fetchDashboard() async {
     await getCtrlDashboard.get();
     return getCtrlDashboard.result.data;
   }

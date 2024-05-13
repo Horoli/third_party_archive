@@ -23,7 +23,7 @@ class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
   }
 
   @override
-  Future<Map> fetchTags() async {
+  Future<Map> fetchDashboard() async {
     await getCtrlDashboard.get();
     return getCtrlDashboard.result.data;
   }

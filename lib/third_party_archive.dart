@@ -23,7 +23,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:timezone/timezone.dart' as TZ;
 import 'package:intl/intl.dart';
-
+import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:http/http.dart' as http;
 
 import 'preset/message.dart' as MSG;
@@ -38,6 +38,7 @@ part 'global.dart';
 
 part 'model/third_party.dart';
 part 'model/league.dart';
+part 'model/skill_gem.dart';
 
 part 'view/page/third_party.dart';
 part 'view/home.dart';
@@ -45,9 +46,11 @@ part 'view/loading.dart';
 
 part 'service/get_dashboard.dart';
 part 'service/get_third_party.dart';
+part 'service/get_skill_gem.dart';
 
 part 'widget/tile_third_party.dart';
 part 'widget/league_information.dart';
 part 'widget/home_abstract.dart';
 part 'widget/home_portrait.dart';
 part 'widget/home_landscape.dart';
+part 'widget/random_build_selector.dart';

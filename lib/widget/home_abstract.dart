@@ -21,7 +21,8 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   List<String> tags = [];
   List<PathOfExileLeague> leagues = [];
   int currentPlayers = 0;
-  String selectedCategory = LABEL.THIRD_PARTY;
+  // String selectedCategory = LABEL.THIRD_PARTY;
+  String selectedCategory = LABEL.ETC;
 
   @override
   Widget build(context) {
@@ -30,7 +31,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       drawer: isPort ? buildDrawer() : null,
       // persistentFooterButtons: [buildFooter()],
       body: FutureBuilder(
-        future: fetchTags(),
+        future: fetchDashboard(),
         builder: (context, AsyncSnapshot<Map> snapshot) {
           if (snapshot.data != null) {
             tags = snapshot.data!['tags'];
@@ -73,10 +74,6 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       ),
     );
   }
-
-  // PreferredSizeWidget buildLandscapeAppBar() {
-  //   return AppBar();
-  // }
 
   // Only for portrait mode : common scaffold를 사용함에 따라 abstarct에 set
   Widget buildDrawer() {
@@ -205,6 +202,12 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
-  Future<Map> fetchTags() async =>
+  Future<Map> fetchDashboard() async =>
       throw UnimplementedError('fetchTags unimplemented');
+
+  @override
+  void dispose() {
+    getCtrlDashboard.dispose();
+    super.dispose();
+  }
 }
