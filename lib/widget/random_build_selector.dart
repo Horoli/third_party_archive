@@ -14,8 +14,11 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
   double get width => MediaQuery.of(context).size.width;
   final GetSkillGem getSkillGem = Get.put(GetSkillGem());
 
-  StreamController<int> selected = StreamController<int>();
+  String resultSkillGem = '';
 
+  StreamController<int> ctrlRandomResult = StreamController<int>.broadcast();
+
+  // TODO : API로 이동
   final List<String> gemTagList = [
     "Attack",
     "Melee",
@@ -61,7 +64,31 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
               Container(child: Text('selected except tags')),
               buildExceptionGemTags(gemTagList).expand(),
               Container(child: Text('${skillGems.length}')),
-              buildRandomSkill(skillGems).expand(),
+              buildRandomSkillGem(skillGems).expand(),
+              GetX<GetSkillGem>(
+                builder: (_) {
+                  Map result = getSkillGem.selected.value;
+
+                  if (result.isEmpty) {
+                    // if (getSkillGem.iconImage.value == '') {
+                    return Container();
+                  }
+                  return Row(
+                    children: [
+                      Image.memory(
+                        base64Decode(result['base64Image']),
+                      ).expand(),
+                      ListView.builder(
+                        itemCount: result.keys.length,
+                        itemBuilder: (context, index) {
+                          String key = result.keys.toList()[index];
+                          return Text('${result[key]}');
+                        },
+                      ).expand(),
+                    ],
+                  );
+                },
+              ).expand()
             ],
           );
         }
@@ -79,21 +106,22 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
         String selectedTag = gemTagList[index];
         if (index == 0) {
           return ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  selectedGemTags.clear();
-                  fetchBuilds();
-                });
-              },
-              child: Text('Clear'));
+            child: Text('Clear'),
+            onPressed: () {
+              setState(() {
+                selectedGemTags.clear();
+              });
+            },
+          );
         }
 
         return ElevatedButton(
           child: Text(selectedTag),
           style: ButtonStyle(
-              backgroundColor: selectedGemTags.contains(selectedTag)
-                  ? MaterialStateProperty.all(Colors.red)
-                  : null),
+            backgroundColor: selectedGemTags.contains(selectedTag)
+                ? MaterialStateProperty.all(Colors.red)
+                : null,
+          ),
           onPressed: () {
             setState(() {
               if (selectedGemTags.contains(selectedTag)) {
@@ -101,7 +129,6 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
                 return;
               }
               selectedGemTags.add(selectedTag);
-              fetchBuilds();
             });
           },
         );
@@ -109,15 +136,27 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
     );
   }
 
-  Widget buildRandomSkill(List<SkillGem> skillGems) {
+  Widget buildRandomSkillGem(List<SkillGem> skillGems) {
     return GestureDetector(
       onTap: () {
-        selected.add(Fortune.randomInt(0, skillGems.length));
+        int randomInt = Fortune.randomInt(0, skillGems.length);
+        resultSkillGem = skillGems[randomInt].name;
+        ctrlRandomResult.add(randomInt);
       },
       child: FortuneBar(
+        onAnimationEnd: () async {
+          /**
+           *TODO : onAnimationEnd가 종료된 후에 skillGems.length가
+           * 왜 초기값으로 변하는지 확인할 것
+           */
+          print('skillGems.length ${skillGems.length}');
+          print('tags $selectedGemTags');
+          // await getSkillGem.getImage(name: skillGems[randomInt].name);
+          await getSkillGem.getImage(name: resultSkillGem);
+        },
         // styleStrategy: AlternatingStyleStrategy(),
         animateFirst: false,
-        selected: selected.stream,
+        selected: ctrlRandomResult.stream,
         items: skillGems.map((item) {
           switch (item.primaryAttribute) {
             case 'strength':
