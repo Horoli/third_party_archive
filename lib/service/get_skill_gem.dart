@@ -9,6 +9,12 @@ class GetSkillGem extends GetxController {
 
   RxList<String> selectedGemTags = <String>[].obs;
 
+  RxList<String> attributeList = [
+    'strength',
+    'intelligence',
+    'dexterity',
+  ].obs;
+
   RxList<String> gemTagList = [
     "Attack",
     "Melee",
@@ -71,6 +77,7 @@ class GetSkillGem extends GetxController {
       List<SkillGem> getSkillGems =
           datas.map((item) => SkillGem.fromMap(item: item)).toList();
 
+      info.value = RestfulResult(statusCode: 500, message: '');
       result.value = RestfulResult(
         statusCode: rawData['statusCode'],
         message: rawData['message'] ?? '',
@@ -99,6 +106,8 @@ class GetSkillGem extends GetxController {
 
     SkillGemInfo getData = SkillGemInfo.fromMap(item: rawData['data']);
 
+    info.value = RestfulResult(statusCode: 500, message: '');
+    // TODO : 데이터 업데이트 관련하여 입력된 model이 변경되는 것은 obs에서 감지되지 않아 변경사항이 반영되지 않는 상황이 있어 임시 조치
     info.value = RestfulResult(
       statusCode: rawData['statusCode'],
       message: rawData['message'] ?? '',

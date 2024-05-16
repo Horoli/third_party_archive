@@ -18,6 +18,7 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
 
   StreamController<int> ctrlRandomResult = StreamController<int>.broadcast();
   List<String> get gemTagList => getSkillGem.gemTagList.value;
+  List<String> get attributeList => getSkillGem.attributeList.value;
   List<String> get selectedTags => getSkillGem.selectedGemTags.value;
   RestfulResult get info => getSkillGem.info.value;
 
@@ -29,20 +30,25 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
         if (snapshot.data != null) {
           return GetX<GetSkillGem>(
             builder: (_) {
-              return Column(
+              return Row(
                 children: [
-                  buildExceptionGemTags(gemTagList).expand(),
-                  Text('${selectedTags.length}'),
-                  Text('${getSkillGem.result.value.data.length}'),
-                  buildRandomSkillGem(getSkillGem.result.value.data),
-                  if (info.data != null)
-                    Row(
-                      children: [
-                        Text('${info.data.lcText}').expand(),
-                        Image.memory(base64Decode(info.data.base64Image))
-                            .expand(),
-                      ],
-                    ).expand(),
+                  Column(
+                    children: [
+                      const Text('제외할 태그 선택'),
+                      buildExceptionGemTags(gemTagList).expand(),
+                      Divider(),
+                      Text(
+                          '액티브 스킬 젬 : ${getSkillGem.result.value.data.length}'),
+                      Divider(),
+                      buildFortuneBar(getSkillGem.result.value.data),
+                      Text('위 막대를 누르면 무작위로 선택됩니다.'),
+                      Container().expand()
+                    ],
+                  ).expand(),
+                  VerticalDivider(),
+                  info.data == null
+                      ? Container().expand()
+                      : WidgetSkillGemInfo(info: info.data).expand()
                 ],
               );
             },
@@ -56,13 +62,17 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
   Widget buildExceptionGemTags(List<String> gemTagList) {
     return GridView.builder(
       itemCount: gemTagList.length,
-      gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 10),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        mainAxisSpacing: 3,
+        crossAxisSpacing: 2,
+        childAspectRatio: 4,
+      ),
       itemBuilder: (context, index) {
         String selectedTag = gemTagList[index];
         if (index == 0) {
           return ElevatedButton(
-            child: Text('Clear'),
+            child: Text('모두 취소'),
             onPressed: () async {
               List<String> remove = getSkillGem.clearSelectedTag();
               await fetchBuilds(selectedGemTags: remove);
@@ -94,7 +104,41 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
     );
   }
 
-  Widget buildRandomSkillGem(List<SkillGem> skillGems) {
+  // Widget buildExceptionAttribute(List<String> attributes) {
+  //   return GridView.builder(
+  //       itemCount: attributes.length,
+  //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //         crossAxisCount: 4,
+  //         mainAxisSpacing: 3,
+  //         crossAxisSpacing: 3,
+  //         childAspectRatio: 3,
+  //       ),
+  //       itemBuilder: (context, index) {
+  //         String selectedAttribute =
+  //       return ElevatedButton(
+  //         child: Text(selectedTag),
+  //         style: ButtonStyle(
+  //           backgroundColor: selectedTags.contains(selectedTag)
+  //               ? MaterialStateProperty.all(Colors.red)
+  //               : null,
+  //         ),
+  //         onPressed: () async {
+  //           if (selectedTags.contains(selectedTag)) {
+  //             List<String> remove = getSkillGem.removeSelectedTag(selectedTag);
+  //             print('selectedTag ${selectedTags}');
+  //             await fetchBuilds(selectedGemTags: remove);
+  //             return;
+  //           }
+  //           List<String> get = getSkillGem.updateSelectedTag(selectedTag);
+  //           print('selectedTag ${selectedTags}');
+
+  //           await fetchBuilds(selectedGemTags: get);
+  //         },
+  //       );
+  //       });
+  // }
+
+  Widget buildFortuneBar(List<SkillGem> skillGems) {
     return GestureDetector(
       onTap: () {
         int randomInt = Fortune.randomInt(0, skillGems.length);
@@ -121,7 +165,9 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
               {
                 return FortuneItem(
                   child: Container(
-                    child: Text(item.name),
+                    child: Center(child: Text(item.name)),
+                    width: double.infinity,
+                    height: double.infinity,
                     color: Colors.red,
                   ),
                 );
@@ -131,7 +177,9 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
               {
                 return FortuneItem(
                   child: Container(
-                    child: Text(item.name),
+                    child: Center(child: Text(item.name)),
+                    width: double.infinity,
+                    height: double.infinity,
                     color: Colors.green,
                   ),
                 );
@@ -140,7 +188,9 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
               {
                 return FortuneItem(
                   child: Container(
-                    child: Text(item.name),
+                    child: Center(child: Text(item.name)),
+                    width: double.infinity,
+                    height: double.infinity,
                     color: Colors.blue,
                   ),
                 );

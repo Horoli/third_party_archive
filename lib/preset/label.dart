@@ -13,4 +13,4 @@ const String BTN_DONT_SEE_AGAIN = '오늘 그만보기';
 const String BTN_CLOSE = '닫기';
 
 const String THIRD_PARTY = 'ThirdParty';
-const String ETC = 'ETC';
+const String RANDOM_BUILD = 'RandomBuild';

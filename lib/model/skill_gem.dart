@@ -19,13 +19,13 @@ class SkillGem {
   }
 }
 
-class SkillGemInfo {
+class SkillGemInfo extends CommonModel {
   String name;
   String lcText;
   Map statsObject;
 
   String requirementsText;
-  String textGemText;
+  String gemText;
   List<String> explicitMods;
   String qualityHeaderText;
   String qualityModText;
@@ -38,7 +38,7 @@ class SkillGemInfo {
     required this.lcText,
     required this.statsObject,
     required this.requirementsText,
-    required this.textGemText,
+    required this.gemText,
     required this.explicitMods,
     required this.qualityHeaderText,
     required this.qualityModText,
@@ -53,7 +53,7 @@ class SkillGemInfo {
       lcText: item['lcText'],
       statsObject: Map.from(item['statsObject'] ?? ""),
       requirementsText: item['requirementsText'],
-      textGemText: item['textGemText'],
+      gemText: item['textGemText'],
       explicitMods: List.from(item['explicitMods'] ?? []),
       qualityHeaderText: item['qualityHeaderText'],
       qualityModText: item['qualityModText'],
@@ -62,4 +62,19 @@ class SkillGemInfo {
       base64Image: item['base64Image'],
     );
   }
+
+  @override
+  Map<String, dynamic> get map => {
+        'name': name,
+        'lcText': lcText,
+        'statsObject': statsObject,
+        'requirementsText': requirementsText,
+        'textGemText': gemText,
+        'explicitMods': explicitMods,
+        'qualityHeaderText': qualityHeaderText,
+        'qualityModText': qualityModText,
+        'defaultText': defaultText,
+        'imageUrl': imageUrl,
+        'base64Image': base64Image,
+      };
 }

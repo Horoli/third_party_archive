@@ -100,15 +100,15 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
           },
         ),
         ElevatedButton(
-          child: Text(LABEL.ETC),
-          style: selectedCategory == LABEL.ETC
+          child: Text(LABEL.RANDOM_BUILD),
+          style: selectedCategory == LABEL.RANDOM_BUILD
               ? ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(buttonColor),
                 )
               : null,
           onPressed: () {
             setState(() {
-              selectedCategory = LABEL.ETC;
+              selectedCategory = LABEL.RANDOM_BUILD;
             });
           },
         ),

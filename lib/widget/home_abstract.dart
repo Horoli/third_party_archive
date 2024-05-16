@@ -21,8 +21,8 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   List<String> tags = [];
   List<PathOfExileLeague> leagues = [];
   int currentPlayers = 0;
-  // String selectedCategory = LABEL.THIRD_PARTY;
-  String selectedCategory = LABEL.ETC;
+  String selectedCategory = LABEL.THIRD_PARTY;
+  // String selectedCategory = LABEL.RANDOM_BUILD;
 
   @override
   Widget build(context) {
