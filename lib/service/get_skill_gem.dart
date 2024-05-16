@@ -1,11 +1,43 @@
 part of third_party_archive;
 
 class GetSkillGem extends GetxController {
-  RestfulResult result = RestfulResult(statusCode: 0, message: '');
+  RxObjectMixin<RestfulResult> result =
+      RestfulResult(statusCode: 0, message: '').obs;
 
-  // RxString iconImage = ''.obs;
-  RxMap selected = {}.obs;
-  // RxString json = ''.obs;
+  RxObjectMixin<RestfulResult> info =
+      RestfulResult(statusCode: 0, message: '').obs;
+
+  RxList<String> selectedGemTags = <String>[].obs;
+
+  RxList<String> gemTagList = [
+    "Attack",
+    "Melee",
+    "Strike",
+    "Slam",
+    "Spell",
+    "Arcane",
+    "Brand",
+    "Orb",
+    "Nova",
+    "Physical",
+    "Fire",
+    "Cold",
+    "Lightning",
+    "Chaos",
+    "Bow",
+    "Projectile",
+    "Chaining",
+    "Mine",
+    "Trap",
+    "Totem",
+    "Golem",
+    "Minion",
+    "Hex",
+    "AoE",
+    "Critical",
+    "Duration",
+    "Trigger"
+  ].obs;
 
   Future<void> get({
     required List<String> tags,
@@ -39,7 +71,7 @@ class GetSkillGem extends GetxController {
       List<SkillGem> getSkillGems =
           datas.map((item) => SkillGem.fromMap(item: item)).toList();
 
-      result = RestfulResult(
+      result.value = RestfulResult(
         statusCode: rawData['statusCode'],
         message: rawData['message'] ?? '',
         data: getSkillGems,
@@ -49,7 +81,7 @@ class GetSkillGem extends GetxController {
     }
   }
 
-  Future<void> getImage({required String name}) async {
+  Future<void> getInfo({required String name}) async {
     Map<String, dynamic> queryParameters = {"name": name};
 
     Map<String, String> headers = {};
@@ -64,9 +96,33 @@ class GetSkillGem extends GetxController {
     });
 
     Map rawData = jsonDecode(rep.body);
-    // iconImage.value = rawData['data']['base64Image'];
-    selected.value = rawData['data'];
-    // json.update();
+
+    SkillGemInfo getData = SkillGemInfo.fromMap(item: rawData['data']);
+
+    info.value = RestfulResult(
+      statusCode: rawData['statusCode'],
+      message: rawData['message'] ?? '',
+      data: getData,
+    );
+
     update();
+  }
+
+  List<String> updateSelectedTag(String tag) {
+    selectedGemTags.add(tag);
+    update();
+    return selectedGemTags;
+  }
+
+  List<String> removeSelectedTag(String tag) {
+    selectedGemTags.remove(tag);
+    update();
+    return selectedGemTags;
+  }
+
+  List<String> clearSelectedTag() {
+    selectedGemTags.clear();
+    update();
+    return selectedGemTags;
   }
 }

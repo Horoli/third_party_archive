@@ -17,39 +17,9 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
   String resultSkillGem = '';
 
   StreamController<int> ctrlRandomResult = StreamController<int>.broadcast();
-
-  // TODO : API로 이동
-  final List<String> gemTagList = [
-    "Attack",
-    "Melee",
-    "Strike",
-    "Slam",
-    "Spell",
-    "Arcane",
-    "Brand",
-    "Orb",
-    "Nova",
-    "Physical",
-    "Fire",
-    "Cold",
-    "Lightning",
-    "Chaos",
-    "Bow",
-    "Projectile",
-    "Chaining",
-    "Mine",
-    "Trap",
-    "Totem",
-    "Golem",
-    "Minion",
-    "Hex",
-    "AoE",
-    "Critical",
-    "Duration",
-    "Trigger"
-  ];
-
-  late List<String> selectedGemTags = [];
+  List<String> get gemTagList => getSkillGem.gemTagList.value;
+  List<String> get selectedTags => getSkillGem.selectedGemTags.value;
+  RestfulResult get info => getSkillGem.info.value;
 
   @override
   Widget build(context) {
@@ -57,39 +27,39 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
       future: fetchBuilds(),
       builder: (context, AsyncSnapshot<List<SkillGem>> snapshot) {
         if (snapshot.data != null) {
-          List<SkillGem> skillGems = snapshot.data!;
+          return GetX<GetSkillGem>(
+            builder: (_) {
+              return Column(
+                children: [
+                  buildExceptionGemTags(gemTagList).expand(),
+                  Text('${selectedTags.length}'),
+                  Text('${getSkillGem.result.value.data.length}'),
+                  buildRandomSkillGem(getSkillGem.result.value.data),
+                  if (info.data != null)
+                    Row(
+                      children: [
+                        Text('${info.data.lcText}').expand(),
+                        Image.memory(base64Decode(info.data.base64Image))
+                            .expand(),
+                      ],
+                    ).expand(),
 
-          return Column(
-            children: [
-              Container(child: Text('selected except tags')),
-              buildExceptionGemTags(gemTagList).expand(),
-              Container(child: Text('${skillGems.length}')),
-              buildRandomSkillGem(skillGems).expand(),
-              GetX<GetSkillGem>(
-                builder: (_) {
-                  Map result = getSkillGem.selected.value;
-
-                  if (result.isEmpty) {
-                    // if (getSkillGem.iconImage.value == '') {
-                    return Container();
-                  }
-                  return Row(
-                    children: [
-                      Image.memory(
-                        base64Decode(result['base64Image']),
-                      ).expand(),
-                      ListView.builder(
-                        itemCount: result.keys.length,
-                        itemBuilder: (context, index) {
-                          String key = result.keys.toList()[index];
-                          return Text('${result[key]}');
-                        },
-                      ).expand(),
-                    ],
-                  );
-                },
-              ).expand()
-            ],
+                  // Row(
+                  //   children: [
+                  //     Image.memory(base64Decode(info.base64Image)).expand(),
+                  // ListView.builder(
+                  //   itemCount: result.keys.length,
+                  //   itemBuilder: (context, index) {
+                  //     String key = result.keys.toList()[index];
+                  //     print(key);
+                  //     return Text('${result[key]}');
+                  //   },
+                  // ).expand(),
+                  //     ],
+                  //   ),
+                ],
+              );
+            },
           );
         }
         return Container();
@@ -107,10 +77,9 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
         if (index == 0) {
           return ElevatedButton(
             child: Text('Clear'),
-            onPressed: () {
-              setState(() {
-                selectedGemTags.clear();
-              });
+            onPressed: () async {
+              List<String> remove = getSkillGem.clearSelectedTag();
+              await fetchBuilds(selectedGemTags: remove);
             },
           );
         }
@@ -118,18 +87,21 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
         return ElevatedButton(
           child: Text(selectedTag),
           style: ButtonStyle(
-            backgroundColor: selectedGemTags.contains(selectedTag)
+            backgroundColor: selectedTags.contains(selectedTag)
                 ? MaterialStateProperty.all(Colors.red)
                 : null,
           ),
-          onPressed: () {
-            setState(() {
-              if (selectedGemTags.contains(selectedTag)) {
-                selectedGemTags.remove(selectedTag);
-                return;
-              }
-              selectedGemTags.add(selectedTag);
-            });
+          onPressed: () async {
+            if (selectedTags.contains(selectedTag)) {
+              List<String> remove = getSkillGem.removeSelectedTag(selectedTag);
+              print('selectedTag ${selectedTags}');
+              await fetchBuilds(selectedGemTags: remove);
+              return;
+            }
+            List<String> get = getSkillGem.updateSelectedTag(selectedTag);
+            print('selectedTag ${selectedTags}');
+
+            await fetchBuilds(selectedGemTags: get);
           },
         );
       },
@@ -150,9 +122,9 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
            * 왜 초기값으로 변하는지 확인할 것
            */
           print('skillGems.length ${skillGems.length}');
-          print('tags $selectedGemTags');
+          // print('tags $selectedGemTags');
           // await getSkillGem.getImage(name: skillGems[randomInt].name);
-          await getSkillGem.getImage(name: resultSkillGem);
+          await getSkillGem.getInfo(name: resultSkillGem);
         },
         // styleStrategy: AlternatingStyleStrategy(),
         animateFirst: false,
@@ -204,8 +176,14 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
     super.initState();
   }
 
-  Future<List<SkillGem>> fetchBuilds() async {
-    await getSkillGem.get(tags: selectedGemTags, attribute: '');
-    return getSkillGem.result.data;
+  Future<List<SkillGem>> fetchBuilds({List<String>? selectedGemTags}) async {
+    await getSkillGem.get(tags: selectedGemTags ?? [], attribute: '');
+    return getSkillGem.result.value.data;
+  }
+
+  @override
+  void dispose() {
+    getSkillGem.clearSelectedTag();
+    super.dispose();
   }
 }
