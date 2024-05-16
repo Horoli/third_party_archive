@@ -43,20 +43,6 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
                             .expand(),
                       ],
                     ).expand(),
-
-                  // Row(
-                  //   children: [
-                  //     Image.memory(base64Decode(info.base64Image)).expand(),
-                  // ListView.builder(
-                  //   itemCount: result.keys.length,
-                  //   itemBuilder: (context, index) {
-                  //     String key = result.keys.toList()[index];
-                  //     print(key);
-                  //     return Text('${result[key]}');
-                  //   },
-                  // ).expand(),
-                  //     ],
-                  //   ),
                 ],
               );
             },
