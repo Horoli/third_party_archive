@@ -13,14 +13,16 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
   double get height => MediaQuery.of(context).size.height;
   double get width => MediaQuery.of(context).size.width;
   final GetSkillGem getSkillGem = Get.put(GetSkillGem());
+  final GetSelectedGemTag getSelectedGemTag = Get.put(GetSelectedGemTag());
 
   String resultSkillGem = '';
 
   StreamController<int> ctrlRandomResult = StreamController<int>.broadcast();
-  List<String> get gemTagList => getSkillGem.gemTagList.value;
-  List<String> get attributeList => getSkillGem.attributeList.value;
-  List<String> get selectedTags => getSkillGem.selectedGemTags.value;
   RestfulResult get info => getSkillGem.info.value;
+  List<String> get gemTagList => getSelectedGemTag.gemTagList.value;
+  // List<String> get selectedGemTags => getSelectedGemTag.selectedGemTags.value;
+  // List<String> get attributeList => getSkillGem.attributeList.value;
+  // List<String> get gemTagList => getSkillGem.gemTagList.value;
 
   @override
   Widget build(context) {
@@ -28,30 +30,42 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
       future: fetchBuilds(),
       builder: (context, AsyncSnapshot<List<SkillGem>> snapshot) {
         if (snapshot.data != null) {
-          return GetX<GetSkillGem>(
-            builder: (_) {
-              return Row(
+          return Row(
+            children: [
+              Column(
                 children: [
-                  Column(
-                    children: [
-                      const Text('제외할 태그 선택'),
-                      buildExceptionGemTags(gemTagList).expand(),
-                      Divider(),
-                      Text(
-                          '액티브 스킬 젬 : ${getSkillGem.result.value.data.length}'),
-                      Divider(),
-                      buildFortuneBar(getSkillGem.result.value.data),
-                      Text('위 막대를 누르면 무작위로 선택됩니다.'),
-                      Container().expand()
-                    ],
+                  const Text('제외할 태그 선택'),
+                  buildExceptionGemTags(gemTagList).expand(),
+                  GetX<GetSkillGem>(
+                    builder: (_) {
+                      return Row(
+                        children: [
+                          Column(
+                            children: [
+                              Divider(),
+                              Text(
+                                  '액티브 스킬 젬 : ${getSkillGem.result.value.data.length}'),
+                              Divider(),
+                              buildFortuneBar(getSkillGem.result.value.data),
+                              Text('위 막대를 누르면 무작위로 선택됩니다.'),
+                              // Container().expand()
+                            ],
+                          ).expand(),
+                        ],
+                      );
+                    },
                   ).expand(),
-                  VerticalDivider(),
-                  info.data == null
-                      ? Container().expand()
-                      : WidgetSkillGemInfo(info: info.data).expand()
                 ],
-              );
-            },
+              ).expand(),
+              VerticalDivider(),
+              GetX<GetSkillGem>(
+                builder: (_) {
+                  return info.data == null
+                      ? Container()
+                      : WidgetSkillGemInfo(info: info.data);
+                },
+              ).expand()
+            ],
           );
         }
         return Container();
@@ -60,83 +74,56 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
   }
 
   Widget buildExceptionGemTags(List<String> gemTagList) {
-    return GridView.builder(
-      itemCount: gemTagList.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        mainAxisSpacing: 3,
-        crossAxisSpacing: 2,
-        childAspectRatio: 4,
-      ),
-      itemBuilder: (context, index) {
-        String selectedTag = gemTagList[index];
-        if (index == 0) {
-          return ElevatedButton(
-            child: Text('모두 취소'),
-            onPressed: () async {
-              List<String> remove = getSkillGem.clearSelectedTag();
-              await fetchBuilds(selectedGemTags: remove);
-            },
-          );
-        }
-
-        return ElevatedButton(
-          child: Text(selectedTag),
-          style: ButtonStyle(
-            backgroundColor: selectedTags.contains(selectedTag)
-                ? MaterialStateProperty.all(Colors.red)
-                : null,
+    return GetX<GetSelectedGemTag>(
+      builder: (_) {
+        List<String> selectedGemTags = getSelectedGemTag.selectedGemTags.value;
+        return GridView.builder(
+          itemCount: gemTagList.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            mainAxisSpacing: 3,
+            crossAxisSpacing: 2,
+            childAspectRatio: 4,
           ),
-          onPressed: () async {
-            if (selectedTags.contains(selectedTag)) {
-              List<String> remove = getSkillGem.removeSelectedTag(selectedTag);
-              print('selectedTag ${selectedTags}');
-              await fetchBuilds(selectedGemTags: remove);
-              return;
+          itemBuilder: (context, index) {
+            String selectedTag = gemTagList[index];
+            if (index == 0) {
+              return ElevatedButton(
+                child: Text('모두 취소'),
+                onPressed: () async {
+                  List<String> remove = getSelectedGemTag.clearSelectedTag();
+                  await fetchBuilds(selectedGemTags: remove);
+                },
+              );
             }
-            List<String> get = getSkillGem.updateSelectedTag(selectedTag);
-            print('selectedTag ${selectedTags}');
 
-            await fetchBuilds(selectedGemTags: get);
+            return ElevatedButton(
+              child: Text(selectedTag),
+              style: ButtonStyle(
+                backgroundColor: selectedGemTags.contains(selectedTag)
+                    ? MaterialStateProperty.all(Colors.red)
+                    : null,
+              ),
+              onPressed: () async {
+                if (selectedGemTags.contains(selectedTag)) {
+                  List<String> remove =
+                      getSelectedGemTag.removeSelectedTag(selectedTag);
+                  print('selectedTag ${selectedGemTags}');
+                  await fetchBuilds(selectedGemTags: remove);
+                  return;
+                }
+                List<String> get =
+                    getSelectedGemTag.updateSelectedTag(selectedTag);
+                print('selectedTag ${selectedGemTags}');
+
+                await fetchBuilds(selectedGemTags: get);
+              },
+            );
           },
         );
       },
     );
   }
-
-  // Widget buildExceptionAttribute(List<String> attributes) {
-  //   return GridView.builder(
-  //       itemCount: attributes.length,
-  //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  //         crossAxisCount: 4,
-  //         mainAxisSpacing: 3,
-  //         crossAxisSpacing: 3,
-  //         childAspectRatio: 3,
-  //       ),
-  //       itemBuilder: (context, index) {
-  //         String selectedAttribute =
-  //       return ElevatedButton(
-  //         child: Text(selectedTag),
-  //         style: ButtonStyle(
-  //           backgroundColor: selectedTags.contains(selectedTag)
-  //               ? MaterialStateProperty.all(Colors.red)
-  //               : null,
-  //         ),
-  //         onPressed: () async {
-  //           if (selectedTags.contains(selectedTag)) {
-  //             List<String> remove = getSkillGem.removeSelectedTag(selectedTag);
-  //             print('selectedTag ${selectedTags}');
-  //             await fetchBuilds(selectedGemTags: remove);
-  //             return;
-  //           }
-  //           List<String> get = getSkillGem.updateSelectedTag(selectedTag);
-  //           print('selectedTag ${selectedTags}');
-
-  //           await fetchBuilds(selectedGemTags: get);
-  //         },
-  //       );
-  //       });
-  // }
 
   Widget buildFortuneBar(List<SkillGem> skillGems) {
     return GestureDetector(
@@ -213,13 +200,14 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
   }
 
   Future<List<SkillGem>> fetchBuilds({List<String>? selectedGemTags}) async {
+    // getSelectedGemTag.tagRefresh();
     await getSkillGem.get(tags: selectedGemTags ?? [], attribute: '');
     return getSkillGem.result.value.data;
   }
 
   @override
   void dispose() {
-    getSkillGem.clearSelectedTag();
+    getSelectedGemTag.clearSelectedTag();
     super.dispose();
   }
 }

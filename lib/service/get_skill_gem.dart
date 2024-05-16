@@ -7,7 +7,7 @@ class GetSkillGem extends GetxController {
   RxObjectMixin<RestfulResult> info =
       RestfulResult(statusCode: 0, message: '').obs;
 
-  RxList<String> selectedGemTags = <String>[].obs;
+  // RxList<String> selectedGemTags = <String>[].obs;
 
   RxList<String> attributeList = [
     'strength',
@@ -15,35 +15,35 @@ class GetSkillGem extends GetxController {
     'dexterity',
   ].obs;
 
-  RxList<String> gemTagList = [
-    "Attack",
-    "Melee",
-    "Strike",
-    "Slam",
-    "Spell",
-    "Arcane",
-    "Brand",
-    "Orb",
-    "Nova",
-    "Physical",
-    "Fire",
-    "Cold",
-    "Lightning",
-    "Chaos",
-    "Bow",
-    "Projectile",
-    "Chaining",
-    "Mine",
-    "Trap",
-    "Totem",
-    "Golem",
-    "Minion",
-    "Hex",
-    "AoE",
-    "Critical",
-    "Duration",
-    "Trigger"
-  ].obs;
+  // RxList<String> gemTagList = [
+  //   "Attack",
+  //   "Melee",
+  //   "Strike",
+  //   "Slam",
+  //   "Spell",
+  //   "Arcane",
+  //   "Brand",
+  //   "Orb",
+  //   "Nova",
+  //   "Physical",
+  //   "Fire",
+  //   "Cold",
+  //   "Lightning",
+  //   "Chaos",
+  //   "Bow",
+  //   "Projectile",
+  //   "Chaining",
+  //   "Mine",
+  //   "Trap",
+  //   "Totem",
+  //   "Golem",
+  //   "Minion",
+  //   "Hex",
+  //   "AoE",
+  //   "Critical",
+  //   "Duration",
+  //   "Trigger"
+  // ].obs;
 
   Future<void> get({
     required List<String> tags,
@@ -71,13 +71,19 @@ class GetSkillGem extends GetxController {
 
     Map rawData = jsonDecode(rep.body);
 
-    if (rawData['statusCode'] == 200) {
+    if (rawData['statusCode'] == 200 && rawData['data'].length != 0) {
       List datas = List.from(rawData['data']);
 
       List<SkillGem> getSkillGems =
           datas.map((item) => SkillGem.fromMap(item: item)).toList();
 
       info.value = RestfulResult(statusCode: 500, message: '');
+      // TODO : 데이터 업데이트 관련하여 입력된 model이 변경되는 것은 obs에서 감지되지 않아 변경사항이 반영되지 않는 상황이 있어 임시 조치
+      result.value = RestfulResult(
+        statusCode: rawData['statusCode'],
+        message: rawData['message'] ?? '',
+        data: '',
+      );
       result.value = RestfulResult(
         statusCode: rawData['statusCode'],
         message: rawData['message'] ?? '',
@@ -85,7 +91,14 @@ class GetSkillGem extends GetxController {
       );
 
       update();
+      return;
     }
+
+    result.value = RestfulResult(
+      statusCode: 403,
+      message: '해당 태그를 선택하면 해당되는 스킬 젬이 없습니다.',
+      data: <SkillGem>[],
+    );
   }
 
   Future<void> getInfo({required String name}) async {
@@ -117,21 +130,21 @@ class GetSkillGem extends GetxController {
     update();
   }
 
-  List<String> updateSelectedTag(String tag) {
-    selectedGemTags.add(tag);
-    update();
-    return selectedGemTags;
-  }
+  // List<String> updateSelectedTag(String tag) {
+  //   selectedGemTags.add(tag);
+  //   update();
+  //   return selectedGemTags;
+  // }
 
-  List<String> removeSelectedTag(String tag) {
-    selectedGemTags.remove(tag);
-    update();
-    return selectedGemTags;
-  }
+  // List<String> removeSelectedTag(String tag) {
+  //   selectedGemTags.remove(tag);
+  //   update();
+  //   return selectedGemTags;
+  // }
 
-  List<String> clearSelectedTag() {
-    selectedGemTags.clear();
-    update();
-    return selectedGemTags;
-  }
+  // List<String> clearSelectedTag() {
+  //   selectedGemTags.clear();
+  //   update();
+  //   return selectedGemTags;
+  // }
 }
