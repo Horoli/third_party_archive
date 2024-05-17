@@ -57,5 +57,5 @@ part 'widget/league_information.dart';
 part 'widget/home_abstract.dart';
 part 'widget/home_portrait.dart';
 part 'widget/home_landscape.dart';
-part 'widget/random_build_selector.dart';
+part 'view/page/random_build_selector.dart';
 part 'widget/skill_gem_info.dart';
