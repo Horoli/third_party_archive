@@ -20,9 +20,6 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
   StreamController<int> ctrlRandomResult = StreamController<int>.broadcast();
   RestfulResult get info => getSkillGem.info.value;
   List<String> get gemTagList => getSelectedGemTag.gemTagList.value;
-  // List<String> get selectedGemTags => getSelectedGemTag.selectedGemTags.value;
-  // List<String> get attributeList => getSkillGem.attributeList.value;
-  // List<String> get gemTagList => getSkillGem.gemTagList.value;
 
   @override
   Widget build(context) {
@@ -150,46 +147,33 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
           switch (item.primaryAttribute) {
             case 'strength':
               {
-                return FortuneItem(
-                  child: Container(
-                    child: Center(child: Text(item.name)),
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: Colors.red,
-                  ),
-                );
+                return buildFortuneItem(item.name, Colors.red);
               }
-
             case 'dexterity':
               {
-                return FortuneItem(
-                  child: Container(
-                    child: Center(child: Text(item.name)),
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: Colors.green,
-                  ),
-                );
+                return buildFortuneItem(item.name, Colors.green);
               }
             case 'intelligence':
               {
-                return FortuneItem(
-                  child: Container(
-                    child: Center(child: Text(item.name)),
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: Colors.blue,
-                  ),
-                );
+                return buildFortuneItem(item.name, Colors.blue);
               }
           }
 
           return FortuneItem(
-            child: Container(
-              child: Text(item.name),
-            ),
+            child: Text(item.name),
           );
         }).toList(),
+      ),
+    );
+  }
+
+  FortuneItem buildFortuneItem(String name, Color backgroundcolor) {
+    return FortuneItem(
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: backgroundcolor,
+        child: Center(child: Text(name)),
       ),
     );
   }

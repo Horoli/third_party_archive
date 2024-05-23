@@ -11,51 +11,54 @@ class WidgetSkillGemInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Image.memory(base64Decode(info.base64Image)),
-          Container(
-            height: kToolbarHeight,
-            width: double.infinity,
-            // color: const ui.Color.fromARGB(255, 126, 150, 127),
-            child: Center(
-              child: Text('${info.lcText}'),
-            ),
-          ),
-          buildStatsObject(),
-          buildCustomDivider(),
-          Text('${info.requirementsText}'),
-          buildCustomDivider(),
-          Text('${info.gemText}'),
-          buildCustomDivider(),
-          buildExplicitMods(),
-          const SizedBox(height: 10),
-          Text('${info.qualityHeaderText}'),
-          Text('${info.qualityModText}'),
-          buildCustomDivider(),
-          Text('${info.defaultText}'),
-          Text('${info.name}'),
-          Divider(),
-          Row(
-            children: [
-              ElevatedButton(
-                child: Text('find build(for poe.ninja)'),
-                onPressed: () async {
-                  await launchUrl(Uri.parse(
-                      "https://poe.ninja/builds/necropolis?skills=${info.name}"));
-                },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.memory(base64Decode(info.base64Image)),
+            Container(
+              height: kToolbarHeight,
+              width: double.infinity,
+              // color: const ui.Color.fromARGB(255, 126, 150, 127),
+              child: Center(
+                child: Text('${info.lcText}'),
               ),
-              ElevatedButton(
-                child: Text('find poeDB'),
-                onPressed: () async {
-                  String replace = info.name.replaceAll(' ', '_');
+            ),
+            buildStatsObject(),
+            buildCustomDivider(),
+            Text('${info.requirementsText}'),
+            buildCustomDivider(),
+            Text('${info.gemText}'),
+            buildCustomDivider(),
+            buildExplicitMods(),
+            const SizedBox(height: 10),
+            Text('${info.qualityHeaderText}'),
+            Text('${info.qualityModText}'),
+            buildCustomDivider(),
+            Text('${info.defaultText}'),
+            Text('${info.name}'),
+            Divider(),
+            Row(
+              children: [
+                ElevatedButton(
+                  child: Text('find build(for poe.ninja)'),
+                  onPressed: () async {
+                    await launchUrl(Uri.parse(
+                        "https://poe.ninja/builds/necropolis?skills=${info.name}"));
+                  },
+                ),
+                ElevatedButton(
+                  child: Text('find poeDB'),
+                  onPressed: () async {
+                    String replace = info.name.replaceAll(' ', '_');
 
-                  await launchUrl(Uri.parse('https://poedb.tw/kr/${replace}'));
-                },
-              )
-            ],
-          ).sizedBox(height: kToolbarHeight)
-        ],
+                    await launchUrl(
+                        Uri.parse('https://poedb.tw/kr/${replace}'));
+                  },
+                )
+              ],
+            ).sizedBox(height: kToolbarHeight)
+          ],
+        ),
       ),
     );
   }

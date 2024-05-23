@@ -78,6 +78,12 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
         ),
       );
     }
+
+    if (selectedCategory == LABEL.RECEIVING_DAMAGE) {
+      return Container(
+        child: Text('RECEIVING_DAMAGE'),
+      );
+    }
     return RandomBuildSelector();
   }
 
@@ -109,6 +115,19 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
           onPressed: () {
             setState(() {
               selectedCategory = LABEL.RANDOM_BUILD;
+            });
+          },
+        ),
+        ElevatedButton(
+          child: Text(LABEL.RECEIVING_DAMAGE),
+          style: selectedCategory == LABEL.RECEIVING_DAMAGE
+              ? ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(buttonColor),
+                )
+              : null,
+          onPressed: () {
+            setState(() {
+              selectedCategory = LABEL.RECEIVING_DAMAGE;
             });
           },
         ),
