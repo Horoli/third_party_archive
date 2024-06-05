@@ -80,8 +80,8 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
     }
 
     if (selectedCategory == LABEL.RECEIVING_DAMAGE) {
-      return Container(
-        child: Text('RECEIVING_DAMAGE'),
+      return Center(
+        child: Text('준비 중 : RECEIVING_DAMAGE_CALCULATOR'),
       );
     }
     return RandomBuildSelector();
