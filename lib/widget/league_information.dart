@@ -54,7 +54,7 @@ class LeagueInformationState extends State<LeagueInformation> {
                 children: [
                   Column(
                     children: [
-                      Text('start : ${timeCal.convert(startDate)}'),
+                      Text('${timeCal.convert(startDate)}'),
                       Text('${league.period['startState']} : '),
                       league.period['startState'] == 'Announce'
                           ? Text('${timeCal.basedOnNowToStart()}')
@@ -63,7 +63,7 @@ class LeagueInformationState extends State<LeagueInformation> {
                   ).expand(),
                   Column(
                     children: [
-                      Text('end : ${timeCal.convert(endDate)}'),
+                      Text('${timeCal.convert(endDate)}'),
                       Text('${league.period['endState']} : '),
                       Text('${timeCal.basedOnNowToEnd()}'),
                     ],
