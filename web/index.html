@@ -18,7 +18,7 @@
 
     <meta charset="UTF-8" />
     <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
-    <meta name="description" content="thi" />
+    <meta name="description" content="third_party_archive" />
 
     <!-- iOS meta tags & icons -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,18 +32,19 @@
     <title>ThirdPartyArchive</title>
     <link rel="manifest" href="manifest.json" />
 
-    <script>
+    <!-- <script>
       // The value below is injected by flutter build, do not touch.
       const serviceWorkerVersion = "{{flutter_service_worker_version}}";
-    </script>
+    </script> -->
     <!-- This script adds the flutter initialization JS code -->
-    <script src="flutter.js" defer></script>
+    <!-- <script src="flutter_bootstrap.js" async></script> -->
   </head>
   <body>
-    <script type="text/javascript">
+    <script src="flutter_bootstrap.js" async></script>
+    <!-- <script type="text/javascript">
       window.addEventListener("load", function (ev) {
         // Download main.dart.js
-        _flutter.loader.loadEntrypoint({
+        _flutter.loader.load({
           serviceWorker: {
             serviceWorkerVersion: serviceWorkerVersion,
           },
@@ -54,6 +55,6 @@
           },
         });
       });
-    </script>
+    </script> -->
   </body>
 </html>
