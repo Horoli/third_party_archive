@@ -2,7 +2,7 @@ name: third_party_archive
 description: "PathOfExile third party archive"
 publish_to: "none"
 
-version: 1.0.0+3
+version: 1.0.0+4
 
 environment:
   sdk: ">=3.2.6 <4.0.0"
