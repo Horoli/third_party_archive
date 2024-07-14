@@ -43,7 +43,7 @@ class WidgetSkillGemInfo extends StatelessWidget {
                   child: Text('find build(for poe.ninja)'),
                   onPressed: () async {
                     await launchUrl(Uri.parse(
-                        "https://poe.ninja/builds/necropolis?skills=${info.name}"));
+                        "https://poe.ninja/builds/${currentLeague}?skills=${info.name}"));
                   },
                 ),
                 ElevatedButton(

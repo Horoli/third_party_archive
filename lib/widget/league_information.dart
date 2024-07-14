@@ -36,7 +36,7 @@ class LeagueInformationState extends State<LeagueInformation> {
         width: 400,
         decoration: BoxDecoration(
             border: Border.all(
-          color: ui.Color.fromARGB(255, 26, 26, 26),
+          color: const ui.Color.fromARGB(255, 26, 26, 26),
         )),
         child: Padding(
           padding: const EdgeInsets.all(4.0),

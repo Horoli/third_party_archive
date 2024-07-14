@@ -1,6 +1,7 @@
 part of third_party_archive;
 
 Color buttonColor = const Color.fromARGB(255, 72, 57, 99);
+late final String currentLeague;
 
 late final TZ.Location GDetroit = TZ.getLocation('Asia/Seoul');
 late final SharedPreferences GSharedPreference;

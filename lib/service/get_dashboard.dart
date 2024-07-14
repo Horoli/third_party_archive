@@ -28,6 +28,8 @@ class GetDashboard extends GetxController {
           .map((e) => PathOfExileLeague.fromMap(item: e))
           .toList();
 
+      currentLeague = getLeagues.first.label;
+
       List<String> getTagsLabel =
           getTags.map((tagObject) => tagObject['label'].toString()).toList();
 

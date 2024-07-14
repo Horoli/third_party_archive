@@ -95,7 +95,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
           child: Text(LABEL.THIRD_PARTY),
           style: selectedCategory == LABEL.THIRD_PARTY
               ? ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(buttonColor),
+                  backgroundColor: WidgetStateProperty.all(buttonColor),
                 )
               : null,
           onPressed: () async {
@@ -109,7 +109,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
           child: Text(LABEL.RANDOM_BUILD),
           style: selectedCategory == LABEL.RANDOM_BUILD
               ? ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(buttonColor),
+                  backgroundColor: WidgetStateProperty.all(buttonColor),
                 )
               : null,
           onPressed: () {
@@ -122,7 +122,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
           child: Text(LABEL.RECEIVING_DAMAGE),
           style: selectedCategory == LABEL.RECEIVING_DAMAGE
               ? ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(buttonColor),
+                  backgroundColor: WidgetStateProperty.all(buttonColor),
                 )
               : null,
           onPressed: () {

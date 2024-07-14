@@ -98,7 +98,7 @@ class RandomBuildSelectorState extends State<RandomBuildSelector> {
               child: Text(selectedTag),
               style: ButtonStyle(
                 backgroundColor: selectedGemTags.contains(selectedTag)
-                    ? MaterialStateProperty.all(Colors.red)
+                    ? WidgetStateProperty.all(Colors.red)
                     : null,
               ),
               onPressed: () async {
