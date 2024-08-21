@@ -44,6 +44,9 @@ part 'model/league.dart';
 part 'model/skill_gem.dart';
 
 part 'view/page/third_party.dart';
+part 'view/page/random_build_selector.dart';
+part 'view/page/receiving_damage.dart';
+part 'view/page/small_change.dart';
 part 'view/home.dart';
 part 'view/loading.dart';
 
@@ -57,5 +60,4 @@ part 'widget/league_information.dart';
 part 'widget/home_abstract.dart';
 part 'widget/home_portrait.dart';
 part 'widget/home_landscape.dart';
-part 'view/page/random_build_selector.dart';
 part 'widget/skill_gem_info.dart';

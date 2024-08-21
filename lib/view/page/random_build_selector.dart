@@ -1,15 +1,15 @@
 part of third_party_archive;
 
-class RandomBuildSelector extends StatefulWidget {
-  const RandomBuildSelector({
+class PageRandomBuildSelector extends StatefulWidget {
+  const PageRandomBuildSelector({
     super.key,
   });
 
   @override
-  RandomBuildSelectorState createState() => RandomBuildSelectorState();
+  PageRandomBuildSelectorState createState() => PageRandomBuildSelectorState();
 }
 
-class RandomBuildSelectorState extends State<RandomBuildSelector> {
+class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
   double get height => MediaQuery.of(context).size.height;
   double get width => MediaQuery.of(context).size.width;
   final GetSkillGem getSkillGem = Get.put(GetSkillGem());

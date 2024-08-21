@@ -28,7 +28,10 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   Widget build(context) {
     return Scaffold(
       appBar: isPort ? buildPortraitAppBar() : null,
-      drawer: isPort ? buildDrawer() : null,
+      drawer: isPort && selectedCategory == LABEL.THIRD_PARTY
+          ? buildDrawer()
+          : null,
+      endDrawer: const Drawer(),
       // persistentFooterButtons: [buildFooter()],
       body: FutureBuilder(
         future: fetchDashboard(),
@@ -69,9 +72,11 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
 
   PreferredSizeWidget buildPortraitAppBar() {
     return AppBar(
-      title: GetX<GetDashboard>(
-        builder: (_) => Text(getCtrlDashboard.selectedTag.value),
-      ),
+      title: selectedCategory == LABEL.THIRD_PARTY
+          ? GetX<GetDashboard>(
+              builder: (_) => Text(getCtrlDashboard.selectedTag.value),
+            )
+          : null,
     );
   }
 
@@ -129,6 +134,60 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
+  Widget buildCategories({
+    required String label,
+  }) {
+    return ElevatedButton(
+      style: selectedCategory == label
+          ? ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(buttonColor),
+            )
+          : null,
+      onPressed: () async {
+        if (label == LABEL.THIRD_PARTY) {
+          await getCtrlDashboard.changeSelectedTag(LABEL.TAG_CRAFT);
+        }
+        setState(() {
+          selectedCategory = label;
+        });
+      },
+      child: Text(label),
+    );
+  }
+
+  Widget buildCategorySelect() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        buildCategories(label: LABEL.THIRD_PARTY),
+        buildCategories(label: LABEL.RANDOM_BUILD),
+        buildCategories(label: LABEL.SMALL_CHANGE),
+        buildCategories(label: LABEL.RECEIVING_DAMAGE),
+      ],
+    );
+  }
+
+  Widget buildMainContents() {
+    switch (selectedCategory) {
+      case (LABEL.THIRD_PARTY):
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: tabController,
+            children: pages.values.toList(),
+          ),
+        );
+      case (LABEL.RANDOM_BUILD):
+        return const PageRandomBuildSelector();
+      case (LABEL.SMALL_CHANGE):
+        return const PageSmallChangeCalculator();
+      case (LABEL.RECEIVING_DAMAGE):
+        return const PageReceivingDamageCalculator();
+    }
+    return Container();
+  }
+
   Widget buildNavigationButton({
     required bool selected,
     required String label,
@@ -139,7 +198,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       child: ElevatedButton(
         style: selected
             ? ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(buttonColor),
+                backgroundColor: WidgetStateProperty.all(buttonColor),
               )
             : null,
         onPressed: () async {

@@ -14,11 +14,12 @@ class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
   Widget buildContents(AsyncSnapshot<Map> snapshot) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TabBarView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: tabController,
-        children: pages.values.toList(),
-      ),
+      child: buildMainContents(),
+      // child: TabBarView(
+      //   physics: const NeverScrollableScrollPhysics(),
+      //   controller: tabController,
+      //   children: pages.values.toList(),
+      // ),
     );
   }
 
