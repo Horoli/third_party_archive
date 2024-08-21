@@ -12,7 +12,9 @@ class PageSmallChangeCalculatorState extends State<PageSmallChangeCalculator> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text('준비 중 : Small Change')),
+      body: Center(
+        child: Text('준비 중 : SMALL_CHANGE'),
+      ),
     );
   }
 

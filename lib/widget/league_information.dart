@@ -27,8 +27,13 @@ class LeagueInformationState extends State<LeagueInformation> {
       end: endDate,
     );
 
+    bool startConditions = league.period['startState'] == 'Announce' ||
+        league.period['startState'] == 'Starts in';
+
+    bool endConditions = league.period['endState'] != 'unknown';
+
     return LayoutBuilder(builder: (context, BoxConstraints constraints) {
-      // print(constraints.maxHeight);
+      // maxHeight가 90미만이면 빈 Container 출력
       if (constraints.maxHeight < 90) {
         return Container();
       }
@@ -56,18 +61,19 @@ class LeagueInformationState extends State<LeagueInformation> {
                     children: [
                       Text('${timeCal.convert(startDate)}'),
                       Text('${league.period['startState']} : '),
-                      league.period['startState'] == 'Announce'
+                      startConditions
                           ? Text('${timeCal.basedOnNowToStart()}')
                           : Text('${timeCal.basedOnStartToNow()}'),
                     ],
                   ).expand(),
-                  Column(
-                    children: [
-                      Text('${timeCal.convert(endDate)}'),
-                      Text('${league.period['endState']} : '),
-                      Text('${timeCal.basedOnNowToEnd()}'),
-                    ],
-                  ).expand()
+                  if (endConditions)
+                    Column(
+                      children: [
+                        Text('${timeCal.convert(endDate)}'),
+                        Text('${league.period['endState']} : '),
+                        Text('${timeCal.basedOnNowToEnd()}'),
+                      ],
+                    ).expand()
                 ],
               ),
             ],
