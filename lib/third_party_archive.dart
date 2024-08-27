@@ -42,6 +42,12 @@ part 'global.dart';
 part 'model/third_party.dart';
 part 'model/league.dart';
 part 'model/skill_gem.dart';
+part 'model/poe_ninja.dart';
+part 'model/poe_ninja_abstract.dart';
+part 'model/poe_ninja_map.dart';
+part 'model/poe_ninja_currency.dart';
+part 'model/poe_ninja_item.dart';
+part 'model/poe_ninja_fragment.dart';
 
 part 'view/page/third_party.dart';
 part 'view/page/random_build_selector.dart';

@@ -22,7 +22,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   List<PathOfExileLeague> leagues = [];
   int currentPlayers = 0;
   // String selectedCategory = LABEL.THIRD_PARTY;
-  String selectedCategory = LABEL.RANDOM_BUILD;
+  String selectedCategory = LABEL.SMALL_CHANGE;
 
   @override
   Widget build(context) {
