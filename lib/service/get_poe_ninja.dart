@@ -25,6 +25,9 @@ class GetPoeNinja extends GetxController {
       data: sets,
     );
 
+    // globalDivineOrbPrice에 set
+    GDivineOrb = sets.divineOrb;
+
     update();
     return result.value;
   }

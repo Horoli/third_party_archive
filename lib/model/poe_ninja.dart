@@ -3,11 +3,11 @@ part of third_party_archive;
 class PoeNinjaSet {
   final String date;
   final double divineOrb;
-  final List currency;
-  final List fragment;
-  final List scarab;
-  final List invitaion;
-  final List map;
+  final List<PoeNinjaCurrency> currency;
+  final List<PoeNinjaFragment> fragment;
+  final List<PoeNinjaItem> scarab;
+  final List<PoeNinjaItem> invitaion;
+  final List<PoeNinjaMap> map;
   PoeNinjaSet({
     required this.date,
     required this.divineOrb,

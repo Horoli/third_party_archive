@@ -68,3 +68,4 @@ part 'widget/home_abstract.dart';
 part 'widget/home_portrait.dart';
 part 'widget/home_landscape.dart';
 part 'widget/skill_gem_info.dart';
+part 'widget/tile_poe_item.dart';

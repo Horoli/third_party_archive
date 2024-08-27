@@ -20,19 +20,15 @@ class PageSmallChangeCalculatorState extends State<PageSmallChangeCalculator> {
           return const Center(child: CircularProgressIndicator());
         }
 
-        String imageUrl = URL.IS_LOCAL
-            ? 'http://${URL.LOCAL_URL}/v1/poe_ninja/image'
-            : 'https://${URL.FORIEGN_URL}/v1/poe_ninja/image';
-
         return Column(
           children: [
             Row(
               children: [
-                Text('1'),
                 Image.asset(
                   IMAGE.DIVINE_ORB,
                   scale: 3,
                 ),
+                const Text('1'),
                 const Icon(Icons.arrow_right_alt),
                 Image.asset(
                   IMAGE.CHAOS_ORB,
@@ -43,53 +39,11 @@ class PageSmallChangeCalculatorState extends State<PageSmallChangeCalculator> {
             ),
             Row(
               children: [
-                ListView.builder(
-                  itemCount: data.currency.length,
-                  itemBuilder: (context, index) {
-                    PoeNinjaCurrency currency = data.currency[index];
-                    Map calResult = cal(
-                      price: currency.chaosEquivalent,
-                      standard: data.divineOrb,
-                      quantity: 1,
-                    );
-                    return Row(
-                      children: [
-                        Image.network('$imageUrl/${currency.icon}'),
-                        Text(currency.name),
-                        // Text('${currency.chaosEquivalent}'),
-                        // Text('${calResult['integerPartOfPrice']}///'),
-                        Text('${calResult['fractionalAmount']}///'),
-                        Text('${calResult['roundedTotalAmount']}///'),
-                      ],
-                    );
-                  },
+                TilePoeItem<PoeNinjaCurrency>(
+                  items: data.currency,
                 ).expand(),
-                ListView.builder(
-                  itemCount: data.scarab.length,
-                  itemBuilder: (context, index) {
-                    PoeNinjaItem scarab = data.scarab[index];
-                    return Row(
-                      children: [
-                        Image.network('$imageUrl/${scarab.icon}'),
-                        Text(scarab.name),
-                        Text('${scarab.chaosValue}'),
-                      ],
-                    );
-                  },
-                ).expand(),
-                ListView.builder(
-                  itemCount: data.fragment.length,
-                  itemBuilder: (context, index) {
-                    PoeNinjaFragment fragment = data.fragment[index];
-                    return Row(
-                      children: [
-                        Image.network('$imageUrl/${fragment.icon}'),
-                        Text(fragment.name),
-                        Text('${fragment.chaosEquivalent}'),
-                      ],
-                    );
-                  },
-                ).expand()
+                TilePoeItem<PoeNinjaFragment>(items: data.fragment).expand(),
+                TilePoeItem<PoeNinjaItem>(items: data.scarab).expand(),
               ],
             ).expand(),
             Text('data from poe.ninja updated at : ${data.date}'),
