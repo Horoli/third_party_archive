@@ -1,6 +1,7 @@
 part of third_party_archive;
 
 class PoeNinjaSet {
+  final String date;
   final double divineOrb;
   final List currency;
   final List fragment;
@@ -8,6 +9,7 @@ class PoeNinjaSet {
   final List invitaion;
   final List map;
   PoeNinjaSet({
+    required this.date,
     required this.divineOrb,
     required this.currency,
     required this.fragment,
@@ -33,6 +35,7 @@ class PoeNinjaSet {
     //     .map((item) => PoeNinjaMap.fromMap(item: item))
     //     .toList());
     return PoeNinjaSet(
+      date: data['date'],
       divineOrb: data['divineOrb'],
       currency: List.from(data['currency'])
           .map((item) => PoeNinjaCurrency.fromMap(item: item))

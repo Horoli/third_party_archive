@@ -25,9 +25,8 @@ class GetPoeNinja extends GetxController {
       data: sets,
     );
 
+    update();
     return result.value;
-
-    // update();
   }
 
   // Future<void> getImage({required String hash}) async {
