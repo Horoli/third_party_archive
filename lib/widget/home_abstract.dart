@@ -31,7 +31,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       drawer: isPort && selectedCategory == LABEL.THIRD_PARTY
           ? buildDrawer()
           : null,
-      endDrawer: const Drawer(),
+      endDrawer: isPort ? buildEndDrawer() : null,
       // persistentFooterButtons: [buildFooter()],
       body: FutureBuilder(
         future: fetchDashboard(),
@@ -107,6 +107,15 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
+  Widget buildEndDrawer() {
+    return Drawer(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: categorySelectors,
+      ),
+    );
+  }
+
   List<Widget> buildTagList() {
     return List.generate(
       tags.length,
@@ -134,7 +143,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
-  Widget buildCategories({
+  Widget buildSelectCategoryButton({
     required String label,
   }) {
     return ElevatedButton(
@@ -155,17 +164,12 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
-  Widget buildCategorySelector() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildCategories(label: LABEL.THIRD_PARTY),
-        buildCategories(label: LABEL.RANDOM_BUILD),
-        buildCategories(label: LABEL.NINJA_PRICE),
-        // buildCategories(label: LABEL.RECEIVING_DAMAGE),
-      ],
-    );
-  }
+  List<Widget> get categorySelectors => [
+        buildSelectCategoryButton(label: LABEL.THIRD_PARTY),
+        buildSelectCategoryButton(label: LABEL.RANDOM_BUILD),
+        buildSelectCategoryButton(label: LABEL.NINJA_PRICE),
+        // buildSelectCategoryButton(label: LABEL.RECEIVING_DAMAGE),
+      ];
 
   Widget buildMainContents() {
     switch (selectedCategory) {

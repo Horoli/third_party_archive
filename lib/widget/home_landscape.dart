@@ -31,7 +31,11 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: setLeagues(),
                 ).sizedBox(height: height / 9),
-                buildCategorySelector(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: categorySelectors,
+                ),
+                // buildCategorySelector(),
                 const Divider(),
                 // contents
                 Row(
