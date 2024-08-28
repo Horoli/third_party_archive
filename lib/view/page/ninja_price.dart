@@ -22,7 +22,7 @@ class PageChangeCalculatorState extends State<PageChangeCalculator> {
     LABEL.CURRENCY,
     LABEL.FRAGMENT,
     LABEL.SCARAB,
-    LABEL.MAP,
+    // LABEL.MAP,
   ];
   PoeNinjaSet get data => getPoeNinja.result.value.data;
   @override

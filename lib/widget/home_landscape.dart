@@ -48,6 +48,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                           if (selectedCategory == LABEL.THIRD_PARTY)
                             const Divider(),
                           buildChaosDivineRatio(),
+                          buildSmallCalculator(),
                           buildCurrentPlayer(),
                         ],
                       ),

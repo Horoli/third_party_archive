@@ -234,6 +234,159 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
+  bool isSell = true;
+  TextEditingController ctrlItemPrice = TextEditingController();
+  TextEditingController ctrlPayedDiv = TextEditingController();
+  TextEditingController ctrlChangeChaos = TextEditingController();
+  // final GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
+  // final GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
+  Widget buildSmallCalculator() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            ElevatedButton(
+              child: Text('buy'),
+              style: !isSell
+                  ? ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(GSelectedButtonColor),
+                    )
+                  : null,
+              onPressed: () {
+                setState(() {
+                  isSell = false;
+                });
+              },
+            ),
+            ElevatedButton(
+              child: Text('sell'),
+              style: isSell
+                  ? ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(GSelectedButtonColor),
+                    )
+                  : null,
+              onPressed: () {
+                setState(() {
+                  isSell = true;
+                });
+              },
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Text(
+              isSell ? '판매할 아이템 가격 :' : '구매할 아이템 가격 :',
+            ),
+            Image.asset(
+              IMAGE.DIVINE_ORB,
+              scale: 3,
+            ),
+            TextFormField(
+              controller: ctrlItemPrice,
+              autovalidateMode: AutovalidateMode.always,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return '값을 입력해주세요';
+                }
+
+                if (ctrlPayedDiv.text == '') {
+                  return '받을 돈을 입력해주세요';
+                }
+                if (isSell &&
+                    double.parse(value) < double.parse(ctrlPayedDiv.text)) {
+                  return '판매가격보다 높게 입력해주세요';
+                }
+                return null;
+              },
+              onChanged: (value) {
+                if (ctrlItemPrice.text == '' || ctrlPayedDiv.text == '') {
+                  return;
+                }
+
+                double itemPrice = double.parse(ctrlItemPrice.text);
+                int payedDiv = int.parse(ctrlPayedDiv.text);
+                double subtraction = payedDiv - itemPrice;
+                int result = (GDivineOrb * subtraction).round().abs();
+                ctrlChangeChaos.text = result.toString();
+              },
+            ).expand(),
+          ],
+        ),
+        Row(
+          children: [
+            Text(isSell ? '받을 돈 : ' : '줄 돈 : '),
+            Image.asset(
+              IMAGE.DIVINE_ORB,
+              scale: 3,
+            ),
+            TextFormField(
+              controller: ctrlPayedDiv,
+              keyboardType: TextInputType.number,
+              autovalidateMode: AutovalidateMode.always,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return '값을 입력해주세요';
+                }
+                if (ctrlItemPrice.text == '') {
+                  return '아이템 가격을 입력해주세요';
+                }
+
+                if (value.contains(".")) {
+                  return '소수점을 포함할 수 없습니다';
+                }
+
+                if (isSell &&
+                    double.parse(value) > double.parse(ctrlItemPrice.text)) {
+                  return '판매가격보다 낮게 입력해주세요';
+                }
+
+                // if (!isSell &&
+                //     int.parse(value) > int.parse(ctrlItemPrice.text)) {
+                //   return '구매가격보다 높게 입력해주세요';
+                // }
+
+                return null;
+              },
+              onChanged: (value) {
+                if (ctrlItemPrice.text == '' ||
+                    ctrlPayedDiv.text == '' ||
+                    value.contains(".")) {
+                  return;
+                }
+
+                double itemPrice = double.parse(ctrlItemPrice.text);
+                print('itemPrice $itemPrice');
+                int payedDiv = int.parse(ctrlPayedDiv.text);
+                print('payedDiv $payedDiv');
+                double subtraction = payedDiv - itemPrice;
+                print('subtraction $subtraction');
+                int result = (GDivineOrb * subtraction).round().abs();
+                print(result);
+                ctrlChangeChaos.text = result.toString();
+              },
+            ).expand(),
+          ],
+        ),
+        Row(
+          children: [
+            Text("잔돈 :"),
+            Image.asset(
+              IMAGE.CHAOS_ORB,
+              scale: 3,
+            ),
+            TextField(
+              controller: ctrlChangeChaos,
+              readOnly: true,
+            ).expand()
+          ],
+        )
+      ],
+    );
+  }
+
   Widget buildWallpaper() {
     return Container(
       decoration: const BoxDecoration(
