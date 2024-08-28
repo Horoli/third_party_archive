@@ -11,6 +11,9 @@ class WidgetHomePortrait extends WidgetHome {
 
 class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
   @override
+  String selectedCategory = LABEL.THIRD_PARTY;
+
+  @override
   Widget buildContents(AsyncSnapshot<Map> snapshot) {
     return Padding(
       padding: const EdgeInsets.all(8.0),

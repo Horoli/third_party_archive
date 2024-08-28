@@ -1,1 +1,1 @@
-flutter build web --release
+flutter build web --release --no-tree-shake-icons
