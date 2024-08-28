@@ -31,7 +31,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: setLeagues(),
                 ).sizedBox(height: height / 9),
-                buildCategorySelect(),
+                buildCategorySelector(),
                 const Divider(),
                 // contents
                 Row(
@@ -43,6 +43,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                             ...buildTagList(),
                           if (selectedCategory == LABEL.THIRD_PARTY)
                             const Divider(),
+                          buildChaosDivineRatio(),
                           buildCurrentPlayer(),
                         ],
                       ),

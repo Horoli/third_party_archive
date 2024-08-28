@@ -22,6 +22,7 @@ class GetDashboard extends GetxController {
       Map<String, dynamic> data = Map.from(rawData['data']);
 
       int getCurrentPlayers = data['currentPlayers'];
+      double getDivineOrb = data['divineOrb'];
       List getTags = List.from(data['tags']);
 
       List<PathOfExileLeague> getLeagues = List.from(data['leagues'])
@@ -43,6 +44,8 @@ class GetDashboard extends GetxController {
             'leagues': getLeagues,
           });
 
+      // global DivineOrb에 값 할당
+      GDivineOrb = getDivineOrb;
       update();
 
       // tags.assignAll(getTagsLabel);

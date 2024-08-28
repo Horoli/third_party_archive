@@ -16,3 +16,9 @@ const String THIRD_PARTY = '써드파티앱 목록';
 const String RANDOM_BUILD = '랜덤빌드 선택기';
 const String SMALL_CHANGE = '잔돈 계산기';
 const String RECEIVING_DAMAGE = '받는피해 계산기';
+
+const String CURRENCY = 'Currency';
+const String FRAGMENT = 'Fragment';
+const String SCARAB = 'Scarab';
+const String MAP = 'Map';
+const String INVITATION = 'invitation';

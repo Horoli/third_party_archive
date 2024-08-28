@@ -47,12 +47,13 @@ part 'model/poe_ninja_abstract.dart';
 part 'model/poe_ninja_map.dart';
 part 'model/poe_ninja_currency.dart';
 part 'model/poe_ninja_item.dart';
+part 'model/poe_ninja_invitation.dart';
 part 'model/poe_ninja_fragment.dart';
 
 part 'view/page/third_party.dart';
 part 'view/page/random_build_selector.dart';
 part 'view/page/receiving_damage.dart';
-part 'view/page/small_change.dart';
+part 'view/page/change_calculator.dart';
 part 'view/home.dart';
 part 'view/loading.dart';
 

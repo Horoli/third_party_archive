@@ -16,6 +16,7 @@ class TilePoeItem<T> extends StatelessWidget {
     PoeNinjaCurrency: (item) => buildCurrencyTile(item),
     PoeNinjaItem: (item) => buildScarabTile(item),
     PoeNinjaFragment: (item) => buildFragmentTile(item),
+    PoeNinjaMap: (item) => buildMapTile(item),
   };
 
   @override
@@ -29,24 +30,17 @@ class TilePoeItem<T> extends StatelessWidget {
     );
   }
 
-  double divineChaosCal(double chaosValue) {
-    double chaosDivine = chaosValue / GDivineOrb;
-    double fractionalPart = chaosDivine % 1;
-    double changePercentage = (fractionalPart * 10).roundToDouble();
-    double finalChange = (GDivineOrb / 10) * changePercentage;
-    return finalChange;
-  }
-
-  Widget buildCurrencyTile(PoeNinjaCurrency item) {
-    if (item.name == "Divine Orb") {
-      return Container();
-    }
-    double divineChaos = divineChaosCal(item.chaosEquivalent);
-    int divine = (item.chaosEquivalent / GDivineOrb).floor();
-    bool check = item.chaosEquivalent > GDivineOrb;
+  Widget _buildTile({
+    required String icon,
+    required String name,
+    required double chaosValue,
+  }) {
+    double divineChaos = divineChaosCal(chaosValue);
+    int divine = (chaosValue / GDivineOrb).floor();
+    bool check = chaosValue > GDivineOrb;
     return ListTile(
-      leading: Image.network('$imageUrl/${item.icon}'),
-      title: Text(item.name),
+      leading: Image.network('$imageUrl/$icon'),
+      title: Text(name),
       subtitle: Row(
         children: [
           if (divine != 0)
@@ -60,39 +54,60 @@ class TilePoeItem<T> extends StatelessWidget {
             IMAGE.CHAOS_ORB,
             scale: 3,
           ),
-          Text('${check ? divineChaos.round() : item.chaosEquivalent}'),
-          const VerticalDivider(),
-          Text('(only C : ${item.chaosEquivalent.floor()})'),
+          Text('${check ? divineChaos.round() : chaosValue}'),
         ],
       ),
     );
   }
 
+  Widget buildCurrencyTile(PoeNinjaCurrency item) {
+    if (item.name == "Divine Orb") {
+      return Container();
+    }
+    return _buildTile(
+      icon: item.icon,
+      name: item.name,
+      chaosValue: item.chaosEquivalent,
+    );
+  }
+
   Widget buildFragmentTile(PoeNinjaFragment item) {
-    return Row(
-      children: [
-        Image.network('$imageUrl/${item.icon}'),
-        Text(item.name),
-        Text('${item.chaosEquivalent}'),
-      ],
+    return _buildTile(
+      icon: item.icon,
+      name: item.name,
+      chaosValue: item.chaosEquivalent,
     );
   }
 
   Widget buildScarabTile(PoeNinjaItem item) {
-    return Row(
-      children: [
-        Image.network('$imageUrl/${item.icon}'),
-        Text(item.name),
-        Text('${item.chaosValue}'),
-      ],
+    return _buildTile(
+      icon: item.icon,
+      name: item.name,
+      chaosValue: item.chaosValue,
     );
   }
 
-  Widget buildInvitationTile() {
-    return Container();
+  Widget buildInvitationTile(PoeNinjaItem item) {
+    return _buildTile(
+      icon: item.icon,
+      name: item.name,
+      chaosValue: item.chaosValue,
+    );
   }
 
-  Widget buildMapTile() {
-    return Container();
+  Widget buildMapTile(PoeNinjaMap item) {
+    return _buildTile(
+      icon: item.icon,
+      name: item.name,
+      chaosValue: item.chaosValue,
+    );
+  }
+
+  double divineChaosCal(double chaosValue) {
+    double chaosDivine = chaosValue / GDivineOrb;
+    double fractionalPart = chaosDivine % 1;
+    double changePercentage = (fractionalPart * 10).roundToDouble();
+    double finalChange = (GDivineOrb / 10) * changePercentage;
+    return finalChange;
   }
 }

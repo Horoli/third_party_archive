@@ -140,7 +140,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     return ElevatedButton(
       style: selectedCategory == label
           ? ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(buttonColor),
+              backgroundColor: WidgetStateProperty.all(GSelectedButtonColor),
             )
           : null,
       onPressed: () async {
@@ -155,7 +155,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
-  Widget buildCategorySelect() {
+  Widget buildCategorySelector() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -181,7 +181,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       case (LABEL.RANDOM_BUILD):
         return const PageRandomBuildSelector();
       case (LABEL.SMALL_CHANGE):
-        return const PageSmallChangeCalculator();
+        return const PageChangeCalculator();
       case (LABEL.RECEIVING_DAMAGE):
         return const PageReceivingDamageCalculator();
     }
@@ -198,7 +198,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       child: ElevatedButton(
         style: selected
             ? ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(buttonColor),
+                backgroundColor: WidgetStateProperty.all(GSelectedButtonColor),
               )
             : null,
         onPressed: () async {
@@ -208,6 +208,25 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
         },
         child: Text(label),
       ),
+    );
+  }
+
+  Widget buildChaosDivineRatio() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          IMAGE.DIVINE_ORB,
+          scale: 3,
+        ),
+        const Text('1'),
+        const Icon(Icons.arrow_right_alt),
+        Image.asset(
+          IMAGE.CHAOS_ORB,
+          scale: 3,
+        ),
+        Text('$GDivineOrb'),
+      ],
     );
   }
 
