@@ -22,7 +22,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   List<PathOfExileLeague> leagues = [];
   int currentPlayers = 0;
   // String selectedCategory = LABEL.THIRD_PARTY;
-  String selectedCategory = LABEL.SMALL_CHANGE;
+  String selectedCategory = LABEL.NINJA_PRICE;
 
   @override
   Widget build(context) {
@@ -161,8 +161,8 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       children: [
         buildCategories(label: LABEL.THIRD_PARTY),
         buildCategories(label: LABEL.RANDOM_BUILD),
-        buildCategories(label: LABEL.SMALL_CHANGE),
-        buildCategories(label: LABEL.RECEIVING_DAMAGE),
+        buildCategories(label: LABEL.NINJA_PRICE),
+        // buildCategories(label: LABEL.RECEIVING_DAMAGE),
       ],
     );
   }
@@ -180,7 +180,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
         );
       case (LABEL.RANDOM_BUILD):
         return const PageRandomBuildSelector();
-      case (LABEL.SMALL_CHANGE):
+      case (LABEL.NINJA_PRICE):
         return const PageChangeCalculator();
       case (LABEL.RECEIVING_DAMAGE):
         return const PageReceivingDamageCalculator();

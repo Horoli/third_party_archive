@@ -53,7 +53,7 @@ part 'model/poe_ninja_fragment.dart';
 part 'view/page/third_party.dart';
 part 'view/page/random_build_selector.dart';
 part 'view/page/receiving_damage.dart';
-part 'view/page/change_calculator.dart';
+part 'view/page/ninja_price.dart';
 part 'view/home.dart';
 part 'view/loading.dart';
 
