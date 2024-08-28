@@ -21,8 +21,9 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   List<String> tags = [];
   List<PathOfExileLeague> leagues = [];
   int currentPlayers = 0;
-  // String selectedCategory = LABEL.THIRD_PARTY;
-  String selectedCategory = LABEL.NINJA_PRICE;
+  String appBarLabel = '';
+  String selectedCategory = LABEL.THIRD_PARTY;
+  // String selectedCategory = LABEL.NINJA_PRICE;
 
   @override
   Widget build(context) {
@@ -76,7 +77,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
           ? GetX<GetDashboard>(
               builder: (_) => Text(getCtrlDashboard.selectedTag.value),
             )
-          : null,
+          : Text(appBarLabel),
     );
   }
 
@@ -116,6 +117,38 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
+  List<Widget> get categorySelectors => [
+        buildSelectCategoryButton(label: LABEL.THIRD_PARTY),
+        if (!isPort) buildSelectCategoryButton(label: LABEL.RANDOM_BUILD),
+        buildSelectCategoryButton(label: LABEL.NINJA_PRICE),
+        // buildSelectCategoryButton(label: LABEL.RECEIVING_DAMAGE),
+      ];
+
+  Widget buildSelectCategoryButton({
+    required String label,
+  }) {
+    return ElevatedButton(
+      style: selectedCategory == label
+          ? ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(GSelectedButtonColor),
+            )
+          : null,
+      onPressed: () async {
+        if (label == LABEL.THIRD_PARTY) {
+          await getCtrlDashboard.changeSelectedTag(LABEL.TAG_CRAFT);
+        }
+        setState(() {
+          selectedCategory = label;
+          if (isPort) {
+            appBarLabel = label;
+            Navigator.pop(context);
+          }
+        });
+      },
+      child: Text(label),
+    );
+  }
+
   List<Widget> buildTagList() {
     return List.generate(
       tags.length,
@@ -143,34 +176,6 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
-  Widget buildSelectCategoryButton({
-    required String label,
-  }) {
-    return ElevatedButton(
-      style: selectedCategory == label
-          ? ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(GSelectedButtonColor),
-            )
-          : null,
-      onPressed: () async {
-        if (label == LABEL.THIRD_PARTY) {
-          await getCtrlDashboard.changeSelectedTag(LABEL.TAG_CRAFT);
-        }
-        setState(() {
-          selectedCategory = label;
-        });
-      },
-      child: Text(label),
-    );
-  }
-
-  List<Widget> get categorySelectors => [
-        buildSelectCategoryButton(label: LABEL.THIRD_PARTY),
-        buildSelectCategoryButton(label: LABEL.RANDOM_BUILD),
-        buildSelectCategoryButton(label: LABEL.NINJA_PRICE),
-        // buildSelectCategoryButton(label: LABEL.RECEIVING_DAMAGE),
-      ];
-
   Widget buildMainContents() {
     switch (selectedCategory) {
       case (LABEL.THIRD_PARTY):
@@ -185,7 +190,9 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       case (LABEL.RANDOM_BUILD):
         return const PageRandomBuildSelector();
       case (LABEL.NINJA_PRICE):
-        return const PageChangeCalculator();
+        return PageChangeCalculator(
+          isPort: isPort,
+        );
       case (LABEL.RECEIVING_DAMAGE):
         return const PageReceivingDamageCalculator();
     }
@@ -243,7 +250,10 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   Widget buildSmallCalculator() {
     return Column(
       children: [
+        const Text("잔돈 계산기"),
+        const Padding(padding: EdgeInsets.all(4)),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
               child: Text('buy'),
@@ -259,6 +269,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
                 });
               },
             ),
+            const Padding(padding: EdgeInsets.all(4)),
             ElevatedButton(
               child: Text('sell'),
               style: isSell
@@ -277,9 +288,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
         ),
         Row(
           children: [
-            Text(
-              isSell ? '판매할 아이템 가격 :' : '구매할 아이템 가격 :',
-            ),
+            const Text('아이템 가격 :'),
             Image.asset(
               IMAGE.DIVINE_ORB,
               scale: 3,
@@ -292,13 +301,13 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
                   return '값을 입력해주세요';
                 }
 
-                if (ctrlPayedDiv.text == '') {
-                  return '받을 돈을 입력해주세요';
-                }
-                if (isSell &&
-                    double.parse(value) < double.parse(ctrlPayedDiv.text)) {
-                  return '판매가격보다 높게 입력해주세요';
-                }
+                // if (ctrlPayedDiv.text == '') {
+                //   return '받을 돈을 입력해주세요';
+                // }
+                // if (isSell &&
+                //     double.parse(value) < double.parse(ctrlPayedDiv.text)) {
+                //   return '판매가격보다 높게 입력해주세요';
+                // }
                 return null;
               },
               onChanged: (value) {
@@ -330,18 +339,18 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
                 if (value == null || value.isEmpty) {
                   return '값을 입력해주세요';
                 }
-                if (ctrlItemPrice.text == '') {
-                  return '아이템 가격을 입력해주세요';
-                }
+                // if (ctrlItemPrice.text == '') {
+                //   return '아이템 가격을 입력해주세요';
+                // }
 
                 if (value.contains(".")) {
                   return '소수점을 포함할 수 없습니다';
                 }
 
-                if (isSell &&
-                    double.parse(value) > double.parse(ctrlItemPrice.text)) {
-                  return '판매가격보다 낮게 입력해주세요';
-                }
+                // if (isSell &&
+                //     double.parse(value) > double.parse(ctrlItemPrice.text)) {
+                //   return '판매가격보다 낮게 입력해주세요';
+                // }
 
                 // if (!isSell &&
                 //     int.parse(value) > int.parse(ctrlItemPrice.text)) {
@@ -358,13 +367,9 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
                 }
 
                 double itemPrice = double.parse(ctrlItemPrice.text);
-                print('itemPrice $itemPrice');
                 int payedDiv = int.parse(ctrlPayedDiv.text);
-                print('payedDiv $payedDiv');
                 double subtraction = payedDiv - itemPrice;
-                print('subtraction $subtraction');
                 int result = (GDivineOrb * subtraction).round().abs();
-                print(result);
                 ctrlChangeChaos.text = result.toString();
               },
             ).expand(),

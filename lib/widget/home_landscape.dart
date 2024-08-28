@@ -47,8 +47,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                             ...buildTagList(),
                           if (selectedCategory == LABEL.THIRD_PARTY)
                             const Divider(),
-                          buildChaosDivineRatio(),
-                          buildSmallCalculator(),
+                          // buildSmallCalculator(),
                           buildCurrentPlayer(),
                         ],
                       ),
@@ -58,7 +57,15 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                     const VerticalDivider(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: buildAdPlace(),
+                      child: Column(
+                        children: [
+                          buildChaosDivineRatio(),
+                          const Divider(),
+                          buildSmallCalculator(),
+                          const Divider(),
+                          buildAdPlace().expand()
+                        ],
+                      ),
                     ).expand()
                   ],
                 ).sizedBox(width: landscapeWidth).expand(),
