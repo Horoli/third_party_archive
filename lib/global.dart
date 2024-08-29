@@ -32,3 +32,13 @@ Future<void> postUserAction({
     Map rawData = jsonDecode(rep.body);
   });
 }
+
+Widget get GImageDivineOrb => Image.asset(
+      IMAGE.DIVINE_ORB,
+      scale: 3,
+    );
+
+Widget get GImageChaosOrb => Image.asset(
+      IMAGE.CHAOS_ORB,
+      scale: 3,
+    );

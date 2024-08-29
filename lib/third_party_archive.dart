@@ -56,6 +56,9 @@ part 'view/page/receiving_damage.dart';
 part 'view/page/ninja_price.dart';
 part 'view/home.dart';
 part 'view/loading.dart';
+part 'view/home/abstract.dart';
+part 'view/home/portrait.dart';
+part 'view/home/landscape.dart';
 
 part 'service/get_dashboard.dart';
 part 'service/get_third_party.dart';
@@ -65,8 +68,6 @@ part 'service/get_poe_ninja.dart';
 
 part 'widget/tile_third_party.dart';
 part 'widget/league_information.dart';
-part 'widget/home_abstract.dart';
-part 'widget/home_portrait.dart';
-part 'widget/home_landscape.dart';
 part 'widget/skill_gem_info.dart';
 part 'widget/tile_poe_item.dart';
+part 'widget/change_calculator.dart';

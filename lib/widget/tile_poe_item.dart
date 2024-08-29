@@ -43,17 +43,10 @@ class TilePoeItem<T> extends StatelessWidget {
       title: Text(name),
       subtitle: Row(
         children: [
-          if (divine != 0)
-            Image.asset(
-              IMAGE.DIVINE_ORB,
-              scale: 3,
-            ),
+          if (divine != 0) GImageDivineOrb,
           if (divine != 0) Text('$divine'),
           if (divine != 0) const VerticalDivider(),
-          Image.asset(
-            IMAGE.CHAOS_ORB,
-            scale: 3,
-          ),
+          GImageChaosOrb,
           Text('${check ? divineChaos.round() : chaosValue}'),
         ],
       ),

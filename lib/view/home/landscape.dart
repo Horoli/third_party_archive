@@ -47,7 +47,6 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                             ...buildTagList(),
                           if (selectedCategory == LABEL.THIRD_PARTY)
                             const Divider(),
-                          // buildSmallCalculator(),
                           buildCurrentPlayer(),
                         ],
                       ),
@@ -60,9 +59,9 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                       child: Column(
                         children: [
                           buildChaosDivineRatio(),
-                          const Divider(),
-                          buildSmallCalculator(),
-                          const Divider(),
+                          // const Divider(),
+                          const ChangeCalculator().expand(),
+                          // const Divider(),
                           buildAdPlace().expand()
                         ],
                       ),
