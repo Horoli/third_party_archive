@@ -1,7 +1,8 @@
 part of third_party_archive;
 
 class GetDashboard extends GetxController {
-  RestfulResult result = RestfulResult(statusCode: 0, message: '');
+  RxObjectMixin<RestfulResult> result =
+      RestfulResult(statusCode: 0, message: '').obs;
 
   RxString selectedTag = 'CRAFT'.obs;
 
@@ -34,7 +35,7 @@ class GetDashboard extends GetxController {
       List<String> getTagsLabel =
           getTags.map((tagObject) => tagObject['label'].toString()).toList();
 
-      result = RestfulResult(
+      result.value = RestfulResult(
           statusCode: rawData['statusCode'],
           message: rawData['message'] ?? '',
           // data: getTagsLabel,

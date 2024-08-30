@@ -25,6 +25,8 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   String selectedCategory = LABEL.THIRD_PARTY;
   // String selectedCategory = LABEL.NINJA_PRICE;
 
+  RestfulResult get result => getCtrlDashboard.result.value;
+
   @override
   Widget build(context) {
     return Scaffold(
@@ -34,15 +36,14 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
           : null,
       endDrawer: isPort ? buildEndDrawer() : null,
       // persistentFooterButtons: [buildFooter()],
-      body: FutureBuilder(
-        future: fetchDashboard(),
-        builder: (context, AsyncSnapshot<Map> snapshot) {
-          if (snapshot.data != null) {
-            tags = snapshot.data!['tags'];
-            leagues = snapshot.data!['leagues'];
-            currentPlayers = snapshot.data!['currentPlayers'];
+      body: GetX<GetDashboard>(
+        builder: (_) {
+          if (result.data != null) {
+            tags = result.data['tags'];
+            leagues = result.data['leagues'];
+            currentPlayers = result.data['currentPlayers'];
 
-            tabController.dispose();
+            // tabController.dispose();
             tabController = TabController(
               length: tags.length,
               vsync: this,
@@ -56,11 +57,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
           return Stack(
             children: [
               buildWallpaper(),
-              buildContents(snapshot),
-              // if (snapshot.connectionState == ConnectionState.waiting)
-              //   const Center(
-              //     child: CircularProgressIndicator(),
-              //   ).sizedBox(height: height, width: width),
+              buildContents(),
             ],
           );
         },
@@ -68,8 +65,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
     );
   }
 
-  Widget buildContents(AsyncSnapshot<Map> snapshot) =>
-      throw UnimplementedError();
+  Widget buildContents() => throw UnimplementedError();
 
   PreferredSizeWidget buildPortraitAppBar() {
     return AppBar(
@@ -179,6 +175,8 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   Widget buildMainContents() {
     switch (selectedCategory) {
       case (LABEL.THIRD_PARTY):
+        // print('inittttt $tags');
+        // return PageT(tags: tags);
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: TabBarView(
@@ -289,8 +287,14 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
       throw UnimplementedError('fetchTags unimplemented');
 
   @override
+  void initState() {
+    super.initState();
+    fetchDashboard();
+  }
+
+  @override
   void dispose() {
-    getCtrlDashboard.dispose();
+    // getCtrlDashboard.dispose();
     super.dispose();
   }
 }

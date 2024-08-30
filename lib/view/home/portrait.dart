@@ -14,7 +14,9 @@ class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
   String selectedCategory = LABEL.THIRD_PARTY;
 
   @override
-  Widget buildContents(AsyncSnapshot<Map> snapshot) {
+  Widget buildContents(
+      // AsyncSnapshot<Map> snapshot
+      ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: buildMainContents(),
@@ -29,7 +31,7 @@ class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
   @override
   Future<Map> fetchDashboard() async {
     await getCtrlDashboard.get();
-    return getCtrlDashboard.result.data;
+    return getCtrlDashboard.result.value.data;
   }
 
   @override

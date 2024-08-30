@@ -15,7 +15,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
   final ScrollController ctrlScroll = ScrollController();
 
   @override
-  Widget buildContents(AsyncSnapshot<Map> snapshot) {
+  Widget buildContents() {
     return Scrollbar(
       thumbVisibility: true,
       controller: ctrlScroll,
@@ -93,7 +93,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
   @override
   Future<Map> fetchDashboard() async {
     await getCtrlDashboard.get();
-    return getCtrlDashboard.result.data;
+    return getCtrlDashboard.result.value.data;
   }
 
   // TODO : empty place(for ad)
