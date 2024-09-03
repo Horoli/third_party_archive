@@ -23,7 +23,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
         controller: ctrlScroll,
         child: Center(
           child: SizedBox(
-            height: height * 1.1,
+            height: height * 1.15,
             child: Column(
               children: [
                 // header
@@ -62,7 +62,9 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                           // const Divider(),
                           const ChangeCalculator().expand(),
                           // const Divider(),
-                          buildAdPlace().expand()
+                          SingleChildScrollView(
+                            child: buildAdPlace().sizedBox(height: 600),
+                          ).sizedBox(height: 600),
                         ],
                       ),
                     ).expand()
