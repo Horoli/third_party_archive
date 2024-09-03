@@ -21,59 +21,62 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
       controller: ctrlScroll,
       child: SingleChildScrollView(
         controller: ctrlScroll,
-        child: Center(
-          child: SizedBox(
-            height: height * 1.15,
-            child: Column(
-              children: [
-                // header
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: setLeagues(),
-                ).sizedBox(height: height / 9),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: categorySelectors,
-                ),
-                // buildCategorySelector(),
-                const Divider(),
-                // contents
-                Row(
-                  children: [
-                    GetBuilder<GetDashboard>(
-                      builder: (_) => ListView(
-                        children: [
-                          if (selectedCategory == LABEL.THIRD_PARTY)
-                            ...buildTagList(),
-                          if (selectedCategory == LABEL.THIRD_PARTY)
-                            const Divider(),
-                          buildCurrentPlayer(),
-                        ],
-                      ),
-                    ).sizedBox(width: 200),
-                    const VerticalDivider(),
-                    buildMainContents().expand(flex: 5),
-                    const VerticalDivider(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          buildChaosDivineRatio(),
-                          // const Divider(),
-                          const ChangeCalculator().expand(),
-                          // const Divider(),
-                          SingleChildScrollView(
-                            child: buildAdPlace().sizedBox(height: 600),
-                          ).sizedBox(height: 600),
-                        ],
-                      ),
-                    ).expand()
-                  ],
-                ).sizedBox(width: landscapeWidth).expand(),
-                // footer
-                const Divider(),
-                buildFooter().sizedBox(height: height / 10)
-              ],
+        child: IntrinsicHeight(
+          child: Center(
+            child: SizedBox(
+              height: height * 1.1,
+              child: Column(
+                children: [
+                  // header
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: setLeagues(),
+                  ).sizedBox(height: height / 9),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: categorySelectors,
+                  ),
+                  // buildCategorySelector(),
+                  const Divider(),
+                  // contents
+                  Row(
+                    children: [
+                      GetBuilder<GetDashboard>(
+                        builder: (_) => ListView(
+                          children: [
+                            if (selectedCategory == LABEL.THIRD_PARTY)
+                              ...buildTagList(),
+                            if (selectedCategory == LABEL.THIRD_PARTY)
+                              const Divider(),
+                            buildCurrentPlayer(),
+                          ],
+                        ),
+                      ).sizedBox(width: 200),
+                      const VerticalDivider(),
+                      buildMainContents().expand(flex: 5),
+                      const VerticalDivider(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            buildChaosDivineRatio(),
+                            // const Divider(),
+                            const ChangeCalculator(),
+                            // const Divider(),
+                            const SizedBox(height: 8),
+                            SingleChildScrollView(
+                              child: buildAdPlace().sizedBox(height: 600),
+                            ).sizedBox(height: 600),
+                          ],
+                        ),
+                      ).expand()
+                    ],
+                  ).sizedBox(width: landscapeWidth).expand(),
+                  // footer
+                  const Divider(),
+                  buildFooter().sizedBox(height: height / 10)
+                ],
+              ),
             ),
           ),
         ),
