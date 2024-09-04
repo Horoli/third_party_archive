@@ -64,9 +64,9 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
                             const ChangeCalculator(),
                             // const Divider(),
                             const SizedBox(height: 8),
-                            SingleChildScrollView(
-                              child: buildAdPlace().sizedBox(height: 600),
-                            ).sizedBox(height: 600),
+                            // SingleChildScrollView(
+                            //   child: buildAdPlace().sizedBox(height: 600),
+                            // ).sizedBox(height: 600),
                           ],
                         ),
                       ).expand()
