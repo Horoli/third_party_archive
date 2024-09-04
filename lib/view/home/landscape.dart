@@ -24,7 +24,7 @@ class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
         child: IntrinsicHeight(
           child: Center(
             child: SizedBox(
-              height: height * 1.1,
+              height: height * 1.3,
               child: Column(
                 children: [
                   // header
