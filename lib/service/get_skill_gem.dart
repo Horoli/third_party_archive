@@ -130,7 +130,7 @@ class GetSkillGem extends GetxController {
       data: getData,
     );
 
-    print('info ${info.value.data.name}');
+    // print('info ${info.value.data.name}');
 
     update();
   }

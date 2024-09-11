@@ -105,13 +105,13 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
                 if (selectedGemTags.contains(selectedTag)) {
                   List<String> remove =
                       getSelectedGemTag.removeSelectedTag(selectedTag);
-                  print('selectedTag ${selectedGemTags}');
+                  // print('selectedTag ${selectedGemTags}');
                   await fetchBuilds(selectedGemTags: remove);
                   return;
                 }
                 List<String> get =
                     getSelectedGemTag.updateSelectedTag(selectedTag);
-                print('selectedTag ${selectedGemTags}');
+                // print('selectedTag ${selectedGemTags}');
 
                 await fetchBuilds(selectedGemTags: get);
               },
@@ -135,7 +135,7 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
            *TODO : onAnimationEnd가 종료된 후에 skillGems.length가
            * 왜 초기값으로 변하는지 확인할 것
            */
-          print('skillGems.length ${skillGems.length}');
+          // print('skillGems.length ${skillGems.length}');
           // print('tags $selectedGemTags');
           // await getSkillGem.getImage(name: skillGems[randomInt].name);
           await getSkillGem.getInfo(name: resultSkillGem);
