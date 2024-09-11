@@ -13,7 +13,7 @@ class PoeNinjaMap extends PoeNinja {
 
   factory PoeNinjaMap.fromMap({required Map item}) {
     return PoeNinjaMap(
-      chaosValue: item['chaosValue'],
+      chaosValue: double.parse(item['chaosValue'].toString()),
       mapTier: item['mapTier'],
       id: item['id'],
       name: item['name'],

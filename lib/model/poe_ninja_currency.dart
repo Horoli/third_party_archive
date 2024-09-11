@@ -10,8 +10,10 @@ class PoeNinjaCurrency extends PoeNinja {
   });
 
   factory PoeNinjaCurrency.fromMap({required Map item}) {
+    print('item[chaosEquivalent] ${item['chaosEquivalent']}');
+    print('item[chaosEquivalent] ${item['chaosEquivalent'].runtimeType}');
     return PoeNinjaCurrency(
-      chaosEquivalent: item['chaosEquivalent'],
+      chaosEquivalent: double.parse(item['chaosEquivalent'].toString()),
       id: item['id'],
       name: item['name'],
       icon: item['icon'],

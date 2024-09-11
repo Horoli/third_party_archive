@@ -11,7 +11,7 @@ class PoeNinjaFragment extends PoeNinja {
 
   factory PoeNinjaFragment.fromMap({required Map item}) {
     return PoeNinjaFragment(
-      chaosEquivalent: item['chaosEquivalent'],
+      chaosEquivalent: double.parse(item['chaosEquivalent'].toString()),
       id: item['id'],
       name: item['name'],
       icon: item['icon'],
