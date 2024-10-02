@@ -114,6 +114,8 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
                 // print('selectedTag ${selectedGemTags}');
 
                 await fetchBuilds(selectedGemTags: get);
+
+                scrollController.jumpTo(0);
               },
             );
           },
@@ -122,48 +124,122 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
     );
   }
 
+  ScrollController scrollController = ScrollController();
+
+  // TODO : layoutBuilder로 변경해서 maxWidth/displayItemLength로 itemWidth를 계산하도록 변경
+  double itemWidth = 80;
+  int displayItemLength = 5;
+
   Widget buildFortuneBar(List<SkillGem> skillGems) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         int randomInt = Fortune.randomInt(0, skillGems.length);
+        final math.Random random = math.Random();
+        // int randomInt = random.nextInt(skillGems.length);
+
+        await scrollController.animateTo(
+          (skillGems.length - 1).toDouble() * itemWidth,
+          duration: const Duration(milliseconds: 2500),
+          curve: Curves.easeInOut,
+        );
+
+        await scrollController.animateTo(
+          (randomInt).toDouble() * itemWidth,
+          duration: const Duration(milliseconds: 2500),
+          curve: Curves.easeInOut,
+        );
+
         resultSkillGem = skillGems[randomInt].name;
         ctrlRandomResult.add(randomInt);
+        await getSkillGem.getInfo(name: resultSkillGem);
       },
-      child: FortuneBar(
-        onAnimationEnd: () async {
-          /**
-           *TODO : onAnimationEnd가 종료된 후에 skillGems.length가
-           * 왜 초기값으로 변하는지 확인할 것
-           */
-          // print('skillGems.length ${skillGems.length}');
-          // print('tags $selectedGemTags');
-          // await getSkillGem.getImage(name: skillGems[randomInt].name);
-          await getSkillGem.getInfo(name: resultSkillGem);
-        },
-        // styleStrategy: AlternatingStyleStrategy(),
-        animateFirst: false,
-        selected: ctrlRandomResult.stream,
-        items: skillGems.map((item) {
-          switch (item.primaryAttribute) {
-            case 'strength':
-              {
-                return buildFortuneItem(item.name, Colors.red);
-              }
-            case 'dexterity':
-              {
-                return buildFortuneItem(item.name, Colors.green);
-              }
-            case 'intelligence':
-              {
-                return buildFortuneItem(item.name, Colors.blue);
-              }
-          }
+      child: skillGems.isEmpty
+          ? Container(
+              child: Text('포함된 젬이 없습니다'),
+            )
+          : Container(
+              height: 100,
+              width: double.infinity,
+              color: Colors.grey,
+              child: ListView.builder(
+                cacheExtent: 2 * itemWidth,
+                controller: scrollController,
+                scrollDirection: Axis.horizontal,
+                itemCount: skillGems.length + displayItemLength - 1,
+                itemBuilder: (context, index) {
+                  // 앞뒤로 2개씩 더 추가해서 무한 스크롤처럼 보이게 함
+                  // ex : 198, 199, 0, 1, 2, 3, 4, ... 200, 0, 1
+                  index = (index - ((displayItemLength - 1) ~/ 2)) %
+                      skillGems.length;
 
-          return FortuneItem(
-            child: Text(item.name),
-          );
-        }).toList(),
-      ),
+                  switch (skillGems[index].primaryAttribute) {
+                    case 'strength':
+                      {
+                        return Container(
+                          width: itemWidth,
+                          child: Center(child: Text(skillGems[index].name)),
+                          color: Colors.red,
+                        );
+                      }
+                    case 'dexterity':
+                      {
+                        return Container(
+                          width: itemWidth,
+                          child: Center(child: Text(skillGems[index].name)),
+                          color: Colors.green,
+                        );
+                      }
+                    case 'intelligence':
+                      {
+                        return Container(
+                          width: itemWidth,
+                          child: Center(child: Text(skillGems[index].name)),
+                          color: Colors.blue,
+                        );
+                      }
+                  }
+                  return Container(
+                    width: itemWidth,
+                    child: Center(child: Text(skillGems[index].name)),
+                  );
+                },
+              ),
+            ),
+      // child: FortuneBar(
+      //   onAnimationEnd: () async {
+      //     /**
+      //      *TODO : onAnimationEnd가 종료된 후에 skillGems.length가
+      //      * 왜 초기값으로 변하는지 확인할 것
+      //      */
+      //     // print('skillGems.length ${skillGems.length}');
+      //     // print('tags $selectedGemTags');
+      //     // await getSkillGem.getImage(name: skillGems[randomInt].name);
+      //     await getSkillGem.getInfo(name: resultSkillGem);
+      //   },
+      //   // styleStrategy: AlternatingStyleStrategy(),
+      //   animateFirst: false,
+      //   selected: ctrlRandomResult.stream,
+      //   items: skillGems.map((item) {
+      //     switch (item.primaryAttribute) {
+      //       case 'strength':
+      //         {
+      //           return buildFortuneItem(item.name, Colors.red);
+      //         }
+      //       case 'dexterity':
+      //         {
+      //           return buildFortuneItem(item.name, Colors.green);
+      //         }
+      //       case 'intelligence':
+      //         {
+      //           return buildFortuneItem(item.name, Colors.blue);
+      //         }
+      //     }
+
+      //     return FortuneItem(
+      //       child: Text(item.name),
+      //     );
+      //   }).toList(),
+      // ),
     );
   }
 

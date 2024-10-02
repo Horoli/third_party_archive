@@ -22,8 +22,9 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   List<PathOfExileLeague> leagues = [];
   int currentPlayers = 0;
   String appBarLabel = '';
-  String selectedCategory = LABEL.THIRD_PARTY;
+  // String selectedCategory = LABEL.THIRD_PARTY;
   // String selectedCategory = LABEL.NINJA_PRICE;
+  String selectedCategory = LABEL.RANDOM_BUILD;
 
   RestfulResult get result => getCtrlDashboard.result.value;
 
