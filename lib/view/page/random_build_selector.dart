@@ -9,15 +9,22 @@ class PageRandomBuildSelector extends StatefulWidget {
   PageRandomBuildSelectorState createState() => PageRandomBuildSelectorState();
 }
 
-class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
+class PageRandomBuildSelectorState extends State<PageRandomBuildSelector>
+    with SingleTickerProviderStateMixin {
   double get height => MediaQuery.of(context).size.height;
   double get width => MediaQuery.of(context).size.width;
   final GetSkillGem getSkillGem = Get.put(GetSkillGem());
   final GetSelectedGemTag getSelectedGemTag = Get.put(GetSelectedGemTag());
 
+  // animationController 관련
+  int selectedSkillGemIndex = 0;
+  late ScrollController ctrlScroll;
+  late AnimationController ctrlAnimation;
+  late Animation<Color?> colorTween;
+
   String resultSkillGem = '';
 
-  StreamController<int> ctrlRandomResult = StreamController<int>.broadcast();
+  late StreamController<int> $randomResult;
   RestfulResult get info => getSkillGem.info.value;
   List<String> get gemTagList => getSelectedGemTag.gemTagList.value;
 
@@ -39,13 +46,13 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
                         children: [
                           Column(
                             children: [
-                              Divider(),
+                              const Divider(),
                               Text(
                                   '액티브 스킬 젬 : ${getSkillGem.result.value.data.length}'),
-                              Divider(),
-                              buildFortuneBar(getSkillGem.result.value.data),
-                              Text('위 막대를 누르면 무작위로 선택됩니다.'),
-                              // Container().expand()
+                              const Divider(),
+                              buildRandomRoulette(
+                                  getSkillGem.result.value.data),
+                              const Text('위 막대를 누르면 무작위로 선택됩니다.'),
                             ],
                           ).expand(),
                         ],
@@ -54,7 +61,7 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
                   ).expand(),
                 ],
               ).expand(),
-              VerticalDivider(),
+              const VerticalDivider(),
               GetX<GetSkillGem>(
                 builder: (_) {
                   return info.data == null
@@ -105,17 +112,15 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
                 if (selectedGemTags.contains(selectedTag)) {
                   List<String> remove =
                       getSelectedGemTag.removeSelectedTag(selectedTag);
-                  // print('selectedTag ${selectedGemTags}');
                   await fetchBuilds(selectedGemTags: remove);
                   return;
                 }
                 List<String> get =
                     getSelectedGemTag.updateSelectedTag(selectedTag);
-                // print('selectedTag ${selectedGemTags}');
 
                 await fetchBuilds(selectedGemTags: get);
 
-                scrollController.jumpTo(0);
+                ctrlScroll.jumpTo(0);
               },
             );
           },
@@ -124,139 +129,123 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
     );
   }
 
-  ScrollController scrollController = ScrollController();
-
   // TODO : layoutBuilder로 변경해서 maxWidth/displayItemLength로 itemWidth를 계산하도록 변경
-  double itemWidth = 80;
-  int displayItemLength = 5;
+  Widget buildRandomRoulette(List<SkillGem> skillGems) {
+    return LayoutBuilder(
+      builder: (context, BoxConstraints constraints) {
+        int displayItemLength = 5;
+        double itemWidth = constraints.maxWidth / displayItemLength;
 
-  Widget buildFortuneBar(List<SkillGem> skillGems) {
-    return GestureDetector(
-      onTap: () async {
-        int randomInt = Fortune.randomInt(0, skillGems.length);
-        final math.Random random = math.Random();
-        // int randomInt = random.nextInt(skillGems.length);
+        return GestureDetector(
+          onTap: () async => await randomGestureAction(
+            skillGems,
+            itemWidth,
+          ),
+          child: skillGems.isEmpty
+              ? const Center(child: Text('포함된 젬이 없습니다'))
+              : StreamBuilder(
+                  stream: $randomResult.stream,
+                  builder: (context, AsyncSnapshot<int> snapshot) {
+                    return Container(
+                      height: 100,
+                      width: double.infinity,
+                      color: Colors.grey,
+                      child: ListView.builder(
+                        cacheExtent: 2 * itemWidth,
+                        controller: ctrlScroll,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: skillGems.length + displayItemLength - 1,
+                        itemBuilder: (context, index) {
+                          // 앞뒤로 2개씩 더 추가해서 무한 스크롤처럼 보이게 함
+                          // ex : 198, 199, 0, 1, 2, 3, 4, ... 200, 0, 1
+                          index = (index - ((displayItemLength - 1) ~/ 2)) %
+                              skillGems.length;
 
-        await scrollController.animateTo(
-          (skillGems.length - 1).toDouble() * itemWidth,
-          duration: const Duration(milliseconds: 2500),
-          curve: Curves.easeInOut,
+                          bool isSelected = snapshot.data == index;
+
+                          return buildSkillGemTile(
+                            itemWidth,
+                            skillGems[index],
+                            isSelected,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
         );
-
-        await scrollController.animateTo(
-          (randomInt).toDouble() * itemWidth,
-          duration: const Duration(milliseconds: 2500),
-          curve: Curves.easeInOut,
-        );
-
-        resultSkillGem = skillGems[randomInt].name;
-        ctrlRandomResult.add(randomInt);
-        await getSkillGem.getInfo(name: resultSkillGem);
       },
-      child: skillGems.isEmpty
-          ? Container(
-              child: Text('포함된 젬이 없습니다'),
-            )
-          : Container(
-              height: 100,
-              width: double.infinity,
-              color: Colors.grey,
-              child: ListView.builder(
-                cacheExtent: 2 * itemWidth,
-                controller: scrollController,
-                scrollDirection: Axis.horizontal,
-                itemCount: skillGems.length + displayItemLength - 1,
-                itemBuilder: (context, index) {
-                  // 앞뒤로 2개씩 더 추가해서 무한 스크롤처럼 보이게 함
-                  // ex : 198, 199, 0, 1, 2, 3, 4, ... 200, 0, 1
-                  index = (index - ((displayItemLength - 1) ~/ 2)) %
-                      skillGems.length;
-
-                  switch (skillGems[index].primaryAttribute) {
-                    case 'strength':
-                      {
-                        return Container(
-                          width: itemWidth,
-                          child: Center(child: Text(skillGems[index].name)),
-                          color: Colors.red,
-                        );
-                      }
-                    case 'dexterity':
-                      {
-                        return Container(
-                          width: itemWidth,
-                          child: Center(child: Text(skillGems[index].name)),
-                          color: Colors.green,
-                        );
-                      }
-                    case 'intelligence':
-                      {
-                        return Container(
-                          width: itemWidth,
-                          child: Center(child: Text(skillGems[index].name)),
-                          color: Colors.blue,
-                        );
-                      }
-                  }
-                  return Container(
-                    width: itemWidth,
-                    child: Center(child: Text(skillGems[index].name)),
-                  );
-                },
-              ),
-            ),
-      // child: FortuneBar(
-      //   onAnimationEnd: () async {
-      //     /**
-      //      *TODO : onAnimationEnd가 종료된 후에 skillGems.length가
-      //      * 왜 초기값으로 변하는지 확인할 것
-      //      */
-      //     // print('skillGems.length ${skillGems.length}');
-      //     // print('tags $selectedGemTags');
-      //     // await getSkillGem.getImage(name: skillGems[randomInt].name);
-      //     await getSkillGem.getInfo(name: resultSkillGem);
-      //   },
-      //   // styleStrategy: AlternatingStyleStrategy(),
-      //   animateFirst: false,
-      //   selected: ctrlRandomResult.stream,
-      //   items: skillGems.map((item) {
-      //     switch (item.primaryAttribute) {
-      //       case 'strength':
-      //         {
-      //           return buildFortuneItem(item.name, Colors.red);
-      //         }
-      //       case 'dexterity':
-      //         {
-      //           return buildFortuneItem(item.name, Colors.green);
-      //         }
-      //       case 'intelligence':
-      //         {
-      //           return buildFortuneItem(item.name, Colors.blue);
-      //         }
-      //     }
-
-      //     return FortuneItem(
-      //       child: Text(item.name),
-      //     );
-      //   }).toList(),
-      // ),
     );
   }
 
-  FortuneItem buildFortuneItem(String name, Color backgroundcolor) {
-    return FortuneItem(
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: backgroundcolor,
-        child: Center(child: Text(name)),
-      ),
-    );
+  Widget buildSkillGemTile(
+    double width,
+    SkillGem skillGem,
+    bool isSelected,
+  ) {
+    Color? gemColor;
+
+    switch (skillGem.primaryAttribute) {
+      case 'strength':
+        gemColor = Colors.red;
+        break;
+      case 'dexterity':
+        gemColor = Colors.green;
+        break;
+      case 'intelligence':
+        gemColor = Colors.blue;
+        break;
+    }
+
+    return isSelected
+        ? AnimatedBuilder(
+            animation: colorTween,
+            builder: (BuildContext context, Widget? child) {
+              return Container(
+                color: colorTween.value,
+                height: 100,
+                width: width,
+                child: Center(
+                  child: Text(
+                    skillGem.name,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            },
+          )
+        : Container(
+            color: gemColor,
+            height: 100,
+            width: width,
+            child: Center(
+              child: Text(
+                skillGem.name,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
   }
 
   @override
   void initState() {
     super.initState();
+    initController();
+  }
+
+  void initController() {
+    ctrlAnimation = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2500),
+    )..repeat(reverse: true);
+
+    colorTween = ColorTween(
+      begin: Colors.orange[500],
+      end: Colors.white,
+    ).animate(ctrlAnimation);
+
+    ctrlScroll = ScrollController();
+    $randomResult = StreamController<int>.broadcast();
   }
 
   Future<List<SkillGem>> fetchBuilds({List<String>? selectedGemTags}) async {
@@ -265,9 +254,37 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector> {
     return getSkillGem.result.value.data;
   }
 
+  Future<void> randomGestureAction(
+    List<SkillGem> skillGems,
+    double itemWidth,
+  ) async {
+    final math.Random random = math.Random();
+    int randomInt = random.nextInt(skillGems.length);
+
+    await ctrlScroll.animateTo(
+      (skillGems.length - 1).toDouble() * itemWidth,
+      duration: const Duration(milliseconds: 2500),
+      curve: Curves.easeInOut,
+    );
+
+    await ctrlScroll.animateTo(
+      (randomInt).toDouble() * itemWidth,
+      duration: const Duration(milliseconds: 2500),
+      curve: Curves.easeInOut,
+    );
+
+    $randomResult.add(randomInt);
+    resultSkillGem = skillGems[randomInt].name;
+    selectedSkillGemIndex = randomInt;
+    await getSkillGem.getInfo(name: resultSkillGem);
+  }
+
   @override
   void dispose() {
     getSelectedGemTag.clearSelectedTag();
+    ctrlAnimation.dispose();
+    ctrlScroll.dispose();
+    $randomResult.close();
     super.dispose();
   }
 }
