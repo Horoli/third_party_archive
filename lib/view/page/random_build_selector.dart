@@ -17,7 +17,6 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector>
   final GetSelectedGemTag getSelectedGemTag = Get.put(GetSelectedGemTag());
 
   // animationController 관련
-  int selectedSkillGemIndex = 0;
   late ScrollController ctrlScroll;
   late AnimationController ctrlAnimation;
   late Animation<Color?> colorTween;
@@ -202,9 +201,17 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector>
             animation: colorTween,
             builder: (BuildContext context, Widget? child) {
               return Container(
-                color: colorTween.value,
+                // color: colorTween.value,
+                // color: gemColor,
                 height: 100,
                 width: width,
+                decoration: BoxDecoration(
+                  color: gemColor,
+                  border: Border.all(
+                    width: 5,
+                    color: colorTween.value!,
+                  ),
+                ),
                 child: Center(
                   child: Text(
                     skillGem.name,
@@ -275,7 +282,7 @@ class PageRandomBuildSelectorState extends State<PageRandomBuildSelector>
 
     $randomResult.add(randomInt);
     resultSkillGem = skillGems[randomInt].name;
-    selectedSkillGemIndex = randomInt;
+    // selectedSkillGemIndex = randomInt;
     await getSkillGem.getInfo(name: resultSkillGem);
   }
 
