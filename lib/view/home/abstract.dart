@@ -24,7 +24,8 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
   String appBarLabel = '';
   // String selectedCategory = LABEL.THIRD_PARTY;
   // String selectedCategory = LABEL.NINJA_PRICE;
-  String selectedCategory = LABEL.RANDOM_BUILD;
+  // String selectedCategory = LABEL.RANDOM_BUILD;
+  String selectedCategory = LABEL.SCARAB_TABLE;
 
   RestfulResult get result => getCtrlDashboard.result.value;
 
@@ -118,7 +119,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
         buildSelectCategoryButton(label: LABEL.THIRD_PARTY),
         if (!isPort) buildSelectCategoryButton(label: LABEL.RANDOM_BUILD),
         buildSelectCategoryButton(label: LABEL.NINJA_PRICE),
-        // buildSelectCategoryButton(label: LABEL.RECEIVING_DAMAGE),
+        buildSelectCategoryButton(label: LABEL.SCARAB_TABLE),
       ];
 
   Widget buildSelectCategoryButton({
@@ -194,6 +195,8 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
         );
       case (LABEL.RECEIVING_DAMAGE):
         return const PageReceivingDamageCalculator();
+      case (LABEL.SCARAB_TABLE):
+        return const PageScarabPriceTable();
     }
     return Container();
   }
