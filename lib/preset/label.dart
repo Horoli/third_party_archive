@@ -22,3 +22,6 @@ const String FRAGMENT = 'Fragment';
 const String SCARAB = 'Scarab';
 const String MAP = 'Map';
 const String INVITATION = 'invitation';
+
+const String BUY = '구매';
+const String SELL = '판매';

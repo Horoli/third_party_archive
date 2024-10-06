@@ -8,7 +8,7 @@ class ChangeCalculator extends StatefulWidget {
 }
 
 class ChangeCalculatorState extends State<ChangeCalculator> {
-  bool isSell = true;
+  String isSell = LABEL.BUY;
   TextEditingController ctrlItemPrice = TextEditingController();
   TextEditingController ctrlPayedDiv = TextEditingController();
   TextEditingController ctrlChangeChaos = TextEditingController();
@@ -25,9 +25,9 @@ class ChangeCalculatorState extends State<ChangeCalculator> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              buildTypeSelector('buy'),
+              buildTypeSelector(LABEL.BUY),
               const Padding(padding: EdgeInsets.all(4)),
-              buildTypeSelector('sell'),
+              buildTypeSelector(LABEL.SELL),
             ],
           ),
           Row(
@@ -58,33 +58,34 @@ class ChangeCalculatorState extends State<ChangeCalculator> {
           ),
           Row(
             children: [
-              Text(isSell ? '받을 돈 : ' : '줄 돈 : '),
+              Text(isSell != LABEL.BUY ? '받을 돈 : ' : '줄 돈 : '),
               GImageDivineOrb,
               buildDivineOrbTextField(
-                  focusNode: payedDivFocus,
-                  controller: ctrlPayedDiv,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '값을 입력해주세요';
-                    }
+                focusNode: payedDivFocus,
+                controller: ctrlPayedDiv,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return '값을 입력해주세요';
+                  }
 
-                    if (value.contains(".")) {
-                      return '소수점을 포함할 수 없습니다';
-                    }
+                  if (value.contains(".")) {
+                    return '소수점을 포함할 수 없습니다';
+                  }
 
-                    return null;
-                  },
-                  onChanged: (value) {
-                    if (ctrlItemPrice.text == '' ||
-                        ctrlPayedDiv.text == '' ||
-                        value.contains(".")) {
-                      return;
-                    }
-                    changeCal();
-                  },
-                  onEditingComplete: () {
-                    FocusScope.of(context).requestFocus(itemPriceFocus);
-                  }).expand(),
+                  return null;
+                },
+                onChanged: (value) {
+                  if (ctrlItemPrice.text == '' ||
+                      ctrlPayedDiv.text == '' ||
+                      value.contains(".")) {
+                    return;
+                  }
+                  changeCal();
+                },
+                onEditingComplete: () {
+                  FocusScope.of(context).requestFocus(itemPriceFocus);
+                },
+              ).expand(),
             ],
           ),
           Row(
@@ -104,14 +105,14 @@ class ChangeCalculatorState extends State<ChangeCalculator> {
 
   Widget buildTypeSelector(String type) {
     return ElevatedButton(
-      style: !isSell
+      style: isSell == type
           ? ButtonStyle(
               backgroundColor: WidgetStateProperty.all(GSelectedButtonColor),
             )
           : null,
       onPressed: () {
         setState(() {
-          isSell = type == 'buy' ? false : true;
+          isSell = type;
         });
       },
       child: Text(type),
