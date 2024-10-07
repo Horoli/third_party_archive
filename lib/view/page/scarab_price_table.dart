@@ -4,7 +4,7 @@ class PageScarabPriceTable extends StatefulWidget {
   const PageScarabPriceTable({super.key});
 
   @override
-  State<PageScarabPriceTable> createState() => PageScarabPriceTableState();
+  PageScarabPriceTableState createState() => PageScarabPriceTableState();
 }
 
 class PageScarabPriceTableState extends State<PageScarabPriceTable> {
@@ -15,6 +15,9 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       : 'https://${URL.FORIEGN_URL}/v1/poe_ninja/image';
 
   Map<String, List<PoeNinjaItem>> get data => getScarab.result.value.data;
+
+  String hoverdString = '';
+  Offset mousePosition = Offset.zero;
   @override
   Widget build(BuildContext context) {
     return GetX<GetScarabTable>(
@@ -32,6 +35,18 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                   top: getTopPosition(division),
                   left: getLeftPosition(division),
                 ),
+            if (hoverdString != '')
+              Positioned(
+                // top: 0,
+                // left: 0,
+                top: mousePosition.dy,
+                left: mousePosition.dx + 10,
+                child: Container(
+                  child: Text(hoverdString),
+                  width: 200,
+                  height: 50,
+                ),
+              ),
           ],
         );
       },
@@ -43,7 +58,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     required double top,
     required double left,
   }) {
-    double width = 75;
+    double width = 80;
     double height = 55;
     return Positioned(
       top: top,
@@ -65,8 +80,35 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Image.network('$imageUrl/${scarab.icon}').expand(),
-                    Text('${scarab.chaosValue}').expand(),
+                    HoverButton(
+                      hoverChild: Text(scarab.name),
+                      hoverWidth: 200,
+                      onHover: (event) => setState(() {
+                        RenderBox renderbox =
+                            context.findRenderObject() as RenderBox;
+
+                        mousePosition = renderbox.globalToLocal(event.position);
+                      }),
+                      onEnter: (event) => setState(() {
+                        hoverdString = scarab.name;
+                      }),
+                      onExit: (event) => setState(() => hoverdString = ''),
+                      child: Stack(
+                        children: [
+                          Opacity(
+                            opacity: 0.7,
+                            child: Image.network(
+                              '$imageUrl/${scarab.icon}',
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: Text('${scarab.chaosValue}'),
+                          ),
+                        ],
+                      ),
+                    ).expand()
                   ],
                 ),
               ),
