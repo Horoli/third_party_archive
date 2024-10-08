@@ -1,5 +1,6 @@
 part of third_party_archive;
 
+// TODO : unused class / legacy
 class HoverButton extends StatefulWidget {
   Widget child;
   Widget hoverChild;
