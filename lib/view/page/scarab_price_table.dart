@@ -14,41 +14,146 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       ? 'http://${URL.LOCAL_URL}/v1/poe_ninja/image'
       : 'https://${URL.FORIEGN_URL}/v1/poe_ninja/image';
 
-  Map<String, List<PoeNinjaItem>> get data => getScarab.result.value.data;
+  // Map<String, List<PoeNinjaItem>> get data => getScarab.result.value.data;
+  List<PoeNinjaItem> get rawData => getScarab.resultRaw.value.data;
+  List<PoeNinjaItem> selectableItems = [];
+
+  Map<int, PoeNinjaItem> scarabLocation = LABEL.SCARAB_LOCATION;
+
+  int selectedGridIndex = -1;
 
   String hoverdString = '';
   Offset mousePosition = Offset.zero;
+
   @override
   Widget build(BuildContext context) {
     return GetX<GetScarabTable>(
       builder: (_) {
-        if (getScarab.result.value.data == null) {
+        if (getScarab.resultRaw.value.data == null) {
           return const Center(child: CircularProgressIndicator());
         }
-
-        return Stack(
+        return Column(
           children: [
-            for (String division in LABEL.SCARAB_DIVISION)
-              if (shouldDisplayScarab(division))
-                buildScarab(
-                  data[division]!,
-                  top: getTopPosition(division),
-                  left: getLeftPosition(division),
-                ),
-            if (hoverdString != '')
-              Positioned(
-                // top: 0,
-                // left: 0,
-                top: mousePosition.dy,
-                left: mousePosition.dx + 10,
-                child: Container(
-                  child: Text(hoverdString),
-                  width: 200,
-                  height: 50,
-                ),
+            if (kDebugMode)
+              Row(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Map<String, dynamic> asd =
+                            scarabLocation.map((key, value) {
+                          return MapEntry<String, dynamic>(
+                              key.toString(), value.map);
+                        });
+
+                        print(jsonEncode(asd));
+                      },
+                      child: Text('print')),
+                ],
               ),
+            Row(
+              children: [
+                GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 10,
+                  ),
+                  itemCount: 100,
+                  itemBuilder: (context, index) {
+                    print(
+                        'scarabLocation[index]?.name ${scarabLocation[index]?.name}');
+                    // TODO : DebugMode일때 보여주는 tile
+                    if (kDebugMode) {
+                      return TextButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all(
+                            Colors.white,
+                          ),
+                        ),
+                        child: Text(
+                          scarabLocation[index]?.name ?? index.toString(),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            scarabLocation[index] = selectableItems[0];
+                            selectableItems.removeAt(0);
+                          });
+                        },
+                        onLongPress: () {
+                          setState(() {
+                            selectableItems.add(scarabLocation[index]!);
+                            selectableItems
+                                .sort((a, b) => a.name.compareTo(b.name));
+                            scarabLocation.remove(index);
+                          });
+                        },
+                      );
+                    }
+                    // TODO : releaseMode일때 보여주는 tile
+                    return !scarabLocation.containsKey(index)
+                        ? Container()
+                        : Tooltip(
+                            message: scarabLocation[index]?.name ?? '',
+                            child: Stack(
+                              children: [
+                                Image.network(
+                                  '$imageUrl/${scarabLocation[index]?.icon}',
+                                ),
+                                Text(
+                                  scarabLocation[index]
+                                          ?.chaosValue
+                                          .toString() ??
+                                      '',
+                                ),
+                              ],
+                            ),
+                          );
+                  },
+                ).expand(),
+                if (kDebugMode)
+                  ListView.builder(
+                    itemCount: selectableItems.length,
+                    itemBuilder: (context, index) {
+                      PoeNinjaItem item = selectableItems[index];
+                      return ListTile(
+                        leading: Image.network('$imageUrl/${item.icon}'),
+                        title: Text(item.name,
+                            style: TextStyle(
+                              color: index == 0 ? Colors.amber : Colors.white,
+                              fontWeight: index == 0
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            )),
+                        subtitle: Text(item.chaosValue.toString()),
+                      );
+                    },
+                  ).expand(),
+              ],
+            ).expand(),
           ],
         );
+
+        // return Stack(
+        //   children: [
+        // for (String division in LABEL.SCARAB_DIVISION)
+        //   if (shouldDisplayScarab(division))
+        //     buildScarab(
+        //       data[division]!,
+        //       top: getTopPosition(division),
+        //       left: getLeftPosition(division),
+        //     ),
+        // if (hoverdString != '')
+        //   Positioned(
+        //     // top: 0,
+        //     // left: 0,
+        //     top: mousePosition.dy,
+        //     left: mousePosition.dx + 10,
+        //     child: Container(
+        //       child: Text(hoverdString),
+        //       width: 200,
+        //       height: 50,
+        //     ),
+        //   ),
+        // ],
+        // );
       },
     );
   }
@@ -78,39 +183,23 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                   ),
                 ),
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    HoverButton(
-                      hoverChild: Text(scarab.name),
-                      hoverWidth: 200,
-                      onHover: (event) => setState(() {
-                        RenderBox renderbox =
-                            context.findRenderObject() as RenderBox;
-
-                        mousePosition = renderbox.globalToLocal(event.position);
-                      }),
-                      onEnter: (event) => setState(() {
-                        hoverdString = scarab.name;
-                      }),
-                      onExit: (event) => setState(() => hoverdString = ''),
-                      child: Stack(
-                        children: [
-                          Opacity(
-                            opacity: 0.7,
-                            child: Image.network(
-                              '$imageUrl/${scarab.icon}',
-                            ),
+                child: Tooltip(
+                    message: scarab.name,
+                    child: Stack(
+                      children: [
+                        Opacity(
+                          opacity: 0.7,
+                          child: Image.network(
+                            '$imageUrl/${scarab.icon}',
                           ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Text('${scarab.chaosValue}'),
-                          ),
-                        ],
-                      ),
-                    ).expand()
-                  ],
-                ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Text('${scarab.chaosValue}'),
+                        ),
+                      ],
+                    )),
               ),
             )
             .toList(),
@@ -322,7 +411,23 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     return 1200; // 기본값
   }
 
-  Future<RestfulResult> fetch() async {
-    return await getScarab.get();
+  Future<void> fetch() async {
+    // return await getScarab.get();
+    RestfulResult getRawResult = await getScarab.getRaw();
+    setState(() {
+      // selectableItems = getRawResult.data;
+
+      selectableItems = getRawResult.data.where((se) {
+        return LABEL.SCARAB_LOCATION.values.any((e) {
+          return e.name != se.name;
+        });
+      }).toList();
+
+      // selectableItems.removeWhere((element) {
+      //   return LABEL.SCARAB_LOCATION.values.contains(element.name);
+      // });
+
+      selectableItems.sort((a, b) => a.name.compareTo(b.name));
+    });
   }
 }

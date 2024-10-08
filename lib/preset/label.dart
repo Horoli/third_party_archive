@@ -1,3 +1,5 @@
+import 'package:third_party_archive/third_party_archive.dart';
+
 const String APP_TITLE = 'ThirdPartyArchive';
 
 const String TAG_CRAFT = 'CRAFT';
@@ -90,3 +92,85 @@ const List<String> SCARAB_DIVISION = [
   // 'scarab of radiant storms',
   // 'scarab of bisection',
 ];
+
+final Map<int, PoeNinjaItem> SCARAB_LOCATION = {
+  "1": {
+    "chaosValue": 0.9,
+    "id": 113715,
+    "name": "Abyss Scarab",
+    "icon": "3950aa1074a16e81e7026b01bea94224f63e3c90d0a16fb3e4a3a2b7f7346b8a"
+  },
+  "12": {
+    "chaosValue": 0.9,
+    "id": 113715,
+    "name": "Abyss Scarab",
+    "icon": "3950aa1074a16e81e7026b01bea94224f63e3c90d0a16fb3e4a3a2b7f7346b8a"
+  },
+  "23": {
+    "chaosValue": 1,
+    "id": 113743,
+    "name": "Abyss Scarab of Edifice",
+    "icon": "023427d181260e08aa813aacb071bddfd3799d1c4078eac088bbbd1e67c39898"
+  },
+  "34": {
+    "chaosValue": 0.91,
+    "id": 113731,
+    "name": "Abyss Scarab of Multitudes",
+    "icon": "b6e03832012cddfcd4d3143aa148395aac8f379a023de5dead3da8febd8fa290"
+  },
+  "44": {
+    "chaosValue": 1.57,
+    "id": 117977,
+    "name": "Abyss Scarab of Profound Depth",
+    "icon": "9a6d62155447351cd9f4c477a167fcbcebcdd94e80e8aeacd682f837ff90b22c"
+  },
+  "43": {
+    "chaosValue": 4.05,
+    "id": 113728,
+    "name": "Ambush Scarab",
+    "icon": "375758149049af493c2ca226ae673a5630b4ee57dfb18a42cf877a78af455fe4"
+  },
+  "33": {
+    "chaosValue": 224.91,
+    "id": 113826,
+    "name": "Ambush Scarab of Containment",
+    "icon": "ef200d681b6c0c7cc6e230ee5a05026134486d5284e62d9c0d275e73f9668259"
+  },
+  "32": {
+    "chaosValue": 11.53,
+    "id": 113709,
+    "name": "Ambush Scarab of Discernment",
+    "icon": "e1c40785e872578fa02d53029502854fad2edcb4ccef170ad7d135b42d0012c1"
+  },
+  "42": {
+    "chaosValue": 0.9,
+    "id": 113738,
+    "name": "Ambush Scarab of Hidden Compartments",
+    "icon": "492b2d9af02e0555b44dc709cec7254e6c90e912462349ca8b42d9bf4fc6934d"
+  },
+  "52": {
+    "chaosValue": 0.9,
+    "id": 113711,
+    "name": "Ambush Scarab of Potency",
+    "icon": "fcff69d8fda6a69fabd847ed1a8693f82aea2504b2b875c383b3c522a9e86524"
+  },
+  "53": {
+    "chaosValue": 0.94,
+    "id": 113683,
+    "name": "Anarchy Scarab",
+    "icon": "0cae3cac26eb0755292ee4ea474b38f0d15c0297cf4d2f95120b054d230b3e63"
+  },
+  "73": {
+    "chaosValue": 1.67,
+    "id": 113729,
+    "name": "Anarchy Scarab of Gigantification",
+    "icon": "cee2fc3bedba84fbe7e9ca2d9eaf7763d141bb25cbee12221b908967c4531975"
+  },
+  "62": {
+    "chaosValue": 1,
+    "id": 113765,
+    "name": "Anarchy Scarab of Partnership",
+    "icon": "2b98174810ecf9fef56561a687b59fadd590ecaa984c09f29f82930db0b66d1a"
+  }
+}.map((key, value) =>
+    MapEntry(int.parse(key), PoeNinjaItem.fromMap(item: value)));

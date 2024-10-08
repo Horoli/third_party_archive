@@ -4,6 +4,9 @@ class GetScarabTable extends GetxController {
   RxObjectMixin<RestfulResult> result =
       RestfulResult(statusCode: 0, message: '').obs;
 
+  RxObjectMixin<RestfulResult> resultRaw =
+      RestfulResult(statusCode: 0, message: '').obs;
+
   Future<RestfulResult> get() async {
     Uri uri = URL.IS_LOCAL
         ? Uri.http(URL.LOCAL_URL, URL.POE_NINJA_SCARAB)
@@ -22,6 +25,7 @@ class GetScarabTable extends GetxController {
     //     .toList();
 
     Map<String, List<PoeNinjaItem>> mapOfScarab = {};
+    print('rawData : $rawData');
 
     for (var data in List.from(rawData['data'])) {
       PoeNinjaItem scarab = PoeNinjaItem.fromMap(item: data);
@@ -59,5 +63,34 @@ class GetScarabTable extends GetxController {
 
     update();
     return result.value;
+  }
+
+  Future<RestfulResult> getRaw() async {
+    Uri uri = URL.IS_LOCAL
+        ? Uri.http(URL.LOCAL_URL, URL.POE_NINJA_SCARAB)
+        : Uri.https(URL.FORIEGN_URL, URL.POE_NINJA_SCARAB);
+    Map<String, String> headers = {};
+
+    http.Response rep =
+        await http.get(uri, headers: headers).catchError((error) {
+      throw error;
+    });
+
+    Map rawData = jsonDecode(rep.body);
+
+    List<PoeNinjaItem> scarabs = List.from(rawData['data'])
+        .map((item) => PoeNinjaItem.fromMap(item: item))
+        .toList();
+
+    // Map<String, List<PoeNinjaItem>> mapOfScarab = {};
+
+    resultRaw.value = RestfulResult(
+      statusCode: rawData['statusCode'] ?? '',
+      message: rawData['message'] ?? '',
+      data: scarabs,
+    );
+
+    update();
+    return resultRaw.value;
   }
 }
