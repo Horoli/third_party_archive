@@ -418,10 +418,12 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       // selectableItems = getRawResult.data;
 
       selectableItems = getRawResult.data.where((se) {
-        return LABEL.SCARAB_LOCATION.values.any((e) {
-          return e.name != se.name;
+        return !LABEL.SCARAB_LOCATION.values.any((e) {
+          return e.name == se.name;
         });
       }).toList();
+
+      print(selectableItems.length);
 
       // selectableItems.removeWhere((element) {
       //   return LABEL.SCARAB_LOCATION.values.contains(element.name);
