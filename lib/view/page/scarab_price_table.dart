@@ -17,7 +17,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   List<PoeNinjaItem> get data => getScarab.result.value.data;
   List<PoeNinjaItem> selectableItems = [];
 
-  Map<int, PoeNinjaItem> scarabLocation = LABEL.SCARAB_LOCATION;
+  Map<int, PoeNinjaItem> scarabLocation = SCARAB_LOCATION.MAP;
 
   int selectedGridIndex = -1;
 
@@ -86,7 +86,8 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
         return !scarabLocation.containsKey(index)
             ? Container()
             : Tooltip(
-                message: scarabLocation[index]?.name ?? '',
+                message:
+                    "${scarabI18nString(scarabLocation[index]!.name)}\n누르면 거래소로 이동",
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
@@ -103,6 +104,16 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                           scarabLocation[index]?.chaosValue.toString() ?? '',
                         ),
                       ),
+                      TextButton(
+                        child: Container(),
+                        onPressed: () async {
+                          await launchUrl(
+                            Uri.parse(
+                              'https://poe.game.daum.net/trade/search/Settlers?q={"query":{"status":{"option":"online"},"type":"${scarabI18nString(scarabLocation[index]!.name)}","stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}',
+                            ),
+                          );
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -149,16 +160,19 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     fetch();
   }
 
+  String scarabI18nString(String scarabLabel) =>
+      I18N.SCARAB[scarabLabel]['label'];
+
   Future<void> fetch() async {
     RestfulResult getResult = await getScarab.get();
     setState(() {
       selectableItems = getResult.data.where((se) {
-        return !LABEL.SCARAB_LOCATION.values.any((e) {
+        return !SCARAB_LOCATION.MAP.values.any((e) {
           return e.name == se.name;
         });
       }).toList();
 
-      print(selectableItems.length);
+      // print(selectableItems.length);
 
       selectableItems.sort((a, b) => a.name.compareTo(b.name));
     });

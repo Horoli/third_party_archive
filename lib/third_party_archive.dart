@@ -35,12 +35,14 @@ import 'package:intl/intl.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:http/http.dart' as http;
 
+import 'preset/scarab_location.dart' as SCARAB_LOCATION;
 import 'preset/message.dart' as MSG;
 import 'preset/constants.dart' as CONSTANTS;
 import 'preset/image.dart' as IMAGE;
 import 'preset/url.dart' as URL;
 import 'preset/path.dart' as PATH;
 import 'preset/label.dart' as LABEL;
+import 'preset/i18n.dart' as I18N;
 
 part 'app_root.dart';
 part 'global.dart';
