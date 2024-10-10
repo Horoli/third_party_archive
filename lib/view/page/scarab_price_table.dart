@@ -49,6 +49,10 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                 return buildCopyButton(scarabConditionList[index]).expand();
               }),
             ).sizedBox(height: kToolbarHeight),
+            Text(
+                    textAlign: TextAlign.end,
+                    'Data From poe.ninja updatedAt : ${getScarab.result.value.data['updateDate']}')
+                .sizedBox(width: double.infinity),
             Row(
               children: [
                 buildSheet().expand(flex: 3),
@@ -61,9 +65,9 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     );
   }
 
-  Widget buildCopyButton(double standardPrice) {
-    Color backgroundColor = getBackgroundColor(standardPrice);
-    List<String> scarabNames = getScarabNamesWithChaosValue(standardPrice);
+  Widget buildCopyButton(double chaosValue) {
+    Color backgroundColor = getBackgroundColor(chaosValue);
+    List<String> scarabNames = getScarabNamesWithChaosValue(chaosValue);
 
     return TextButton(
       style: ButtonStyle(
@@ -73,16 +77,32 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
           borderRadius: BorderRadius.circular(0),
         )),
       ),
-      onPressed: () {
-        print('${standardPrice}c 이상');
-        print(scarabNames);
-        Clipboard.setData(ClipboardData(text: '$scarabNames'));
+      onPressed: () async {
+        // print('${chaosValue}c 이상');
+        // print(scarabNames);
+        // Clipboard.setData(ClipboardData(text: '$scarabNames'));
+
+        // TODO : scarabNames를 reg로 변환하여 클립보드에 복사
+        Clipboard.setData(ClipboardData(text: '준비 중')).then((_) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              dismissDirection: DismissDirection.up,
+              behavior: SnackBarBehavior.floating,
+              duration: Duration(milliseconds: 500),
+              content: Text("갑충석(kr) reg 복사 기능 준비 중"),
+            ),
+          );
+        });
       },
-      child: Row(
-        children: [
-          Container(color: backgroundColor).expand(),
-          Text('${standardPrice}c 이상 : ${scarabNames.length}종류').expand(),
-        ],
+      child: Tooltip(
+        message: '누르면 클립보드에 복사 됩니다',
+        child: Row(
+          children: [
+            Container(color: backgroundColor).expand(),
+            Center(child: Text('${chaosValue}c 이상 : ${scarabNames.length}종류'))
+                .expand(),
+          ],
+        ),
       ),
     );
   }
