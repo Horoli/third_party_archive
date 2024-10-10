@@ -27,6 +27,8 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   int sheetColumnQuantity = 17;
   int sheetRowQuantity = 19;
 
+  bool alreadyShowSnackBar = false;
+
   // 필터링 버튼을 만들기 위한 리스트
   List<double> scarabConditionList = [40, 20, 10, 4];
   List<String> overFortyScarabNames = [];
@@ -83,15 +85,18 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
         // Clipboard.setData(ClipboardData(text: '$scarabNames'));
 
         // TODO : scarabNames를 reg로 변환하여 클립보드에 복사
-        Clipboard.setData(ClipboardData(text: '준비 중')).then((_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              dismissDirection: DismissDirection.up,
-              behavior: SnackBarBehavior.floating,
-              duration: Duration(milliseconds: 500),
-              content: Text("갑충석(kr) reg 복사 기능 준비 중"),
-            ),
-          );
+        Clipboard.setData(ClipboardData(text: '준비 중')).then((_) async {
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     dismissDirection: DismissDirection.up,
+          //     behavior: SnackBarBehavior.floating,
+          //     duration: Duration(milliseconds: 500),
+          //     content: Text("갑충석(kr) reg 복사 기능 준비 중"),
+          //   ),
+          // );
+          // if (alreadyShowSnackBar) return;
+
+          showTopSnackBar('준비 중');
         });
       },
       child: Tooltip(
@@ -105,6 +110,38 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
         ),
       ),
     );
+  }
+
+  void showTopSnackBar(String message) {
+    if (alreadyShowSnackBar) return;
+    alreadyShowSnackBar = true;
+    final OverlayEntry overlayEntry = OverlayEntry(
+      builder: (context) => Align(
+        alignment: Alignment.center,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          color: Colors.black.withOpacity(0.8),
+          width: 200,
+          height: 50,
+          child: SafeArea(
+            child: Text(
+              message,
+              style: TextStyle(color: Colors.white, fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context).insert(overlayEntry);
+
+    // n초 후 초기화
+    Future.delayed(const Duration(milliseconds: 500), () {
+      alreadyShowSnackBar = false;
+      overlayEntry.remove();
+      overlayEntry.dispose();
+    });
   }
 
   Widget buildSheet() {
