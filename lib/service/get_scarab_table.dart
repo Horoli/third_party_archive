@@ -17,14 +17,17 @@ class GetScarabTable extends GetxController {
 
     Map rawData = jsonDecode(rep.body);
 
-    List<PoeNinjaItem> scarabs = List.from(rawData['data'])
+    List<PoeNinjaItem> scarabs = List.from(rawData['data']['filteredData'])
         .map((item) => PoeNinjaItem.fromMap(item: item))
         .toList();
 
     result.value = RestfulResult(
       statusCode: rawData['statusCode'] ?? '',
       message: rawData['message'] ?? '',
-      data: scarabs,
+      data: {
+        'updateDate': rawData['data']['date'],
+        'filteredData': scarabs,
+      },
     );
 
     update();

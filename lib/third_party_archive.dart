@@ -11,6 +11,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/semantics.dart';
@@ -43,6 +44,7 @@ import 'preset/url.dart' as URL;
 import 'preset/path.dart' as PATH;
 import 'preset/label.dart' as LABEL;
 import 'preset/i18n.dart' as I18N;
+import 'preset/color.dart' as COLOR;
 
 part 'app_root.dart';
 part 'global.dart';

@@ -14,7 +14,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       ? 'http://${URL.LOCAL_URL}/v1/poe_ninja/image'
       : 'https://${URL.FORIEGN_URL}/v1/poe_ninja/image';
 
-  List<PoeNinjaItem> get data => getScarab.result.value.data;
+  List<PoeNinjaItem> get data => getScarab.result.value.data['filteredData'];
   List<PoeNinjaItem> selectableItems = [];
 
   Map<int, PoeNinjaItem> scarabLocation = SCARAB_LOCATION.MAP;
@@ -22,10 +22,17 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   int selectedGridIndex = -1;
 
   // debugmode일땐 editing list 표시
-  bool isDebugMode = kDebugMode;
+  bool isDebugMode = !kDebugMode;
 
   int sheetColumnQuantity = 17;
   int sheetRowQuantity = 19;
+
+  // 필터링 버튼을 만들기 위한 리스트
+  List<double> scarabConditionList = [40, 20, 10, 4];
+  List<String> overFortyScarabNames = [];
+  List<String> overTwentyScarabNames = [];
+  List<String> overTenScarabNames = [];
+  List<String> overFourScarabNames = [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +45,11 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
           children: [
             if (isDebugMode) buildManagementPrintButton(),
             Row(
+              children: List.generate(scarabConditionList.length, (index) {
+                return buildCopyButton(scarabConditionList[index]).expand();
+              }),
+            ).sizedBox(height: kToolbarHeight),
+            Row(
               children: [
                 buildSheet().expand(flex: 3),
                 if (isDebugMode) buildManagementList().expand(),
@@ -49,13 +61,39 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     );
   }
 
+  Widget buildCopyButton(double standardPrice) {
+    Color backgroundColor = getBackgroundColor(standardPrice);
+    List<String> scarabNames = getScarabNamesWithChaosValue(standardPrice);
+
+    return TextButton(
+      style: ButtonStyle(
+        padding: WidgetStateProperty.all(EdgeInsets.zero),
+        shape: WidgetStateProperty.all(RoundedRectangleBorder(
+          side: const BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(0),
+        )),
+      ),
+      onPressed: () {
+        print('${standardPrice}c 이상');
+        print(scarabNames);
+        Clipboard.setData(ClipboardData(text: '$scarabNames'));
+      },
+      child: Row(
+        children: [
+          Container(color: backgroundColor).expand(),
+          Text('${standardPrice}c 이상 : ${scarabNames.length}종류').expand(),
+        ],
+      ),
+    );
+  }
+
   Widget buildSheet() {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: sheetColumnQuantity,
       ),
       itemCount: sheetColumnQuantity * sheetRowQuantity,
-      itemBuilder: (context, index) {
+      itemBuilder: (context, int index) {
         // TODO : DebugMode일때 보여주는 tile
         if (isDebugMode) {
           return TextButton(
@@ -82,43 +120,54 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
             },
           );
         }
+
         // TODO : releaseMode일때 보여주는 tile
         return !scarabLocation.containsKey(index)
             ? Container()
-            : Tooltip(
-                message:
-                    "${scarabI18nString(scarabLocation[index]!.name)}\n누르면 거래소로 이동",
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: Stack(
-                    children: [
-                      Image.network(
-                        '$imageUrl/${scarabLocation[index]?.icon}',
-                      ),
-                      Positioned(
-                        right: 0,
-                        bottom: 0,
-                        child: Text(
-                          scarabLocation[index]?.chaosValue.toString() ?? '',
-                        ),
-                      ),
-                      TextButton(
-                        child: Container(),
-                        onPressed: () async {
-                          await launchUrl(
-                            Uri.parse(
-                              'https://poe.game.daum.net/trade/search/Settlers?q={"query":{"status":{"option":"online"},"type":"${scarabI18nString(scarabLocation[index]!.name)}","stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}',
-                            ),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              );
+            : buildScarabTooltip(item: scarabLocation[index]!);
       },
+    );
+  }
+
+  Widget buildScarabTooltip({required PoeNinjaItem item}) {
+    Color backgroundColor = getBackgroundColor(item.chaosValue);
+    AlwaysStoppedAnimation<double> opacity = item.chaosValue >= 4
+        ? const AlwaysStoppedAnimation(1.0)
+        : const AlwaysStoppedAnimation(0.5);
+
+    return Tooltip(
+      message: "${scarabI18nString(item.name)}\n누르면 거래소로 이동",
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+        ),
+        child: Stack(
+          children: [
+            Container(
+              color: backgroundColor,
+            ),
+            Image.network(
+              '$imageUrl/${item.icon}',
+              opacity: opacity,
+            ),
+            Positioned(
+              right: 0,
+              bottom: 0,
+              child: Text('${item.chaosValue}'),
+            ),
+            TextButton(
+              child: Container(),
+              onPressed: () async {
+                await launchUrl(
+                  Uri.parse(
+                    'https://poe.game.daum.net/trade/search/Settlers?q={"query":{"status":{"option":"online"},"type":"${scarabI18nString(item.name)}","stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}',
+                  ),
+                );
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -163,16 +212,63 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   String scarabI18nString(String scarabLabel) =>
       I18N.SCARAB[scarabLabel]['label'];
 
+  List<String> getScarabNamesWithChaosValue(double chaosValue) {
+    switch (chaosValue) {
+      case >= 40:
+        return overFortyScarabNames;
+      case >= 20:
+        return overTwentyScarabNames;
+      case >= 10:
+        return overTenScarabNames;
+      case >= 4:
+        return overFourScarabNames;
+      default:
+        return [];
+    }
+  }
+
+  Color getBackgroundColor(double value) {
+    switch (value) {
+      case >= 40:
+        return COLOR.OVER_FORTY;
+      case >= 20:
+        return COLOR.OVER_TWENTY;
+      case >= 10:
+        return COLOR.OVER_TEN;
+      case >= 4:
+        return COLOR.OVER_FOUR;
+      default:
+        return COLOR.DEFAULT;
+    }
+  }
+
   Future<void> fetch() async {
     RestfulResult getResult = await getScarab.get();
     setState(() {
-      selectableItems = getResult.data.where((se) {
+      selectableItems = getResult.data['filteredData'].where((se) {
         return !SCARAB_LOCATION.MAP.values.any((e) {
           return e.name == se.name;
         });
       }).toList();
 
-      // print(selectableItems.length);
+      for (PoeNinjaItem e in scarabLocation.values) {
+        if (e.chaosValue >= 40) {
+          overFortyScarabNames.add(scarabI18nString(e.name));
+          continue;
+        }
+        if (e.chaosValue >= 20) {
+          overTwentyScarabNames.add(scarabI18nString(e.name));
+          continue;
+        }
+        if (e.chaosValue >= 10) {
+          overTenScarabNames.add(scarabI18nString(e.name));
+          continue;
+        }
+        if (e.chaosValue >= 4) {
+          overFourScarabNames.add(scarabI18nString(e.name));
+          continue;
+        }
+      }
 
       selectableItems.sort((a, b) => a.name.compareTo(b.name));
     });
