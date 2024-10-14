@@ -1,5 +1,7 @@
 part of third_party_archive;
 
+bool isDevMode = false;
+
 Color GSelectedButtonColor = const Color.fromARGB(255, 72, 57, 99);
 String currentLeague = '';
 

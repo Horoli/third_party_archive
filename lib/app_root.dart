@@ -9,8 +9,9 @@ class AppRoot extends StatefulWidget {
 
 class AppRootState extends State<AppRoot> {
   Map<String, Widget Function(BuildContext)> routes = {
-    // PATH.ROUTE_LOADING: (BuildContext context) => ViewLoading(),
-    PATH.ROUTE_HOME: (BuildContext context) => const ViewHome()
+    PATH.ROUTE_SELECT: (BuildContext context) => const ViewSelectVersion(),
+    PATH.ROUTE_ONE_HOME: (BuildContext context) => const ViewOneHome(),
+    PATH.ROUTE_TWO_HOME: (BuildContext context) => const ViewTwoHome()
   };
 
   @override
@@ -19,7 +20,7 @@ class AppRootState extends State<AppRoot> {
       darkTheme: ThemeData.dark(),
       theme: ThemeData.dark(),
       title: LABEL.APP_TITLE,
-      initialRoute: PATH.ROUTE_HOME,
+      initialRoute: isDevMode ? PATH.ROUTE_SELECT : PATH.ROUTE_ONE_HOME,
       routes: routes,
     );
   }

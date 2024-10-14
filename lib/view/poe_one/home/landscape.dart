@@ -1,7 +1,7 @@
 part of third_party_archive;
 
-class WidgetHomeLandscape extends WidgetHome {
-  const WidgetHomeLandscape({
+class WidgetOneHomeLandscape extends WidgetOneHome {
+  const WidgetOneHomeLandscape({
     super.key,
   });
 
@@ -9,8 +9,9 @@ class WidgetHomeLandscape extends WidgetHome {
   WidgetHomeLandscapeState createState() => WidgetHomeLandscapeState();
 }
 
-class WidgetHomeLandscapeState extends WidgetHomeState<WidgetHomeLandscape> {
-  double landscapeWidth = 1024 + 512;
+class WidgetHomeLandscapeState
+    extends WidgetOneHomeState<WidgetOneHomeLandscape> {
+  double landscapeWidth = CONSTANTS.LANDSCAPE_WIDTH;
 
   final ScrollController ctrlScroll = ScrollController();
 

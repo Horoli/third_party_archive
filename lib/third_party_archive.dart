@@ -60,16 +60,18 @@ part 'model/poe_ninja_item.dart';
 part 'model/poe_ninja_invitation.dart';
 part 'model/poe_ninja_fragment.dart';
 
-part 'view/page/third_party.dart';
-part 'view/page/random_build_selector.dart';
-part 'view/page/receiving_damage.dart';
-part 'view/page/ninja_price.dart';
-part 'view/page/scarab_price_table.dart';
-part 'view/home.dart';
-part 'view/loading.dart';
-part 'view/home/abstract.dart';
-part 'view/home/portrait.dart';
-part 'view/home/landscape.dart';
+part 'view/poe_one/page/third_party.dart';
+part 'view/poe_one/page/random_build_selector.dart';
+part 'view/poe_one/page/receiving_damage.dart';
+part 'view/poe_one/page/ninja_price.dart';
+part 'view/poe_one/page/scarab_price_table.dart';
+part 'view/poe_one/home.dart';
+part 'view/select_version.dart';
+part 'view/poe_one/home/abstract.dart';
+part 'view/poe_one/home/portrait.dart';
+part 'view/poe_one/home/landscape.dart';
+
+part 'view/poe_two/home.dart';
 
 part 'service/get_dashboard.dart';
 part 'service/get_third_party.dart';
@@ -84,3 +86,4 @@ part 'widget/skill_gem_info.dart';
 part 'widget/tile_poe_item.dart';
 part 'widget/change_calculator.dart';
 part 'widget/hover_button.dart';
+part 'widget/hover_image_button.dart';

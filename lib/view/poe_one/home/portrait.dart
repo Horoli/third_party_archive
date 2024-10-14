@@ -1,7 +1,7 @@
 part of third_party_archive;
 
-class WidgetHomePortrait extends WidgetHome {
-  const WidgetHomePortrait({
+class WidgetOneHomePortrait extends WidgetOneHome {
+  const WidgetOneHomePortrait({
     super.key,
   });
 
@@ -9,7 +9,8 @@ class WidgetHomePortrait extends WidgetHome {
   WidgetHomePortraitState createState() => WidgetHomePortraitState();
 }
 
-class WidgetHomePortraitState extends WidgetHomeState<WidgetHomePortrait> {
+class WidgetHomePortraitState
+    extends WidgetOneHomeState<WidgetOneHomePortrait> {
   @override
   String selectedCategory = LABEL.THIRD_PARTY;
 

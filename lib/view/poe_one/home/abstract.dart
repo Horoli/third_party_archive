@@ -1,7 +1,7 @@
 part of third_party_archive;
 
-abstract class WidgetHome extends StatefulWidget {
-  const WidgetHome({
+abstract class WidgetOneHome extends StatefulWidget {
+  const WidgetOneHome({
     super.key,
   });
 
@@ -9,7 +9,7 @@ abstract class WidgetHome extends StatefulWidget {
   State<StatefulWidget> createState() => throw UnimplementedError();
 }
 
-abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
+abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
     with TickerProviderStateMixin {
   double get height => MediaQuery.of(context).size.height;
   double get width => MediaQuery.of(context).size.width;
