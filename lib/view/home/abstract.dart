@@ -119,7 +119,7 @@ abstract class WidgetHomeState<T extends WidgetHome> extends State<T>
         buildSelectCategoryButton(label: LABEL.THIRD_PARTY),
         if (!isPort) buildSelectCategoryButton(label: LABEL.RANDOM_BUILD),
         buildSelectCategoryButton(label: LABEL.NINJA_PRICE),
-        buildSelectCategoryButton(label: LABEL.SCARAB_TABLE),
+        if (!isPort) buildSelectCategoryButton(label: LABEL.SCARAB_TABLE),
       ];
 
   Widget buildSelectCategoryButton({

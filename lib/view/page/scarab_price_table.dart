@@ -22,7 +22,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   int selectedGridIndex = -1;
 
   // debugmode일땐 editing list 표시
-  bool isDebugMode = !kDebugMode;
+  bool isDebugMode = kDebugMode;
 
   int sheetColumnQuantity = 17;
   int sheetRowQuantity = 19;
@@ -82,10 +82,27 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       onPressed: () async {
         // print('${chaosValue}c 이상');
         // print(scarabNames);
-        // Clipboard.setData(ClipboardData(text: '$scarabNames'));
 
+        String finalText = '';
         // TODO : scarabNames를 reg로 변환하여 클립보드에 복사
         Clipboard.setData(ClipboardData(text: '준비 중')).then((_) async {
+          for (int i = 0; i < scarabNames.length; i++) {
+            List<String> scarabSplit = scarabNames[i].split(' ');
+            int firstLength = scarabSplit.first.length;
+
+            String firstWord =
+                scarabSplit.first.substring(firstLength - 2, firstLength);
+            String secondWord = scarabSplit[1].substring(0, 1);
+            String addText = '$firstWord.$secondWord';
+            if (i == scarabNames.length - 1) {
+              finalText = '$finalText$addText';
+              break;
+            }
+            finalText = '$finalText$addText|';
+          }
+
+          Clipboard.setData(ClipboardData(text: finalText));
+
           // ScaffoldMessenger.of(context).showSnackBar(
           //   SnackBar(
           //     dismissDirection: DismissDirection.up,
@@ -96,7 +113,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
           // );
           // if (alreadyShowSnackBar) return;
 
-          showTopSnackBar('준비 중');
+          showCenterSnackBar('복사 완료 : ${finalText}');
         });
       },
       child: Tooltip(
@@ -112,27 +129,26 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     );
   }
 
-  void showTopSnackBar(String message) {
+  void showCenterSnackBar(String message) {
     if (alreadyShowSnackBar) return;
     alreadyShowSnackBar = true;
     final OverlayEntry overlayEntry = OverlayEntry(
-      builder: (context) => Align(
-        alignment: Alignment.center,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          color: Colors.black.withOpacity(0.8),
-          width: 200,
-          height: 50,
-          child: SafeArea(
-            child: Text(
-              message,
-              style: TextStyle(color: Colors.white, fontSize: 16),
-              textAlign: TextAlign.center,
+        canSizeOverlay: true,
+        builder: (context) {
+          return Material(
+            color: Colors.black87.withOpacity(0.5),
+            child: Align(
+              alignment: Alignment.center,
+              child: SafeArea(
+                child: Text(
+                  message,
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
+        });
 
     Overlay.of(context).insert(overlayEntry);
 
