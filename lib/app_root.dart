@@ -20,7 +20,7 @@ class AppRootState extends State<AppRoot> {
       darkTheme: ThemeData.dark(),
       theme: ThemeData.dark(),
       title: LABEL.APP_TITLE,
-      initialRoute: isDevMode ? PATH.ROUTE_SELECT : PATH.ROUTE_ONE_HOME,
+      initialRoute: enablePoeTwo ? PATH.ROUTE_SELECT : PATH.ROUTE_ONE_HOME,
       routes: routes,
     );
   }

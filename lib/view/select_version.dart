@@ -8,6 +8,8 @@ class ViewSelectVersion extends StatefulWidget {
 }
 
 class ViewSelectVersionState extends State<ViewSelectVersion> {
+  bool get isPort => MediaQuery.of(context).orientation == Orientation.portrait;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,40 +23,20 @@ class ViewSelectVersionState extends State<ViewSelectVersion> {
               fit: BoxFit.cover,
             ),
           ),
-          Center(
-            child: SizedBox(
-              width: CONSTANTS.LANDSCAPE_WIDTH,
-              height: double.infinity,
-              child: Row(
-                children: [
-                  HoverImageButton(
-                    child: Image.asset(
-                      IMAGE.ONE_LOGO,
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        PATH.ROUTE_ONE_HOME,
-                      );
-                    },
-                  ).expand(),
-                  const Padding(padding: EdgeInsets.all(8)),
-                  HoverImageButton(
-                    child: Image.asset(
-                      IMAGE.TWO_LOGO,
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        PATH.ROUTE_TWO_HOME,
-                      );
-                    },
-                  ).expand(),
-                ],
-              ),
-            ),
-          ),
+          buildButtons()
         ],
+      ),
+    );
+  }
+
+  Widget buildButtons() {
+    return Center(
+      child: SizedBox(
+        width: CONSTANTS.LANDSCAPE_WIDTH,
+        height: double.infinity,
+        child: isPort
+            ? Column(children: hoverButtons)
+            : Row(children: hoverButtons),
       ),
     );
   }
@@ -64,9 +46,33 @@ class ViewSelectVersionState extends State<ViewSelectVersion> {
     super.initState();
   }
 
-  // Future init() async {
-  //   await Future.delayed(const Duration(milliseconds: 1000), () {
-  //     Navigator.pushReplacementNamed(context, PATH.ROUTE_HOME);
-  //   });
-  // }
+  List<Widget> get hoverButtons => [
+        HoverImageButton(
+          child: Image.asset(
+            IMAGE.ONE_LOGO,
+          ),
+          onPressed: () {
+            Navigator.pushReplacementNamed(
+              context,
+              PATH.ROUTE_ONE_HOME,
+            );
+          },
+        ).expand(),
+        HoverImageButton(
+          child: Image.asset(
+            IMAGE.TWO_LOGO,
+          ),
+          onPressed: () {
+            Navigator.pushReplacementNamed(
+              context,
+              PATH.ROUTE_TWO_HOME,
+            );
+          },
+        ).expand(),
+      ];
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }

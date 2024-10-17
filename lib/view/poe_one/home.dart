@@ -14,7 +14,7 @@ class ViewOneHomeState extends State<ViewOneHome>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: isDevMode
+      floatingActionButton: enablePoeTwo
           ? FloatingActionButton(
               child: const Icon(Icons.home),
               onPressed: () {
