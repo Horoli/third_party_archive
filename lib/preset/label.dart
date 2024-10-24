@@ -2,6 +2,7 @@ import 'package:third_party_archive/third_party_archive.dart';
 
 const String APP_TITLE = 'ThirdPartyArchive';
 
+const String TAG_ALL = 'ALL';
 const String TAG_CRAFT = 'CRAFT';
 const String TAG_TRADE = 'TRADE';
 const String TAG_INFO = 'INFO';
@@ -92,4 +93,3 @@ const String ETC = 'ETC';
 //   // 'scarab of radiant storms',
 //   // 'scarab of bisection',
 // ];
-

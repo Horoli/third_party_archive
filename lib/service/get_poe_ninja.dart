@@ -5,7 +5,7 @@ class GetPoeNinja extends GetxController {
       RestfulResult(statusCode: 0, message: '').obs;
 
   Future<RestfulResult> get() async {
-    Uri uri = URL.IS_LOCAL
+    Uri uri = isLocal
         ? Uri.http(URL.LOCAL_URL, '${URL.POE_NINJA}/')
         : Uri.https(URL.FORIEGN_URL, '${URL.POE_NINJA}/');
     Map<String, String> headers = {};

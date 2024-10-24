@@ -8,7 +8,7 @@ class GetThirdParty extends GetxController {
     required String id,
     required String platform,
   }) async {
-    Uri uri = URL.IS_LOCAL
+    Uri uri = isLocal
         ? Uri.http(
             URL.LOCAL_URL, '${URL.THIRD_PARTY}/$tag/platform/$platform/id/$id')
         : Uri.https(URL.FORIEGN_URL,

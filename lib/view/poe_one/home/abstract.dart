@@ -41,9 +41,13 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
       body: GetX<GetDashboard>(
         builder: (_) {
           if (result.data != null) {
-            tags = result.data['tags'];
+            tags = List.from(result.data['tags'] ?? []);
             leagues = result.data['leagues'];
             currentPlayers = result.data['currentPlayers'];
+
+            tags.sort((a, b) {
+              return a.compareTo(b);
+            });
 
             // tabController.dispose();
             tabController = TabController(
@@ -133,7 +137,7 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
           : null,
       onPressed: () async {
         if (label == LABEL.THIRD_PARTY) {
-          await getCtrlDashboard.changeSelectedTag(LABEL.TAG_CRAFT);
+          await getCtrlDashboard.changeSelectedTag(LABEL.TAG_ALL);
         }
         setState(() {
           selectedCategory = label;

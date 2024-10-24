@@ -7,7 +7,7 @@ class GetDashboard extends GetxController {
   RxString selectedTag = 'CRAFT'.obs;
 
   Future<void> get({int type = CONSTANTS.TAG_TYPE_PATHOFEXILE}) async {
-    Uri uri = URL.IS_LOCAL
+    Uri uri = isLocal
         ? Uri.http(URL.LOCAL_URL, '${URL.DASHBOARD}/$type')
         : Uri.https(URL.FORIEGN_URL, '${URL.DASHBOARD}/$type');
     Map<String, String> headers = {};

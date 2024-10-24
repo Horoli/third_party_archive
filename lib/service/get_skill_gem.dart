@@ -60,7 +60,7 @@ class GetSkillGem extends GetxController {
 
     Map<String, String> headers = {};
 
-    Uri uri = URL.IS_LOCAL
+    Uri uri = isLocal
         ? Uri.http(URL.LOCAL_URL, '${URL.BUILD}/', queryParameters)
         : Uri.https(URL.FORIEGN_URL, '${URL.BUILD}/', queryParameters);
 
@@ -108,7 +108,7 @@ class GetSkillGem extends GetxController {
 
     Map<String, String> headers = {};
 
-    Uri uri = URL.IS_LOCAL
+    Uri uri = isLocal
         ? Uri.http(URL.LOCAL_URL, '${URL.BUILD}/image', queryParameters)
         : Uri.https(URL.FORIEGN_URL, '${URL.BUILD}/image', queryParameters);
 

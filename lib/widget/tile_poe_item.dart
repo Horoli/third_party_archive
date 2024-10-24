@@ -7,7 +7,7 @@ class TilePoeItem<T> extends StatelessWidget {
     super.key,
   });
 
-  String imageUrl = URL.IS_LOCAL
+  String imageUrl = isLocal
       ? 'http://${URL.LOCAL_URL}/v1/poe_ninja/image'
       : 'https://${URL.FORIEGN_URL}/v1/poe_ninja/image';
 

@@ -1,6 +1,10 @@
 part of third_party_archive;
 
-bool enablePoeTwo = true;
+// const bool isLocal = true;
+// const bool enablePoeTwo = true;
+
+const bool isLocal = false;
+const bool enablePoeTwo = false;
 
 Color GSelectedButtonColor = const Color.fromARGB(255, 72, 57, 99);
 String currentLeague = '';
@@ -20,7 +24,7 @@ Future<void> postUserAction({
   required String url,
   required String platform,
 }) async {
-  Uri uri = URL.IS_LOCAL
+  Uri uri = isLocal
       ? Uri.http(URL.LOCAL_URL, '${URL.USER_ACTION}/$id')
       : Uri.https(URL.FORIEGN_URL, '${URL.USER_ACTION}/$id');
   Map<String, String> headers = {"Content-Type": "application/json"};
