@@ -4,7 +4,7 @@ class GetDashboard extends GetxController {
   RxObjectMixin<RestfulResult> result =
       RestfulResult(statusCode: 0, message: '').obs;
 
-  RxString selectedTag = 'CRAFT'.obs;
+  RxString selectedTag = 'ALL'.obs;
 
   Future<void> get({int type = CONSTANTS.TAG_TYPE_PATHOFEXILE}) async {
     Uri uri = isLocal

@@ -22,7 +22,6 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   int selectedGridIndex = -1;
 
   // debugmode일땐 editing list 표시
-  bool isDebugMode = !kDebugMode;
 
   int sheetColumnQuantity = 17;
   int sheetRowQuantity = 19;
