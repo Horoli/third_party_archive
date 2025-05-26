@@ -4,6 +4,7 @@ part of third_party_archive;
 // const bool enablePoeTwo = true;
 
 bool isDebugMode = kDebugMode;
+// bool isDebugMode = false;
 const bool isLocal = false;
 const bool enablePoeTwo = false;
 

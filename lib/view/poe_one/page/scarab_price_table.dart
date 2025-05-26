@@ -18,6 +18,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   List<PoeNinjaItem> selectableItems = [];
 
   Map<int, PoeNinjaItem> scarabLocation = SCARAB_LOCATION.MAP;
+  Map<int, dynamic> chaosValueMap = {};
 
   int selectedGridIndex = -1;
 
@@ -30,10 +31,16 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
 
   // 필터링 버튼을 만들기 위한 리스트
   List<double> scarabConditionList = [40, 20, 10, 4];
+
   List<String> overFortyScarabNames = [];
   List<String> overTwentyScarabNames = [];
   List<String> overTenScarabNames = [];
   List<String> overFourScarabNames = [];
+
+  int chaosValueFirst = 40;
+  int chaosValueSecond = 20;
+  int chaosValueThird = 10;
+  int chaosValueFourth = 4;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +59,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
             ).sizedBox(height: kToolbarHeight),
             Text(
                     textAlign: TextAlign.end,
-                    'Data From poe.ninja updatedAt : ${getScarab.result.value.data['updateDate']}')
+                    '데이터는 poe.ninja 와 연동됩니다 ${getScarab.result.value.data['updateDate']}')
                 .sizedBox(width: double.infinity),
             Row(
               children: [
@@ -188,6 +195,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                 selectableItems.add(scarabLocation[index]!);
                 selectableItems.sort((a, b) => a.name.compareTo(b.name));
                 scarabLocation.remove(index);
+                print(selectableItems);
               });
             },
           );
@@ -202,8 +210,8 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   }
 
   Widget buildScarabTooltip({required PoeNinjaItem item}) {
-    Color backgroundColor = getBackgroundColor(item.chaosValue);
-    AlwaysStoppedAnimation<double> opacity = item.chaosValue >= 4
+    Color backgroundColor = getBackgroundColor(chaosValueMap[item.id]);
+    AlwaysStoppedAnimation<double> opacity = chaosValueMap[item.id] >= 4
         ? const AlwaysStoppedAnimation(1.0)
         : const AlwaysStoppedAnimation(0.5);
 
@@ -225,7 +233,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
             Positioned(
               right: 0,
               bottom: 0,
-              child: Text('${item.chaosValue}'),
+              child: Text('${chaosValueMap[item.id]}'),
             ),
             TextButton(
               child: Container(),
@@ -285,45 +293,51 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       I18N.SCARAB[scarabLabel]['label'];
 
   List<String> getScarabNamesWithChaosValue(double chaosValue) {
-    switch (chaosValue) {
-      case >= 40:
-        return overFortyScarabNames;
-      case >= 20:
-        return overTwentyScarabNames;
-      case >= 10:
-        return overTenScarabNames;
-      case >= 4:
-        return overFourScarabNames;
-      default:
-        return [];
+    if (chaosValue >= chaosValueFirst) {
+      return overFortyScarabNames;
+    } else if (chaosValue >= chaosValueSecond) {
+      return overTwentyScarabNames;
+    } else if (chaosValue >= chaosValueThird) {
+      return overTenScarabNames;
+    } else if (chaosValue >= chaosValueFourth) {
+      return overFourScarabNames;
+    } else {
+      return [];
     }
   }
 
-  Color getBackgroundColor(double value) {
-    switch (value) {
-      case >= 40:
-        return COLOR.OVER_FORTY;
-      case >= 20:
-        return COLOR.OVER_TWENTY;
-      case >= 10:
-        return COLOR.OVER_TEN;
-      case >= 4:
-        return COLOR.OVER_FOUR;
-      default:
-        return COLOR.DEFAULT;
+  Color getBackgroundColor(double chaosValue) {
+    if (chaosValue >= chaosValueFirst) {
+      return COLOR.OVER_FORTY;
+    } else if (chaosValue >= chaosValueSecond) {
+      return COLOR.OVER_TWENTY;
+    } else if (chaosValue >= chaosValueThird) {
+      return COLOR.OVER_TEN;
+    } else if (chaosValue >= chaosValueFourth) {
+      return COLOR.OVER_FOUR;
+    } else {
+      return COLOR.DEFAULT;
     }
   }
 
   Future<void> fetch() async {
     RestfulResult getResult = await getScarab.get();
+    List<PoeNinjaItem> convertData = getResult.data['filteredData'].toList();
+
     setState(() {
-      selectableItems = getResult.data['filteredData'].where((se) {
+      // debugMode에서 사용되는 코드
+      selectableItems = convertData.where((se) {
         return !SCARAB_LOCATION.MAP.values.any((e) {
           return e.name == se.name;
         });
       }).toList();
 
-      for (PoeNinjaItem e in scarabLocation.values) {
+      // chaosValueMap은 보유하고있는 location용 json과 현재 값을 연동하기 위해 id로 연결
+      for (PoeNinjaItem item in convertData) {
+        chaosValueMap[item.id] = item.chaosValue;
+      }
+
+      for (PoeNinjaItem e in convertData) {
         if (e.chaosValue >= 40) {
           overFortyScarabNames.add(scarabI18nString(e.name));
           continue;

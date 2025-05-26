@@ -254,7 +254,7 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
   }
 
   Widget buildCopyrightText() {
-    return const Text('Copyright © 2024 Horoli');
+    return const Text('Copyright © 2024 ~ 2025 Horoli');
   }
 
   Widget buildGithubIconButton() {
