@@ -233,7 +233,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
             Positioned(
               right: 0,
               bottom: 0,
-              child: Text('${chaosValueMap[item.id]}'),
+              child: Text('${chaosValueMap[item.id] ?? item.chaosValue}'),
             ),
             TextButton(
               child: Container(),
