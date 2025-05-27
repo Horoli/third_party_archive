@@ -170,6 +170,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: sheetColumnQuantity,
+        childAspectRatio: 1.8,
       ),
       itemCount: sheetColumnQuantity * sheetRowQuantity,
       itemBuilder: (context, int index) {
