@@ -718,5 +718,30 @@ Map<String, dynamic> SCARAB = {
     "value": "Divination Scarab of Pilfering",
     "desc": "지도 조각",
     "class": ""
-  }
+  },
+  // 3.26 추가
+  "Kalguuran Scarab": {
+    "label": "칼구르 갑충석",
+    "value": "Kalguuran Scarab",
+    "desc": "지도 조각",
+    "class": ""
+  },
+  "Kalguuran Scarab of Guarded Riches": {
+    "label": "보호받는 재물의 칼구르 갑충석",
+    "value": "Kalguuran Scarab of Guarded Riches",
+    "desc": "지도 조각",
+    "class": ""
+  },
+  "Kalguuran Scarab of Refinement": {
+    "label": "정제의 칼구르 갑충석",
+    "value": "Kalguuran Scarab of Refinement",
+    "desc": "지도 조각",
+    "class": ""
+  },
+  "Betrayal Scarab of the Allflame": {
+    "label": "올플레임의 배신 갑충석",
+    "value": "Betrayal Scarab of the Allflame",
+    "desc": "지도 조각",
+    "class": ""
+  },
 };

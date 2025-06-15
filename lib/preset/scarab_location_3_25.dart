@@ -55,6 +55,24 @@ final Map<int, PoeNinjaItem> MAP = {
     "name": "Ambush Scarab of Potency",
     "icon": "fcff69d8fda6a69fabd847ed1a8693f82aea2504b2b875c383b3c522a9e86524"
   },
+  "37": {
+    "chaosValue": 0.94,
+    "id": 113683,
+    "name": "Anarchy Scarab",
+    "icon": "0cae3cac26eb0755292ee4ea474b38f0d15c0297cf4d2f95120b054d230b3e63"
+  },
+  "38": {
+    "chaosValue": 1.67,
+    "id": 113729,
+    "name": "Anarchy Scarab of Gigantification",
+    "icon": "cee2fc3bedba84fbe7e9ca2d9eaf7763d141bb25cbee12221b908967c4531975"
+  },
+  "39": {
+    "chaosValue": 1,
+    "id": 113765,
+    "name": "Anarchy Scarab of Partnership",
+    "icon": "2b98174810ecf9fef56561a687b59fadd590ecaa984c09f29f82930db0b66d1a"
+  },
   "69": {
     "chaosValue": 0.67,
     "id": 113733,
@@ -78,6 +96,12 @@ final Map<int, PoeNinjaItem> MAP = {
     "id": 113739,
     "name": "Betrayal Scarab",
     "icon": "8d701e1370fe5e41cd568d1429dc2b4fe1b4886d21e4b72c30091f8d77354010"
+  },
+  "92": {
+    "chaosValue": 1,
+    "id": 113688,
+    "name": "Betrayal Scarab of Intelligence",
+    "icon": "e94ed5491a73ff618df4bee33abc0837730b64fe5be817499c59d2fc51d481dd"
   },
   "93": {
     "chaosValue": 1,
@@ -337,6 +361,24 @@ final Map<int, PoeNinjaItem> MAP = {
     "name": "Harbinger Scarab of Warhoards",
     "icon": "f61630d4bf36ae042a95b137ab405a98f7007d99bc2f337d112d5fab4e6b7e38"
   },
+  "45": {
+    "chaosValue": 0.75,
+    "id": 113694,
+    "name": "Harvest Scarab",
+    "icon": "07e2bfb516463ef845bb47d2c1734465aff62f9acf3dbadba80d79444fef1b02"
+  },
+  "47": {
+    "chaosValue": 48,
+    "id": 113909,
+    "name": "Harvest Scarab of Cornucopia",
+    "icon": "fa57f5a3fc7d09b675d8c7c5fd98980a0dc1a566af83588ec0412aed02221303"
+  },
+  "46": {
+    "chaosValue": 40,
+    "id": 113827,
+    "name": "Harvest Scarab of Doubling",
+    "icon": "56edf1fdad608924eba239f46e1e833cfc6bdc52e57bd964d12515207e9d610b"
+  },
   "284": {
     "chaosValue": 269.91,
     "id": 114030,
@@ -450,6 +492,24 @@ final Map<int, PoeNinjaItem> MAP = {
     "id": 113862,
     "name": "Legion Scarab of Officers",
     "icon": "a68a195cb4fccf265a0b85eac2598504358d73d789af6f01adf68141683d3060"
+  },
+  "43": {
+    "chaosValue": 3.75,
+    "id": 113760,
+    "name": "Ritual Scarab of Abundance",
+    "icon": "f3870e90f6010d82b85dbf7cdc5a5685b92dfef4eb864d3cae3aaa63bc7f2801"
+  },
+  "41": {
+    "chaosValue": 1,
+    "id": 113695,
+    "name": "Ritual Scarab of Selectiveness",
+    "icon": "5eb2fa6b8f146bcd97c9215240dc2fcad7bc4d4b3054849cd0d87a947dd0f31a"
+  },
+  "42": {
+    "chaosValue": 1,
+    "id": 118274,
+    "name": "Ritual Scarab of Wisps",
+    "icon": "f26bf7b4e22af24d484ee07db918f99c4db5ada3e8c6ba345f966bfdb458df1b"
   },
   "276": {
     "chaosValue": 1.5,
@@ -576,87 +636,6 @@ final Map<int, PoeNinjaItem> MAP = {
     "id": 113771,
     "name": "Ultimatum Scarab of Inscription",
     "icon": "5c30ccb61cb3c5675d9c8dbe8db1a0adfd56f8b264ec3a55500327b024bf7bf3"
-  },
-  "35": {
-    "chaosValue": 0.94,
-    "id": 113683,
-    "name": "Anarchy Scarab",
-    "icon": "0cae3cac26eb0755292ee4ea474b38f0d15c0297cf4d2f95120b054d230b3e63"
-  },
-  "36": {
-    "chaosValue": 1.67,
-    "id": 113729,
-    "name": "Anarchy Scarab of Gigantification",
-    "icon": "cee2fc3bedba84fbe7e9ca2d9eaf7763d141bb25cbee12221b908967c4531975"
-  },
-  "37": {
-    "chaosValue": 1,
-    "id": 113765,
-    "name": "Anarchy Scarab of Partnership",
-    "icon": "2b98174810ecf9fef56561a687b59fadd590ecaa984c09f29f82930db0b66d1a"
-  },
-  "43": {
-    "chaosValue": 0.75,
-    "id": 113694,
-    "name": "Harvest Scarab",
-    "icon": "07e2bfb516463ef845bb47d2c1734465aff62f9acf3dbadba80d79444fef1b02"
-  },
-  "45": {
-    "chaosValue": 48,
-    "id": 113909,
-    "name": "Harvest Scarab of Cornucopia",
-    "icon": "fa57f5a3fc7d09b675d8c7c5fd98980a0dc1a566af83588ec0412aed02221303"
-  },
-  "44": {
-    "chaosValue": 40,
-    "id": 113827,
-    "name": "Harvest Scarab of Doubling",
-    "icon": "56edf1fdad608924eba239f46e1e833cfc6bdc52e57bd964d12515207e9d610b"
-  },
-  "47": {
-    "chaosValue": 1,
-    "id": 125016,
-    "name": "Kalguuran Scarab",
-    "icon": "05916e374d79310e9b899ea1690e4bf48a78b89d2616d36850f8f147f4384a3e"
-  },
-  "48": {
-    "chaosValue": 1,
-    "id": 125028,
-    "name": "Kalguuran Scarab of Guarded Riches",
-    "icon": "1982b1f92d24810e59fd9b907ef807682098a6d3e62454762f7413d0dd25dcc3"
-  },
-  "49": {
-    "chaosValue": 1.2,
-    "id": 125155,
-    "name": "Kalguuran Scarab of Refinement",
-    "icon": "f3a12709d085e2c1d309124dff8245a3d01783d8b8eb514039d27179938017bf"
-  },
-  "41": {
-    "chaosValue": 3.75,
-    "id": 113760,
-    "name": "Ritual Scarab of Abundance",
-    "icon": "f3870e90f6010d82b85dbf7cdc5a5685b92dfef4eb864d3cae3aaa63bc7f2801"
-  },
-  "39": {
-    "chaosValue": 1,
-    "id": 113695,
-    "name": "Ritual Scarab of Selectiveness",
-    "icon": "5eb2fa6b8f146bcd97c9215240dc2fcad7bc4d4b3054849cd0d87a947dd0f31a"
-  },
-  "40": {
-    "chaosValue": 1,
-    "id": 118274,
-    "name": "Ritual Scarab of Wisps",
-    "icon": "f26bf7b4e22af24d484ee07db918f99c4db5ada3e8c6ba345f966bfdb458df1b"
-  },
-  "92": {
-    "chaosValue": 1,
-    "id": 124868,
-    "name": "Betrayal Scarab of the Allflame",
-    "icon": "e94ed5491a73ff618df4bee33abc0837730b64fe5be817499c59d2fc51d481dd"
   }
 }.map((key, value) =>
     MapEntry(int.parse(key), PoeNinjaItem.fromMap(item: value)));
-
-// 칼구르 3종
-// 배신 갑충석 중간 변경 (인텔리전스 to 올플레임)
