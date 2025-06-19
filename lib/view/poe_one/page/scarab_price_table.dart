@@ -170,7 +170,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: sheetColumnQuantity,
-        childAspectRatio: 1.8,
+        childAspectRatio: 1.75,
       ),
       itemCount: sheetColumnQuantity * sheetRowQuantity,
       itemBuilder: (context, int index) {
@@ -226,6 +226,11 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
           children: [
             Container(
               color: backgroundColor,
+            ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Text(scarabClass(item.name)),
             ),
             Image.network(
               '$imageUrl/${item.icon}',
@@ -292,6 +297,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
 
   String scarabI18nString(String scarabLabel) =>
       I18N.SCARAB[scarabLabel]['label'];
+  String scarabClass(String scarabLabel) => I18N.SCARAB[scarabLabel]['class'];
 
   List<String> getScarabNamesWithChaosValue(double chaosValue) {
     if (chaosValue >= chaosValueFirst) {
