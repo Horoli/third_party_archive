@@ -230,7 +230,10 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
             Positioned(
               top: 0,
               right: 0,
-              child: Text(scarabClass(item.name)),
+              child: Text(
+                scarabClass(item.name),
+                style: TextStyle(color: Colors.grey.withValues(alpha: 0.7)),
+              ),
             ),
             Image.network(
               '$imageUrl/${item.icon}',
