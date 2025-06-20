@@ -81,7 +81,7 @@ Map<String, dynamic> SCARAB = {
     "label": "군단의 영향력 갑충석",
     "value": "Influencing Scarab of Hordes",
     "desc": "지도 조각",
-    "class": "군단"
+    "class": "영향력"
   },
   "Abyss Scarab of Multitudes": {
     "label": "군중의 심연 갑충석",
@@ -153,7 +153,7 @@ Map<String, dynamic> SCARAB = {
     "label": "도깨비불의 의식 갑충석",
     "value": "Ritual Scarab of Wisps",
     "desc": "지도 조각",
-    "class": "야수"
+    "class": "의식"
   },
   "Bestiary Scarab of the Herd": {
     "label": "떼의 야수 도감 갑충석",
