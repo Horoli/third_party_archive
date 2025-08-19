@@ -244,15 +244,6 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
         fit: BoxFit.cover,
       ),
     );
-    // return Container(
-    //   decoration: const BoxDecoration(
-    //     image: DecorationImage(
-    //       fit: BoxFit.cover,
-    //       image: AssetImage(IMAGE.APPLICTION_WALLPAPER),
-    //       opacity: 0.3,
-    //     ),
-    //   ),
-    // );
   }
 
   Widget buildCopyrightText() {

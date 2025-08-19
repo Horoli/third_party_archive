@@ -218,9 +218,11 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     double getChaosValue = chaosValueMap[item.id] ?? 0;
 
     Color backgroundColor = getBackgroundColor(getChaosValue);
-    AlwaysStoppedAnimation<double> opacity = getChaosValue >= 4
-        ? const AlwaysStoppedAnimation(1.0)
-        : const AlwaysStoppedAnimation(0.5);
+    // AlwaysStoppedAnimation<double> opacity = getChaosValue >= 4
+    //     ? const AlwaysStoppedAnimation(1.0)
+    //     : const AlwaysStoppedAnimation(0.5);
+
+    double opacity = getChaosValue >= 4 ? 1 : 0.5;
 
     return Tooltip(
       message: "${scarabI18nString(item.name)}\n누르면 거래소로 이동",
@@ -241,9 +243,12 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                 style: TextStyle(color: COLOR.SUBTITLE),
               ),
             ),
-            Image.network(
-              '$imageUrl/${item.icon}',
+            Opacity(
               opacity: opacity,
+              child: Image.network(
+                '$imageUrl/${item.icon}',
+                fit: BoxFit.cover,
+              ),
             ),
             Positioned(
               right: 0,
