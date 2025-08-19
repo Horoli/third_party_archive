@@ -32,11 +32,10 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
   @override
   Widget build(context) {
     return Scaffold(
-      appBar: isPort ? buildPortraitAppBar() : null,
-      drawer: isPort && selectedCategory == LABEL.THIRD_PARTY
-          ? buildDrawer()
-          : null,
-      endDrawer: isPort ? buildEndDrawer() : null,
+      appBar: isPort ? buildPortraitAppBar : null,
+      drawer:
+          isPort && selectedCategory == LABEL.THIRD_PARTY ? buildDrawer : null,
+      endDrawer: isPort ? buildEndDrawer : null,
       // persistentFooterButtons: [buildFooter()],
       body: GetX<GetDashboard>(
         builder: (_) {
@@ -73,51 +72,45 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
 
   Widget buildContents() => throw UnimplementedError();
 
-  PreferredSizeWidget buildPortraitAppBar() {
-    return AppBar(
-      title: selectedCategory == LABEL.THIRD_PARTY
-          ? GetX<GetDashboard>(
-              builder: (_) => Text(getCtrlDashboard.selectedTag.value),
-            )
-          : Text(appBarLabel),
-    );
-  }
+  PreferredSizeWidget get buildPortraitAppBar => AppBar(
+        title: selectedCategory == LABEL.THIRD_PARTY
+            ? GetX<GetDashboard>(
+                builder: (_) => Text(getCtrlDashboard.selectedTag.value),
+              )
+            : Text(appBarLabel),
+      );
 
   // Only for portrait mode : common scaffold를 사용함에 따라 abstarct에 set
-  Widget buildDrawer() {
-    return Drawer(
-      width: 200,
-      child: GetX<GetDashboard>(builder: (_) {
-        return Column(
-          children: [
-            const Center(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('ThirdParty Archive'),
-              ),
-            ).sizedBox(height: kToolbarHeight),
-            const Divider(),
-            ListView(
-              children: buildTagList(),
-            ).expand(),
-            const Divider(),
-            buildCurrentPlayer(),
-            const Divider(),
-            buildFooter().sizedBox(height: kToolbarHeight),
-          ],
-        );
-      }),
-    );
-  }
+  Widget get buildDrawer => Drawer(
+        width: 200,
+        child: GetX<GetDashboard>(builder: (_) {
+          return Column(
+            children: [
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('ThirdParty Archive'),
+                ),
+              ).sizedBox(height: kToolbarHeight),
+              const Divider(),
+              ListView(
+                children: buildTagList(),
+              ).expand(),
+              const Divider(),
+              buildCurrentPlayer(),
+              const Divider(),
+              buildFooter().sizedBox(height: kToolbarHeight),
+            ],
+          );
+        }),
+      );
 
-  Widget buildEndDrawer() {
-    return Drawer(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: categorySelectors,
-      ),
-    );
-  }
+  Widget get buildEndDrawer => Drawer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: categorySelectors,
+        ),
+      );
 
   List<Widget> get categorySelectors => [
         buildSelectCategoryButton(label: LABEL.THIRD_PARTY),
@@ -130,11 +123,13 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
     required String label,
   }) {
     return ElevatedButton(
-      style: selectedCategory == label
-          ? ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(GSelectedButtonColor),
-            )
-          : null,
+      style: ElevatedButton.styleFrom(
+        backgroundColor:
+            selectedCategory == label ? GSelectedButtonColor : null,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(0)),
+        ),
+      ),
       onPressed: () async {
         if (label == LABEL.THIRD_PARTY) {
           await getCtrlDashboard.changeSelectedTag(LABEL.TAG_ALL);

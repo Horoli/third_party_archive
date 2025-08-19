@@ -174,26 +174,27 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       ),
       itemCount: sheetColumnQuantity * sheetRowQuantity,
       itemBuilder: (context, int index) {
+        PoeNinjaItem? getScarab = scarabLocation[index];
         // TODO : DebugMode일때 보여주는 tile
         if (isDebugMode) {
           return TextButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all(
-                scarabLocation[index] == null ? Colors.white : Colors.amber,
+                getScarab == null ? Colors.white : Colors.amber,
               ),
             ),
             child: Text(
-              scarabLocation[index]?.name ?? index.toString(),
+              getScarab?.name ?? index.toString(),
             ),
             onPressed: () {
               setState(() {
-                scarabLocation[index] = selectableItems[0];
+                getScarab = selectableItems[0];
                 selectableItems.removeAt(0);
               });
             },
             onLongPress: () {
               setState(() {
-                selectableItems.add(scarabLocation[index]!);
+                selectableItems.add(getScarab!);
                 selectableItems.sort((a, b) => a.name.compareTo(b.name));
                 scarabLocation.remove(index);
                 print(selectableItems);
@@ -205,14 +206,19 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
         // TODO : releaseMode일때 보여주는 tile
         return !scarabLocation.containsKey(index)
             ? Container()
-            : buildScarabTooltip(item: scarabLocation[index]!);
+            : buildScarabTooltip(item: getScarab);
       },
     );
   }
 
-  Widget buildScarabTooltip({required PoeNinjaItem item}) {
-    Color backgroundColor = getBackgroundColor(chaosValueMap[item.id]);
-    AlwaysStoppedAnimation<double> opacity = chaosValueMap[item.id] >= 4
+  Widget buildScarabTooltip({PoeNinjaItem? item}) {
+    if (item == null) {
+      return Container();
+    }
+    double getChaosValue = chaosValueMap[item.id] ?? 0;
+
+    Color backgroundColor = getBackgroundColor(getChaosValue);
+    AlwaysStoppedAnimation<double> opacity = getChaosValue >= 4
         ? const AlwaysStoppedAnimation(1.0)
         : const AlwaysStoppedAnimation(0.5);
 
@@ -232,7 +238,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
               right: 0,
               child: Text(
                 scarabClass(item.name),
-                style: TextStyle(color: Colors.grey.withValues(alpha: 0.7)),
+                style: TextStyle(color: COLOR.SUBTITLE),
               ),
             ),
             Image.network(
@@ -347,21 +353,21 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
         chaosValueMap[item.id] = item.chaosValue;
       }
 
-      for (PoeNinjaItem e in convertData) {
-        if (e.chaosValue >= 40) {
-          overFortyScarabNames.add(scarabI18nString(e.name));
+      for (PoeNinjaItem scarab in convertData) {
+        if (scarab.chaosValue >= 40) {
+          overFortyScarabNames.add(scarabI18nString(scarab.name));
           continue;
         }
-        if (e.chaosValue >= 20) {
-          overTwentyScarabNames.add(scarabI18nString(e.name));
+        if (scarab.chaosValue >= 20) {
+          overTwentyScarabNames.add(scarabI18nString(scarab.name));
           continue;
         }
-        if (e.chaosValue >= 10) {
-          overTenScarabNames.add(scarabI18nString(e.name));
+        if (scarab.chaosValue >= 10) {
+          overTenScarabNames.add(scarabI18nString(scarab.name));
           continue;
         }
-        if (e.chaosValue >= 4) {
-          overFourScarabNames.add(scarabI18nString(e.name));
+        if (scarab.chaosValue >= 4) {
+          overFourScarabNames.add(scarabI18nString(scarab.name));
           continue;
         }
       }
