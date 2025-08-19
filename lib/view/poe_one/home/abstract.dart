@@ -237,15 +237,22 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
   }
 
   Widget buildWallpaper() {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(IMAGE.APPLICTION_WALLPAPER),
-          opacity: 0.3,
-        ),
+    return Opacity(
+      opacity: 0.3,
+      child: Image.asset(
+        IMAGE.APPLICTION_WALLPAPER,
+        fit: BoxFit.cover,
       ),
     );
+    // return Container(
+    //   decoration: const BoxDecoration(
+    //     image: DecorationImage(
+    //       fit: BoxFit.cover,
+    //       image: AssetImage(IMAGE.APPLICTION_WALLPAPER),
+    //       opacity: 0.3,
+    //     ),
+    //   ),
+    // );
   }
 
   Widget buildCopyrightText() {
