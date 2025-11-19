@@ -242,6 +242,8 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
       child: Image.asset(
         IMAGE.APPLICTION_WALLPAPER,
         fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
       ),
     );
   }

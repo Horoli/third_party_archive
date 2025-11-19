@@ -142,7 +142,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
         canSizeOverlay: true,
         builder: (context) {
           return Material(
-            color: Colors.black87.withOpacity(0.5),
+            color: Colors.black87.withAlpha(50),
             child: Align(
               alignment: Alignment.center,
               child: SafeArea(
