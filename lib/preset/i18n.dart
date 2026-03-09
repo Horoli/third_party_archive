@@ -53,12 +53,6 @@ Map<String, dynamic> SCARAB = {
     "desc": "지도 조각",
     "class": "고통"
   },
-  "Breach Scarab of Resonant Cascade": {
-    "label": "공명하는 폭포의 균열 갑충석",
-    "value": "Breach Scarab of Resonant Cascade",
-    "desc": "지도 조각",
-    "class": "균열"
-  },
   "Domination Scarab of Terrors": {
     "label": "공포의 지배 갑충석",
     "value": "Domination Scarab of Terrors",
@@ -94,12 +88,6 @@ Map<String, dynamic> SCARAB = {
     "value": "Cartography Scarab of the Multitude",
     "desc": "지도 조각",
     "class": "지도"
-  },
-  "Breach Scarab": {
-    "label": "균열 갑충석",
-    "value": "Breach Scarab",
-    "desc": "지도 조각",
-    "class": "균열"
   },
   "Bestiary Scarab of the Shadowed Crow": {
     "label": "그늘진 까마귀의 야수 도감 갑충석",
@@ -191,12 +179,6 @@ Map<String, dynamic> SCARAB = {
     "desc": "지도 조각",
     "class": "역병"
   },
-  "Breach Scarab of the Dreamer": {
-    "label": "몽상가의 균열 갑충석",
-    "value": "Breach Scarab of the Dreamer",
-    "desc": "지도 조각",
-    "class": "균열"
-  },
   "Betrayal Scarab": {
     "label": "배신 갑충석",
     "value": "Betrayal Scarab",
@@ -257,11 +239,11 @@ Map<String, dynamic> SCARAB = {
     "desc": "지도 조각",
     "class": "매복"
   },
-  "Anarchy Scarab of Gigantification": {
-    "label": "비대화의 혼란 갑충석",
-    "value": "Anarchy Scarab of Gigantification",
+  "Ambush Scarab of Potency": {
+    "label": "잠재력의 매복 갑충석",
+    "value": "Ambush Scarab of Potency",
     "desc": "지도 조각",
-    "class": "혼란"
+    "class": "매복"
   },
   "Ambush Scarab of Hidden Compartments": {
     "label": "비밀 공간의 매복 갑충석",
@@ -437,12 +419,6 @@ Map<String, dynamic> SCARAB = {
     "desc": "지도 조각",
     "class": "선구자"
   },
-  "Breach Scarab of Snares": {
-    "label": "올가미의 균열 갑충석",
-    "value": "Breach Scarab of Snares",
-    "desc": "지도 조각",
-    "class": "균열"
-  },
   "Incursion Scarab of Champions": {
     "label": "용사의 기습 갑충석",
     "value": "Incursion Scarab of Champions",
@@ -466,12 +442,6 @@ Map<String, dynamic> SCARAB = {
     "value": "Beyond Scarab",
     "desc": "지도 조각",
     "class": "이계"
-  },
-  "Ambush Scarab of Potency": {
-    "label": "잠재력의 매복 갑충석",
-    "value": "Ambush Scarab of Potency",
-    "desc": "지도 조각",
-    "class": "매복"
   },
   "Legion Scarab of Officers": {
     "label": "장교의 군단 갑충석",
@@ -538,12 +508,6 @@ Map<String, dynamic> SCARAB = {
     "value": "Domination Scarab",
     "desc": "지도 조각",
     "class": "지배"
-  },
-  "Breach Scarab of Lordship": {
-    "label": "지위의 균열 갑충석",
-    "value": "Breach Scarab of Lordship",
-    "desc": "지도 조각",
-    "class": "균열"
   },
   "Legion Scarab of Command": {
     "label": "지휘의 군단 갑충석",
@@ -623,9 +587,37 @@ Map<String, dynamic> SCARAB = {
     "desc": "지도 조각",
     "class": "지도"
   },
-  "Breach Scarab of Splintering": {
-    "label": "파편의 균열 갑충석",
-    "value": "Breach Scarab of Splintering",
+
+  "Breach Scarab of the Hive": {
+    "label": "벌레집의 균열 갑충석",
+    "value": "Breach Scarab of the Hive",
+    "desc": "지도 조각",
+    "class": "균열"
+  },
+
+  "Breach Scarab of Instability": {
+    "label": "불안정의 균열 갑충석",
+    "value": "Breach Scarab of Instability",
+    "desc": "지도 조각",
+    "class": "균열"
+  },
+  "Breach Scarab of the Marshal": {
+    "label": "총사령관의 균열 갑충석",
+    "value": "Breach Scarab of the Marshal",
+    "desc": "지도 조각",
+    "class": "균열"
+  },
+
+  "Breach Scarab of the Incensed Swarm": {
+    "label": "분개한 무리의 균열 갑충석",
+    "value": "Breach Scarab of the Incensed Swarm",
+    "desc": "지도 조각",
+    "class": "균열"
+  },
+
+  "Breach Scarab of Resonant Cascade": {
+    "label": "공명하는 폭포의 균열 갑충석",
+    "value": "Breach Scarab of Resonant Cascade",
     "desc": "지도 조각",
     "class": "균열"
   },
@@ -665,12 +657,13 @@ Map<String, dynamic> SCARAB = {
     "desc": "지도 조각",
     "class": "고통"
   },
-  "Abyss Scarab of Emptiness": {
-    "label": "허무의 심연 갑충석",
-    "value": "Abyss Scarab of Emptiness",
-    "desc": "지도 조각",
-    "class": "심연"
-  },
+  //// 3.28 deprecated
+  // "Abyss Scarab of Emptiness": {
+  //   "label": "허무의 심연 갑충석",
+  //   "value": "Abyss Scarab of Emptiness",
+  //   "desc": "지도 조각",
+  //   "class": "심연"
+  // },
   "Horned Scarab of Bloodlines": {
     "label": "혈맹의 뿔 달린 갑충석",
     "value": "Horned Scarab of Bloodlines",
@@ -692,6 +685,12 @@ Map<String, dynamic> SCARAB = {
   "Anarchy Scarab": {
     "label": "혼란 갑충석",
     "value": "Anarchy Scarab",
+    "desc": "지도 조각",
+    "class": "혼란"
+  },
+  "Anarchy Scarab of Gigantification": {
+    "label": "비대화의 혼란 갑충석",
+    "value": "Anarchy Scarab of Gigantification",
     "desc": "지도 조각",
     "class": "혼란"
   },
@@ -743,5 +742,49 @@ Map<String, dynamic> SCARAB = {
     "value": "Betrayal Scarab of the Allflame",
     "desc": "지도 조각",
     "class": "배신"
+  },
+
+  // 3.28추가
+  "Anarchy Scarab of the Exceptional": {
+    "label": "특출난 자의 혼란 갑충석",
+    "value": "Anarchy Scarab of the Exceptional",
+    "desc": "지도 조각",
+    "class": "혼란"
+  },
+  "Ritual Scarab of Corpses": {
+    "label": "시신의 의식 갑충석",
+    "value": "Ritual Scarab of Corpses",
+    "desc": "지도 조각",
+    "class": "의식"
+  },
+  "Kalguuran Scarab of Enriching": {
+    "label": "윤택의 칼구르 갑충석",
+    "value": "Kalguuran Scarab of Enriching",
+    "desc": "지도 조각",
+    "class": "칼구르"
+  },
+  "Scarab of the Dextral": {
+    "label": "우측의 갑충석",
+    "value": "Scarab of the Dextral",
+    "desc": "지도 조각",
+    "class": "a"
+  },
+  "Betrayal Scarab of Unbreaking": {
+    "label": "원상 복구의 배신 갑충석",
+    "value": "Betrayal Scarab of Unbreaking",
+    "desc": "지도 조각",
+    "class": "배신"
+  },
+  "Abyss Scarab of Descending": {
+    "label": "하강의 심연 갑충석",
+    "value": "Abyss Scarab of Descending",
+    "desc": "지도 조각",
+    "class": "심연"
+  },
+  "Expedition Scarab of Infusion": {
+    "label": "주입의 탐험 갑충석",
+    "value": "Expedition Scarab of Infusion",
+    "desc": "지도 조각",
+    "class": "탐험"
   },
 };

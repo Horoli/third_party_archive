@@ -187,8 +187,10 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
               getScarab?.name ?? index.toString(),
             ),
             onPressed: () {
+              if (selectableItems.isEmpty) return;
               setState(() {
-                getScarab = selectableItems[0];
+                // getScarab = selectableItems[0];
+                scarabLocation[index] = selectableItems[0];
                 selectableItems.removeAt(0);
               });
             },
@@ -215,7 +217,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     if (item == null) {
       return Container();
     }
-    double getChaosValue = chaosValueMap[item.id] ?? 0;
+    double getChaosValue = chaosValueMap[item.id] ?? 0.1;
 
     Color backgroundColor = getBackgroundColor(getChaosValue);
     // AlwaysStoppedAnimation<double> opacity = getChaosValue >= 4
@@ -309,9 +311,23 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     fetch();
   }
 
-  String scarabI18nString(String scarabLabel) =>
-      I18N.SCARAB[scarabLabel]['label'];
-  String scarabClass(String scarabLabel) => I18N.SCARAB[scarabLabel]['class'];
+  String scarabI18nString(String scarabLabel) {
+    final scarabData = I18N.SCARAB[scarabLabel];
+
+    if (scarabData == null) {
+      // 맵에 없는 새로운 갑충석일 경우 콘솔에 찍어서 확인하고, 원본 영문 이름을 그대로 반환합니다.
+      print('⚠️ 번역 데이터 누락: $scarabLabel');
+      return scarabLabel;
+    }
+
+    return scarabData['label'] ?? scarabLabel;
+  }
+
+  String scarabClass(String scarabLabel) {
+    final scarabData = I18N.SCARAB[scarabLabel];
+    if (scarabData == null) return '기본클래스'; // 적절한 기본값 설정
+    return scarabData['class'] ?? '기본클래스';
+  }
 
   List<String> getScarabNamesWithChaosValue(double chaosValue) {
     if (chaosValue >= chaosValueFirst) {
