@@ -367,30 +367,6 @@ final Map<int, PoeNinjaItem> MAP = {
     "name": "Harvest Scarab of Doubling",
     "icon": "56edf1fdad608924eba239f46e1e833cfc6bdc52e57bd964d12515207e9d610b"
   },
-  "83": {
-    "chaosValue": 10.42,
-    "id": 113900,
-    "name": "Horned Scarab of Glittering",
-    "icon": "9fdfca4878949f22d8615657f6357f1497401044a5cc21fbdedd92e2c0f5bcbc"
-  },
-  "100": {
-    "chaosValue": 1,
-    "id": 113873,
-    "name": "Horned Scarab of Nemeses",
-    "icon": "57e085a5ea4473b5e214d2b746816d4e920d8efb4376b9a64997d3337540a4f4"
-  },
-  "185": {
-    "chaosValue": 2.3,
-    "id": 113860,
-    "name": "Horned Scarab of Pandemonium",
-    "icon": "e1f0bb150d7199c11b7a13ecbba7c78a4e6a7eb1646d8837196e71b7897970ce"
-  },
-  "151": {
-    "chaosValue": 2,
-    "id": 113896,
-    "name": "Horned Scarab of Tradition",
-    "icon": "b977d915dcbb6323d34a2e515166eef5bbc56a0127eb528f2e64182fa4e57a65"
-  },
   "86": {
     "chaosValue": 1,
     "id": 113702,
@@ -630,6 +606,60 @@ final Map<int, PoeNinjaItem> MAP = {
     "id": 113771,
     "name": "Ultimatum Scarab of Inscription",
     "icon": "5c30ccb61cb3c5675d9c8dbe8db1a0adfd56f8b264ec3a55500327b024bf7bf3"
+  },
+  "123": {
+    "chaosValue": 177.8,
+    "id": 113826,
+    "name": "Ambush Scarab of Containment",
+    "icon": "ef200d681b6c0c7cc6e230ee5a05026134486d5284e62d9c0d275e73f9668259"
+  },
+  "97": {
+    "chaosValue": 1,
+    "id": 117976,
+    "name": "Breach Scarab of Resonant Cascade",
+    "icon": "c7ee8bd0b43ac06981d36ea41cc3d29759c0d5cec5f5711c872d55238eb00bc6"
+  },
+  "214": {
+    "chaosValue": 1.9,
+    "id": 113872,
+    "name": "Ultimatum Scarab of Dueling",
+    "icon": "2ebc642a5a272fb01e77cc4082f496701801e0012792e63601a392d5adaa033e"
+  },
+  "151": {
+    "chaosValue": 2,
+    "id": 113896,
+    "name": "Horned Scarab of Tradition",
+    "icon": "b977d915dcbb6323d34a2e515166eef5bbc56a0127eb528f2e64182fa4e57a65"
+  },
+  "168": {
+    "chaosValue": 2.3,
+    "id": 113860,
+    "name": "Horned Scarab of Pandemonium",
+    "icon": "e1f0bb150d7199c11b7a13ecbba7c78a4e6a7eb1646d8837196e71b7897970ce"
+  },
+  "134": {
+    "chaosValue": 5,
+    "id": 113922,
+    "name": "Horned Scarab of Bloodlines",
+    "icon": "6ac7a51ed1e8801d101d472a9fc17ae2d4b26e6e27ca52ba2ed5e0817acdd323"
+  },
+  "117": {
+    "chaosValue": 1,
+    "id": 113873,
+    "name": "Horned Scarab of Nemeses",
+    "icon": "57e085a5ea4473b5e214d2b746816d4e920d8efb4376b9a64997d3337540a4f4"
+  },
+  "100": {
+    "chaosValue": 10.42,
+    "id": 113900,
+    "name": "Horned Scarab of Glittering",
+    "icon": "9fdfca4878949f22d8615657f6357f1497401044a5cc21fbdedd92e2c0f5bcbc"
+  },
+  "83": {
+    "chaosValue": 4.1,
+    "id": 114030,
+    "name": "Horned Scarab of Awakening",
+    "icon": "76937bd4ca7525e140ae05101f69ab033e47d95597974d00105f7f1cf1167ec7"
   }
 }.map((key, value) =>
     MapEntry(int.parse(key), PoeNinjaItem.fromMap(item: value)));

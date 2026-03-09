@@ -77,6 +77,13 @@ Map<String, dynamic> SCARAB = {
     "desc": "지도 조각",
     "class": "영향력"
   },
+  "Influencing Scarab of Interferenc": {
+    "label": "방해의 영향력 갑충석",
+    "value": "Influencing Scarab of Interferenc",
+    "desc": "지도 조각",
+    "class": "영향력"
+  },
+
   "Abyss Scarab of Multitudes": {
     "label": "군중의 심연 갑충석",
     "value": "Abyss Scarab of Multitudes",
@@ -208,6 +215,25 @@ Map<String, dynamic> SCARAB = {
     "value": "Titanic Scarab of Treasures",
     "desc": "지도 조각",
     "class": "거대한"
+  },
+
+  "Scarab of the Sinistral": {
+    "label": "좌측의 갑충석",
+    "value": "Scarab of the Sinistral",
+    "desc": "지도 조각",
+    "class": "기타"
+  },
+  "Influencing Scarab of Interference": {
+    "label": "방해의 영향력 갑충석",
+    "value": "Influencing Scarab of Interference",
+    "desc": "지도 조각",
+    "class": "영향력"
+  },
+  "Legion Scarab of Treasures": {
+    "label": "보물의 군단 갑충석",
+    "value": "Legeion Scarab of Treasures",
+    "desc": "지도 조각",
+    "class": "군단"
   },
   "Horned Scarab of Preservation": {
     "label": "보전의 뿔 달린 갑충석",
