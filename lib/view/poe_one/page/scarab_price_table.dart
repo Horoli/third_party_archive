@@ -262,8 +262,11 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
               onPressed: () async {
                 await launchUrl(
                   Uri.parse(
-                    'https://poe.game.daum.net/trade/search/Settlers?q={"query":{"status":{"option":"online"},"type":"${scarabI18nString(item.name)}","stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}',
+                    'https://poe.game.daum.net/trade/search/Mirage?q={"query":{"status":{"option":"available"},"type":"${scarabI18nString(item.name)}","stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}',
                   ),
+                  // Uri.parse(
+                  //   'https://poe.game.daum.net/trade/search/Mirage?q={"query":{"status":{"option":"online"},"type":"${scarabI18nString(item.name)}","stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}',
+                  // ),
                 );
               },
             )
