@@ -265,60 +265,6 @@ final Map<int, PoeNinjaItem> MAP = {
     "name": "Divination Scarab of The Cloister",
     "icon": "0035cf63dacde7e10842806e986b08749aea82bb6c7eb1ded58ef17104292d61"
   },
-  "188": {
-    "chaosValue": 1,
-    "id": 113740,
-    "name": "Domination Scarab",
-    "icon": "72028444a2fc25e9d01b42dc1eec315bd27d1ac41cffa9884d25942b245f3a84"
-  },
-  "189": {
-    "chaosValue": 1,
-    "id": 118279,
-    "name": "Domination Scarab of Apparitions",
-    "icon": "039310cf4f9992acacbaba8aa9a95eaafd49c1318527d97fdee9f30ad8b6b23c"
-  },
-  "190": {
-    "chaosValue": 1,
-    "id": 118284,
-    "name": "Domination Scarab of Evolution",
-    "icon": "221f3fe7c6947f665d2497281c30a46c3d8387aaf61a61ac14ebb2ccf10652e7"
-  },
-  "191": {
-    "chaosValue": 2.4,
-    "id": 113761,
-    "name": "Domination Scarab of Terrors",
-    "icon": "2496bc51cd6f953ff3b95cc026333146496a5e13ad31b1827497c70665e2d2a3"
-  },
-  "205": {
-    "chaosValue": 1,
-    "id": 113687,
-    "name": "Essence Scarab",
-    "icon": "8e0c13d7d35a575bf60eaf02467001a0bcef97f48b0ed53e2c324ef6ac503998"
-  },
-  "209": {
-    "chaosValue": 2.3,
-    "id": 117973,
-    "name": "Essence Scarab of Adaptation",
-    "icon": "99c5b3a955fead8b4510cc07d9cbbc009fca26416cea45b1a5d12f32575ae913"
-  },
-  "206": {
-    "chaosValue": 1,
-    "id": 113745,
-    "name": "Essence Scarab of Ascent",
-    "icon": "dec0e1fdc2204408c4d70c861d010ccba229b0877184388636882611e9f5867f"
-  },
-  "208": {
-    "chaosValue": 6,
-    "id": 113945,
-    "name": "Essence Scarab of Calcification",
-    "icon": "143f1156e68710a5702c7c6480cd25b6e15001c316222e5cef4bf633a3ed073f"
-  },
-  "207": {
-    "chaosValue": 1,
-    "id": 113690,
-    "name": "Essence Scarab of Stability",
-    "icon": "5e8d2c327d52b1982b27108e09a0fbce372d4da5b089bb84d9b2a1878e6746d2"
-  },
   "127": {
     "chaosValue": 1,
     "id": 113736,
@@ -517,24 +463,6 @@ final Map<int, PoeNinjaItem> MAP = {
     "name": "Scarab of Stability",
     "icon": "78c2bb4cb715d32652253d3d2ac32521e517ec058ab51e81bacb737d058a8095"
   },
-  "116": {
-    "chaosValue": 1,
-    "id": 117971,
-    "name": "Scarab of Wisps",
-    "icon": "fd5ac7e8c621a32af6c14ecbfb089a262412522cd794e0b7acec5e8fc15c4921"
-  },
-  "133": {
-    "chaosValue": 1,
-    "id": 135384,
-    "name": "Scarab of the Dextral",
-    "icon": "c8199a0dce7ebba3d36a76a13610ee3454d49f59d7075512f80188540b9a7b32"
-  },
-  "150": {
-    "chaosValue": 1,
-    "id": 134960,
-    "name": "Scarab of the Sinistral",
-    "icon": "53a0613fca5fe41c9328e8db41c782f3d334ae99112c65af93e97c50eb357024"
-  },
   "103": {
     "chaosValue": 1,
     "id": 113689,
@@ -564,24 +492,6 @@ final Map<int, PoeNinjaItem> MAP = {
     "id": 121391,
     "name": "Titanic Scarab of Treasures",
     "icon": "a238c5b22eb0cb04540b4743e4475711016cd0a75d1befb30eef3366085dcede"
-  },
-  "222": {
-    "chaosValue": 1,
-    "id": 113720,
-    "name": "Torment Scarab",
-    "icon": "0afb45b3cecc816646a67391e7f9ccf9992e97056bcdbc1857a63a9c3127e2b7"
-  },
-  "223": {
-    "chaosValue": 1,
-    "id": 113692,
-    "name": "Torment Scarab of Peculiarity",
-    "icon": "2b63e32c5989a1ab4a8f2cf8a75e47e4673baa06fc23e60a53344358bb763155"
-  },
-  "224": {
-    "chaosValue": 1,
-    "id": 117972,
-    "name": "Torment Scarab of Possession",
-    "icon": "001574f29a6f4e75b8e73944b68900c4e5ff5578fb9f254bd4011907361736e1"
   },
   "212": {
     "chaosValue": 0.62,
@@ -625,41 +535,137 @@ final Map<int, PoeNinjaItem> MAP = {
     "name": "Ultimatum Scarab of Dueling",
     "icon": "2ebc642a5a272fb01e77cc4082f496701801e0012792e63601a392d5adaa033e"
   },
+  "171": {
+    "chaosValue": 1,
+    "id": 113740,
+    "name": "Domination Scarab",
+    "icon": "72028444a2fc25e9d01b42dc1eec315bd27d1ac41cffa9884d25942b245f3a84"
+  },
+  "172": {
+    "chaosValue": 1,
+    "id": 118279,
+    "name": "Domination Scarab of Apparitions",
+    "icon": "039310cf4f9992acacbaba8aa9a95eaafd49c1318527d97fdee9f30ad8b6b23c"
+  },
+  "173": {
+    "chaosValue": 1,
+    "id": 118284,
+    "name": "Domination Scarab of Evolution",
+    "icon": "221f3fe7c6947f665d2497281c30a46c3d8387aaf61a61ac14ebb2ccf10652e7"
+  },
+  "174": {
+    "chaosValue": 2.4,
+    "id": 113761,
+    "name": "Domination Scarab of Terrors",
+    "icon": "2496bc51cd6f953ff3b95cc026333146496a5e13ad31b1827497c70665e2d2a3"
+  },
+  "188": {
+    "chaosValue": 1,
+    "id": 113687,
+    "name": "Essence Scarab",
+    "icon": "8e0c13d7d35a575bf60eaf02467001a0bcef97f48b0ed53e2c324ef6ac503998"
+  },
+  "189": {
+    "chaosValue": 1,
+    "id": 113745,
+    "name": "Essence Scarab of Ascent",
+    "icon": "dec0e1fdc2204408c4d70c861d010ccba229b0877184388636882611e9f5867f"
+  },
+  "190": {
+    "chaosValue": 1,
+    "id": 113690,
+    "name": "Essence Scarab of Stability",
+    "icon": "5e8d2c327d52b1982b27108e09a0fbce372d4da5b089bb84d9b2a1878e6746d2"
+  },
+  "192": {
+    "chaosValue": 2.3,
+    "id": 117973,
+    "name": "Essence Scarab of Adaptation",
+    "icon": "99c5b3a955fead8b4510cc07d9cbbc009fca26416cea45b1a5d12f32575ae913"
+  },
+  "191": {
+    "chaosValue": 6,
+    "id": 113945,
+    "name": "Essence Scarab of Calcification",
+    "icon": "143f1156e68710a5702c7c6480cd25b6e15001c316222e5cef4bf633a3ed073f"
+  },
+  "134": {
+    "chaosValue": 4.1,
+    "id": 114030,
+    "name": "Horned Scarab of Awakening",
+    "icon": "76937bd4ca7525e140ae05101f69ab033e47d95597974d00105f7f1cf1167ec7"
+  },
+  "83": {
+    "chaosValue": 5,
+    "id": 113922,
+    "name": "Horned Scarab of Bloodlines",
+    "icon": "6ac7a51ed1e8801d101d472a9fc17ae2d4b26e6e27ca52ba2ed5e0817acdd323"
+  },
+  "168": {
+    "chaosValue": 10.42,
+    "id": 113900,
+    "name": "Horned Scarab of Glittering",
+    "icon": "9fdfca4878949f22d8615657f6357f1497401044a5cc21fbdedd92e2c0f5bcbc"
+  },
+  "100": {
+    "chaosValue": 1,
+    "id": 113873,
+    "name": "Horned Scarab of Nemeses",
+    "icon": "57e085a5ea4473b5e214d2b746816d4e920d8efb4376b9a64997d3337540a4f4"
+  },
+  "185": {
+    "chaosValue": 2.3,
+    "id": 113860,
+    "name": "Horned Scarab of Pandemonium",
+    "icon": "e1f0bb150d7199c11b7a13ecbba7c78a4e6a7eb1646d8837196e71b7897970ce"
+  },
+  "117": {
+    "chaosValue": 175.5,
+    "id": 113919,
+    "name": "Horned Scarab of Preservation",
+    "icon": "480daababeb0cb0e79fecc2069bcad79d6e9e39715aea137ab2ee75b3657adb0"
+  },
   "151": {
     "chaosValue": 2,
     "id": 113896,
     "name": "Horned Scarab of Tradition",
     "icon": "b977d915dcbb6323d34a2e515166eef5bbc56a0127eb528f2e64182fa4e57a65"
   },
-  "168": {
-    "chaosValue": 2.3,
-    "id": 113860,
-    "name": "Horned Scarab of Pandemonium",
-    "icon": "e1f0bb150d7199c11b7a13ecbba7c78a4e6a7eb1646d8837196e71b7897970ce"
-  },
-  "134": {
-    "chaosValue": 5,
-    "id": 113922,
-    "name": "Horned Scarab of Bloodlines",
-    "icon": "6ac7a51ed1e8801d101d472a9fc17ae2d4b26e6e27ca52ba2ed5e0817acdd323"
-  },
-  "117": {
+  "205": {
     "chaosValue": 1,
-    "id": 113873,
-    "name": "Horned Scarab of Nemeses",
-    "icon": "57e085a5ea4473b5e214d2b746816d4e920d8efb4376b9a64997d3337540a4f4"
+    "id": 113720,
+    "name": "Torment Scarab",
+    "icon": "0afb45b3cecc816646a67391e7f9ccf9992e97056bcdbc1857a63a9c3127e2b7"
   },
-  "100": {
-    "chaosValue": 10.42,
-    "id": 113900,
-    "name": "Horned Scarab of Glittering",
-    "icon": "9fdfca4878949f22d8615657f6357f1497401044a5cc21fbdedd92e2c0f5bcbc"
+  "206": {
+    "chaosValue": 1,
+    "id": 113692,
+    "name": "Torment Scarab of Peculiarity",
+    "icon": "2b63e32c5989a1ab4a8f2cf8a75e47e4673baa06fc23e60a53344358bb763155"
   },
-  "83": {
-    "chaosValue": 4.1,
-    "id": 114030,
-    "name": "Horned Scarab of Awakening",
-    "icon": "76937bd4ca7525e140ae05101f69ab033e47d95597974d00105f7f1cf1167ec7"
+  "207": {
+    "chaosValue": 1,
+    "id": 117972,
+    "name": "Torment Scarab of Possession",
+    "icon": "001574f29a6f4e75b8e73944b68900c4e5ff5578fb9f254bd4011907361736e1"
+  },
+  "150": {
+    "chaosValue": 1,
+    "id": 117971,
+    "name": "Scarab of Wisps",
+    "icon": "fd5ac7e8c621a32af6c14ecbfb089a262412522cd794e0b7acec5e8fc15c4921"
+  },
+  "116": {
+    "chaosValue": 1,
+    "id": 135384,
+    "name": "Scarab of the Dextral",
+    "icon": "c8199a0dce7ebba3d36a76a13610ee3454d49f59d7075512f80188540b9a7b32"
+  },
+  "133": {
+    "chaosValue": 1,
+    "id": 134960,
+    "name": "Scarab of the Sinistral",
+    "icon": "53a0613fca5fe41c9328e8db41c782f3d334ae99112c65af93e97c50eb357024"
   }
 }.map((key, value) =>
     MapEntry(int.parse(key), PoeNinjaItem.fromMap(item: value)));

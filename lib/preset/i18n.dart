@@ -793,7 +793,7 @@ Map<String, dynamic> SCARAB = {
     "label": "우측의 갑충석",
     "value": "Scarab of the Dextral",
     "desc": "지도 조각",
-    "class": "a"
+    "class": "기타"
   },
   "Betrayal Scarab of Unbreaking": {
     "label": "원상 복구의 배신 갑충석",
