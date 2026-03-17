@@ -89,6 +89,7 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Obx(() {
+          getCtrlDashboard.isKorean.value;
           String? date;
           if (selectedCategory == LABEL.SCARAB_TABLE) {
             date = getCtrlScarab.result.value.data?['updateDate'];
