@@ -5,6 +5,12 @@ class GetDashboard extends GetxController {
       RestfulResult(statusCode: 0, message: '').obs;
 
   RxString selectedTag = 'ALL'.obs;
+  RxBool isKorean = true.obs;
+
+  void toggleLanguage() {
+    isKorean.value = !isKorean.value;
+    update();
+  }
 
   Future<void> get({int type = CONSTANTS.TAG_TYPE_PATHOFEXILE}) async {
     Uri uri = isLocal
@@ -48,32 +54,6 @@ class GetDashboard extends GetxController {
       // global DivineOrb에 값 할당
       GDivineOrb = getDivineOrb;
       update();
-
-      // tags.assignAll(getTagsLabel);
-      // response
-
-      // response.then((rep) {
-      //   Map rawData = jsonDecode(rep.body);
-
-      //   if (rawData['statusCode'] == 200) {
-      //     Map<String, dynamic> data = Map.from(rawData['data']);
-      //     List getTags = List.from(data['tags']);
-      //     List<String> getTagsLabel =
-      //         getTags.map((tagObject) => tagObject['label'].toString()).toList();
-
-      //     // tags.assignAll(getTagsLabel);
-
-      //     result = RestfulResult(
-      //       statusCode: rawData['statusCode'],
-      //       message: rawData['message'] ?? '',
-      //       data: getTagsLabel,
-      //     );
-
-      //     update();
-      //   }
-      // }).catchError((error) {
-      //   throw error;
-      // });
     }
   }
 

@@ -71,3 +71,4 @@ part 'widget/tile_poe_item.dart';
 part 'widget/change_calculator.dart';
 part 'widget/hover_button.dart';
 part 'widget/hover_image_button.dart';
+part 'widget/ninja_sync_info.dart';

@@ -21,6 +21,12 @@ const String NINJA_PRICE = '시세확인';
 const String RECEIVING_DAMAGE = '받는피해 계산기';
 const String SCARAB_TABLE = '갑충석 시세표';
 
+const String THIRD_PARTY_EN = 'Third-party Apps';
+const String RANDOM_BUILD_EN = 'Random Build Selector';
+const String NINJA_PRICE_EN = 'Price Check';
+const String RECEIVING_DAMAGE_EN = 'Damage Taken Calculator';
+const String SCARAB_TABLE_EN = 'Scarab Price Table';
+
 const String CURRENCY = 'Currency';
 const String FRAGMENT = 'Fragment';
 const String SCARAB = 'Scarab';
@@ -29,8 +35,25 @@ const String INVITATION = 'invitation';
 
 const String BUY = '구매';
 const String SELL = '판매';
+const String BUY_EN = 'Buy';
+const String SELL_EN = 'Sell';
 
 const String ETC = 'ETC';
+
+const String MORE_THAN = '+';
+const String MORE_THAN_EN = '+';
+const String TYPE_COUNT = ''; // 숫자를 []로 감쌀 것이므로 빈 값 처리
+const String TYPE_COUNT_EN = '';
+
+const String DATA_SYNCED_WITH_POE_NINJA = 'Synced by poe.ninja :';
+const String DATA_SYNCED_WITH_POE_NINJA_EN = 'Synced by poe.ninja :';
+
+const String CHANGE_CALCULATOR = '잔돈 계산기';
+const String CHANGE_CALCULATOR_EN = 'Change Calculator';
+const String TOTAL_PRICE = '총 합계';
+const String TOTAL_PRICE_EN = 'Total Price';
+const String ENTER_QUANTITY = '수량을 입력하세요';
+const String ENTER_QUANTITY_EN = 'Enter quantity';
 
 // const String SCARAB_TITANIC = 'Titanic Scarab';
 // const String SCARAB_ANARCHY = 'Anarchy Scarab';

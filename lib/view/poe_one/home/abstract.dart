@@ -16,6 +16,9 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
   bool get isPort => MediaQuery.of(context).orientation == Orientation.portrait;
 
   final GetDashboard getCtrlDashboard = Get.put(GetDashboard());
+  final GetScarabTable getCtrlScarab = Get.put(GetScarabTable());
+  final GetPoeNinja getCtrlPoeNinja = Get.put(GetPoeNinja());
+
   late TabController tabController = TabController(length: 1, vsync: this);
   Map<String, Widget> pages = {};
   List<String> tags = [];
@@ -36,6 +39,7 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
       drawer:
           isPort && selectedCategory == LABEL.THIRD_PARTY ? buildDrawer : null,
       endDrawer: isPort ? buildEndDrawer : null,
+      floatingActionButton: buildFloatingLanguageButton(),
       // persistentFooterButtons: [buildFooter()],
       body: GetX<GetDashboard>(
         builder: (_) {
@@ -77,8 +81,52 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
             ? GetX<GetDashboard>(
                 builder: (_) => Text(getCtrlDashboard.selectedTag.value),
               )
-            : Text(appBarLabel),
+            : Obx(() => Text(getLocalizedLabel(selectedCategory))),
       );
+
+  Widget buildFloatingLanguageButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Obx(() {
+          String? date;
+          if (selectedCategory == LABEL.SCARAB_TABLE) {
+            date = getCtrlScarab.result.value.data?['updateDate'];
+          } else if (selectedCategory == LABEL.NINJA_PRICE) {
+            date = getCtrlPoeNinja.result.value.data?.date;
+          }
+          return WidgetNinjaSyncInfo(rawDate: date);
+        }),
+        const Padding(padding: EdgeInsets.all(4)),
+        FloatingActionButton.small(
+          backgroundColor: Colors.black.withAlpha(150),
+          shape: const CircleBorder(side: BorderSide(color: Colors.grey)),
+          onPressed: () => getCtrlDashboard.toggleLanguage(),
+          child: Obx(() => Text(
+                getCtrlDashboard.isKorean.value ? 'KO' : 'EN',
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
+              )),
+        ),
+      ],
+    );
+  }
+
+  String getLocalizedLabel(String label) {
+    bool isKr = getCtrlDashboard.isKorean.value;
+    switch (label) {
+      case LABEL.THIRD_PARTY:
+        return isKr ? LABEL.THIRD_PARTY : LABEL.THIRD_PARTY_EN;
+      case LABEL.NINJA_PRICE:
+        return isKr ? LABEL.NINJA_PRICE : LABEL.NINJA_PRICE_EN;
+      case LABEL.RECEIVING_DAMAGE:
+        return isKr ? LABEL.RECEIVING_DAMAGE : LABEL.RECEIVING_DAMAGE_EN;
+      case LABEL.SCARAB_TABLE:
+        return isKr ? LABEL.SCARAB_TABLE : LABEL.SCARAB_TABLE_EN;
+      default:
+        return label;
+    }
+  }
 
   // Only for portrait mode : common scaffold를 사용함에 따라 abstarct에 set
   Widget get buildDrawer => Drawer(
@@ -114,7 +162,7 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
 
   List<Widget> get categorySelectors => [
         buildSelectCategoryButton(label: LABEL.THIRD_PARTY),
-        if (!isPort) buildSelectCategoryButton(label: LABEL.RANDOM_BUILD),
+        // if (!isPort) buildSelectCategoryButton(label: LABEL.RANDOM_BUILD),
         buildSelectCategoryButton(label: LABEL.NINJA_PRICE),
         if (!isPort) buildSelectCategoryButton(label: LABEL.SCARAB_TABLE),
       ];
@@ -122,28 +170,28 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
   Widget buildSelectCategoryButton({
     required String label,
   }) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor:
-            selectedCategory == label ? GSelectedButtonColor : null,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(0)),
-        ),
-      ),
-      onPressed: () async {
-        if (label == LABEL.THIRD_PARTY) {
-          await getCtrlDashboard.changeSelectedTag(LABEL.TAG_ALL);
-        }
-        setState(() {
-          selectedCategory = label;
-          if (isPort) {
-            appBarLabel = label;
-            Navigator.pop(context);
-          }
-        });
-      },
-      child: Text(label),
-    );
+    return Obx(() => ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor:
+                selectedCategory == label ? GSelectedButtonColor : null,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(0)),
+            ),
+          ),
+          onPressed: () async {
+            if (label == LABEL.THIRD_PARTY) {
+              await getCtrlDashboard.changeSelectedTag(LABEL.TAG_ALL);
+            }
+            setState(() {
+              selectedCategory = label;
+              if (isPort) {
+                appBarLabel = label;
+                Navigator.pop(context);
+              }
+            });
+          },
+          child: Text(getLocalizedLabel(label)),
+        ));
   }
 
   List<Widget> buildTagList() {
@@ -162,9 +210,13 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
   Widget buildCurrentPlayer() {
     return Column(
       children: [
-        Text('현재 Steam 유저수 : $currentPlayers'),
+        Obx(() => Text(getCtrlDashboard.isKorean.value
+            ? '현재 Steam 유저수 : $currentPlayers'
+            : 'Current Steam Players : $currentPlayers')),
         TextButton(
-          child: const Text('시즌별 유저통계 보러가기'),
+          child: Obx(() => Text(getCtrlDashboard.isKorean.value
+              ? '시즌별 유저통계 보러가기'
+              : 'View seasonal stats')),
           onPressed: () async {
             await launchUrl(Uri.parse(URL.POE_DB_CONCURRENT_PLAYER));
           },

@@ -13,13 +13,14 @@ class PageChangeCalculator extends StatefulWidget {
 
 class PageChangeCalculatorState extends State<PageChangeCalculator> {
   final GetPoeNinja getPoeNinja = Get.put(GetPoeNinja());
+  final GetDashboard getCtrlDashboard = Get.find<GetDashboard>();
   bool get isPort => widget.isPort;
 
   List<String> listType = [
     LABEL.CURRENCY,
     LABEL.FRAGMENT,
     LABEL.SCARAB,
-    LABEL.MAP,
+    // LABEL.MAP,
     // LABEL.INVITATION
   ];
 
@@ -61,9 +62,6 @@ class PageChangeCalculatorState extends State<PageChangeCalculator> {
                   TilePoeItem(items: data.invitation).expand(),
               ],
             ).expand(),
-            const Divider(),
-            Text('standard Chaos Orb value: ${data.standardChaosValue}'),
-            Text('data from poe.ninja. updated at : ${data.date}'),
           ],
         );
       },
