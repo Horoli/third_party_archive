@@ -19,6 +19,9 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
 
   Map<int, PoeNinjaItem> scarabLocation = SCARAB_LOCATION.MAP;
 
+  // 선택된 갑충석들의 ID를 저장하는 Set
+  Set<int> selectedScarabIds = {};
+
   int selectedGridIndex = -1;
 
   int sheetColumnQuantity = 17;
@@ -48,6 +51,21 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
+                      // --- 추가된 커스텀 선택 기능 버튼 ---
+                      if (selectedScarabIds.isNotEmpty) ...[
+                        SizedBox(
+                          width: 140,
+                          child: buildCustomCopyButton(isKr),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.refresh_rounded, color: Colors.white70),
+                          tooltip: isKr ? '선택 초기화' : 'Clear Selection',
+                          onPressed: () => setState(() => selectedScarabIds.clear()),
+                        ),
+                        const VerticalDivider(color: Colors.white24, width: 20),
+                      ],
+                      // ------------------------------
+
                       // Tier 1 ~ Tier 4 버튼
                       ...scarabConditionList.map((value) => SizedBox(
                             width: 140,
@@ -64,7 +82,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                         return SizedBox(
                           width: 140,
                           child: buildCopyButton(
-                            chaosValue: 0.1, // Tier 5 색상 유도를 위한 값
+                            chaosValue: 0.1, // Tier 5 색상 유도
                             items: chunk,
                             label: '1c↓ #${index + 1}',
                             isKr: isKr,
@@ -88,6 +106,25 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     );
   }
 
+  // 선택된 갑충석들만 복사하는 커스텀 버튼
+  Widget buildCustomCopyButton(bool isKr) {
+    // 현재 필터링된 모든 갑충석 데이터에서 선택된 ID와 일치하는 아이템들 추출
+    List<PoeNinjaItem> selectedItems = [];
+    final allScarabs = getScarab.result.value.data['filteredData'] as List<PoeNinjaItem>;
+    for (var item in allScarabs) {
+      if (selectedScarabIds.contains(item.id)) {
+        selectedItems.add(item);
+      }
+    }
+
+    return buildCopyButton(
+      chaosValue: 100, // 강조를 위해 Tier 1 색상 빌림 (또는 별도 색상 지정 가능)
+      items: selectedItems,
+      label: isKr ? '선택 복사' : 'Copy Selected',
+      isKr: isKr,
+    );
+  }
+
   Widget buildCopyButton({
     required double chaosValue,
     required List<PoeNinjaItem> items,
@@ -108,39 +145,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
           onTap: () async {
             String finalText = '';
             for (int i = 0; i < items.length; i++) {
-              String addText = '';
-              PoeNinjaItem item = items[i];
-              final dynamic scarabI18n = I18N.SCARAB[item.name];
-
-              if (isKr) {
-                if (scarabI18n != null && scarabI18n is Map && scarabI18n['regexKr'] != null) {
-                  addText = scarabI18n['regexKr'].toString();
-                } else {
-                  String localizedName = scarabI18nString(item.name, isKr);
-                  List<String> scarabSplit = localizedName.split(' ');
-                  if (scarabSplit.length >= 2 && scarabSplit[0].isNotEmpty && scarabSplit[1].isNotEmpty) {
-                    String part1 = scarabSplit[0].length >= 2 ? scarabSplit[0].substring(scarabSplit[0].length - 2) : scarabSplit[0];
-                    String part2 = scarabSplit[1].substring(0, 1);
-                    addText = '$part1.$part2';
-                  } else {
-                    addText = localizedName;
-                  }
-                }
-              } else {
-                if (scarabI18n != null && scarabI18n is Map && scarabI18n['regexEn'] != null) {
-                  addText = scarabI18n['regexEn'].toString();
-                } else {
-                  String name = item.name.toLowerCase();
-                  List<String> words = name.split(' ');
-                  if (words.contains('of') && words.first.isNotEmpty && words.last.isNotEmpty) {
-                    addText = '${words[0][0]}.of.${words.last.substring(0, math.min(3, words.last.length))}';
-                  } else if (words.isNotEmpty && words[0].isNotEmpty) {
-                    addText = words[0].substring(0, math.min(3, words[0].length));
-                  } else {
-                    addText = name;
-                  }
-                }
-              }
+              String addText = getRegexForItem(items[i], isKr);
               finalText += (i == 0 ? '' : '|') + addText;
             }
 
@@ -174,6 +179,38 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
         ),
       ),
     );
+  }
+
+  // 개별 아이템의 정규식 생성 로직 (코드 중복 방지를 위해 분리)
+  String getRegexForItem(PoeNinjaItem item, bool isKr) {
+    final dynamic scarabI18n = I18N.SCARAB[item.name];
+    if (isKr) {
+      if (scarabI18n != null && scarabI18n is Map && scarabI18n['regexKr'] != null) {
+        return scarabI18n['regexKr'].toString();
+      } else {
+        String localizedName = scarabI18nString(item.name, isKr);
+        List<String> scarabSplit = localizedName.split(' ');
+        if (scarabSplit.length >= 2 && scarabSplit[0].isNotEmpty && scarabSplit[1].isNotEmpty) {
+          String part1 = scarabSplit[0].length >= 2 ? scarabSplit[0].substring(scarabSplit[0].length - 2) : scarabSplit[0];
+          String part2 = scarabSplit[1].substring(0, 1);
+          return '$part1.$part2';
+        }
+        return localizedName;
+      }
+    } else {
+      if (scarabI18n != null && scarabI18n is Map && scarabI18n['regexEn'] != null) {
+        return scarabI18n['regexEn'].toString();
+      } else {
+        String name = item.name.toLowerCase();
+        List<String> words = name.split(' ');
+        if (words.contains('of') && words.first.isNotEmpty && words.last.isNotEmpty) {
+          return '${words[0][0]}.of.${words.last.substring(0, math.min(3, words.last.length))}';
+        } else if (words.isNotEmpty && words[0].isNotEmpty) {
+          return words[0].substring(0, math.min(3, words[0].length));
+        }
+        return name;
+      }
+    }
   }
 
   void showCenterSnackBar(String message) {
@@ -237,41 +274,70 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     Color backgroundColor = getBackgroundColor(getChaosValue);
     Color textColor = getTextColor(getChaosValue);
 
+    // 현재 아이템이 선택되었는지 여부
+    bool isSelected = selectedScarabIds.contains(item.id);
+
     return Tooltip(
-      message: "${scarabI18nString(item.name, isKr)}\n${isKr ? MSG.CLICK_TO_GO_TRADE : MSG.CLICK_TO_GO_TRADE_EN}",
-      child: Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey.withAlpha(50))),
-        child: Stack(
-          children: [
-            Container(color: backgroundColor),
-            Positioned(
-              top: 1,
-              right: 2,
-              child: Text(
-                scarabClass(item.name, isKr),
-                style: TextStyle(color: getChaosValue >= 4 ? textColor.withAlpha(150) : COLOR.SUBTITLE, fontSize: 9, fontWeight: FontWeight.w500),
+      message: "${scarabI18nString(item.name, isKr)}\n${isKr ? '클릭하여 선택/해제' : 'Click to Select/Deselect'}",
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            if (isSelected) {
+              selectedScarabIds.remove(item.id);
+            } else {
+              selectedScarabIds.add(item.id);
+            }
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: isSelected ? Colors.white : Colors.grey.withAlpha(50),
+              width: isSelected ? 2 : 1,
+            ),
+          ),
+          child: Stack(
+            children: [
+              Container(color: backgroundColor),
+              Positioned(
+                top: 1,
+                right: 2,
+                child: Text(
+                  scarabClass(item.name, isKr),
+                  style: TextStyle(color: getChaosValue >= 4 ? textColor.withAlpha(150) : COLOR.SUBTITLE, fontSize: 9, fontWeight: FontWeight.w500),
+                ),
               ),
-            ),
-            Opacity(
-              opacity: getChaosValue >= 4 ? 1 : 0.6,
-              child: Image.network('$imageUrl/${item.icon}', fit: BoxFit.cover, errorBuilder: (c, e, s) => const Icon(Icons.error, size: 10)),
-            ),
-            Positioned(
-              right: 2,
-              bottom: 1,
-              child: Text(
-                formatPrice(getChaosValue),
-                style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 11),
+              Opacity(
+                opacity: isSelected ? 1.0 : (getChaosValue >= 4 ? 1 : 0.6),
+                child: Image.network('$imageUrl/${item.icon}', fit: BoxFit.cover, errorBuilder: (c, e, s) => const Icon(Icons.error, size: 10)),
               ),
-            ),
-            TextButton(
-              child: Container(),
-              onPressed: () async {
-                String domain = isKr ? 'poe.game.daum.net' : 'www.pathofexile.com';
-                await launchUrl(Uri.parse('https://$domain/trade/search/$currentLeague?q={"query":{"status":{"option":"available"},"type":"${scarabI18nString(item.name, isKr)}","stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}'));
-              },
-            )
-          ],
+              // 선택 시 체크 표시
+              if (isSelected)
+                const Positioned(
+                  left: 2,
+                  top: 2,
+                  child: Icon(Icons.check_circle, size: 12, color: Colors.white),
+                ),
+              Positioned(
+                right: 2,
+                bottom: 1,
+                child: Text(
+                  formatPrice(getChaosValue),
+                  style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 11),
+                ),
+              ),
+              // 기존 URL 링크 버튼은 주석 처리
+              /*
+              TextButton(
+                child: Container(),
+                onPressed: () async {
+                  String domain = isKr ? 'poe.game.daum.net' : 'www.pathofexile.com';
+                  await launchUrl(Uri.parse('https://$domain/trade/search/$currentLeague?q={"query":{"status":{"option":"available"},"type":"${scarabI18nString(item.name, isKr)}","stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}'));
+                },
+              )
+              */
+            ],
+          ),
         ),
       ),
     );

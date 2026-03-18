@@ -176,7 +176,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of m",
+    "regexEn": "^scarab.of.m",
     "regexKr": "통의.갑"
   },
   "Incursion Scarab": {
@@ -216,7 +216,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of u",
+    "regexEn": "^scarab.of.u",
     "regexKr": "결의.갑"
   },
   "Scarab of the Commander": {
@@ -226,7 +226,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of the c",
+    "regexEn": "^scarab.of.the.c",
     "regexKr": "장의.갑"
   },
   "Scarab of Wisps": {
@@ -366,7 +366,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of the s",
+    "regexEn": "^scarab.of.the.s",
     "regexKr": "측의.갑"
   },
   "Legion Scarab of Treasures": {
@@ -586,7 +586,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of d",
+    "regexEn": "^scarab.of.d",
     "regexKr": "성의.갑"
   },
   "Abyss Scarab": {
@@ -626,7 +626,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of stabi",
+    "regexEn": "^scarab.of.sta",
     "regexKr": "정의.갑"
   },
   "Essence Scarab of Stability": {
@@ -656,7 +656,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of b",
+    "regexEn": "^scarab.of.b",
     "regexKr": "단의.갑"
   },
   "Essence Scarab": {
@@ -796,7 +796,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of a",
+    "regexEn": "^scarab.of.a",
     "regexKr": "적수의.갑"
   },
   "Essence Scarab of Adaptation": {
@@ -896,7 +896,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of e",
+    "regexEn": "^scarab.of.e",
     "regexKr": "화의.갑"
   },
   "Domination Scarab of Evolution": {
@@ -916,7 +916,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of h",
+    "regexEn": "^scarab.of.h",
     "regexKr": "자의.갑"
   },
   "Scarab of Radiant Storms": {
@@ -926,7 +926,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of r",
+    "regexEn": "^scarab.of.r",
     "regexKr": "풍의.갑"
   },
   "Horned Scarab of Nemeses": {
@@ -1286,7 +1286,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "기타",
     "classEn": "ETC",
-    "regexEn": "^scarab of the d",
+    "regexEn": "^scarab.of.the.d",
     "regexKr": "측의.갑"
   },
   "Betrayal Scarab of Unbreaking": {
