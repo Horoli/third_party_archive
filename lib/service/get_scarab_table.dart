@@ -24,10 +24,32 @@ class GetScarabTable extends GetxController {
     });
 
     Map rawData = jsonDecode(rep.body);
+    
+    // 백엔드 데이터 필터링 여부 확인을 위한 로그
+    if (kDebugMode) {
+      print('--- POE Ninja Scarab API Response Keys ---');
+      print('Root keys: ${rawData.keys}');
+      if (rawData['data'] != null) {
+        print('Data keys: ${rawData['data'].keys}');
+        print('FilteredData length: ${rawData['data']['filteredData']?.length}');
+        if (rawData['data']['lines'] != null) {
+          print('Lines length: ${rawData['data']['lines']?.length}');
+        }
+      }
+    }
 
-    List<PoeNinjaItem> scarabs = List.from(rawData['data']['filteredData'])
+    List<PoeNinjaItem> scarabs = List.from(rawData['data']['filteredData'] ?? [])
         .map((item) => PoeNinjaItem.fromMap(item: item))
         .toList();
+
+    // 파싱된 데이터 전체 출력 (디버깅용)
+    if (kDebugMode) {
+      print('=== Parsed Scarab Data (Total: ${scarabs.length}) ===');
+      for (var s in scarabs) {
+        print('Item: ${s.name} | Price: ${s.chaosValue}');
+      }
+      print('====================================================');
+    }
 
     // 데이터 가공 로직 수행
     _processScarabData(scarabs);
