@@ -16,10 +16,8 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       : 'https://${URL.FORIEGN_URL}/v1/poe_ninja/image';
 
   List<PoeNinjaItem> get data => getScarab.result.value.data['filteredData'];
-  List<PoeNinjaItem> selectableItems = [];
 
   Map<int, PoeNinjaItem> scarabLocation = SCARAB_LOCATION.MAP;
-  Map<int, dynamic> chaosValueMap = {};
 
   int selectedGridIndex = -1;
 
@@ -33,11 +31,6 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   // 필터링 버튼을 만들기 위한 리스트
   List<double> scarabConditionList = [40, 20, 10, 4];
 
-  List<PoeNinjaItem> overFortyScarabItems = [];
-  List<PoeNinjaItem> overTwentyScarabItems = [];
-  List<PoeNinjaItem> overTenScarabItems = [];
-  List<PoeNinjaItem> overFourScarabItems = [];
-
   int chaosValueFirst = 40;
   int chaosValueSecond = 20;
   int chaosValueThird = 10;
@@ -50,24 +43,28 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
         if (getScarab.result.value.data == null) {
           return const Center(child: CircularProgressIndicator());
         }
-        return Column(
-          children: [
-            if (isDebugMode) buildManagementPrintButton(),
-            Row(
-              children: [
-                ...List.generate(scarabConditionList.length, (index) {
-                  return buildCopyButton(scarabConditionList[index]).expand();
-                }),
-              ],
-            ).sizedBox(height: kToolbarHeight),
-            Row(
-              children: [
-                buildSheet().expand(flex: 3),
-                if (isDebugMode) buildManagementList().expand(),
-              ],
-            ).expand(),
-          ],
-        );
+        // GetX 내부에서 isKorean을 관찰하도록 하여 하위 Obx 제거 유도
+        return Obx(() {
+          final isKr = getCtrlDashboard.isKorean.value;
+          return Column(
+            children: [
+              if (isDebugMode) buildManagementPrintButton(),
+              Row(
+                children: [
+                  ...List.generate(scarabConditionList.length, (index) {
+                    return buildCopyButton(scarabConditionList[index], isKr).expand();
+                  }),
+                ],
+              ).sizedBox(height: kToolbarHeight),
+              Row(
+                children: [
+                  buildSheet(isKr).expand(flex: 3),
+                  if (isDebugMode) buildManagementList().expand(),
+                ],
+              ).expand(),
+            ],
+          );
+        });
       },
     );
   }
@@ -81,15 +78,14 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       ),
       onPressed: () {
         getCtrlDashboard.toggleLanguage();
-        // UI 갱신을 위해 setState 호출
-        setState(() {});
       },
       child: Obx(() => Text(getCtrlDashboard.isKorean.value ? 'KO' : 'EN')),
     );
   }
 
-  Widget buildCopyButton(double chaosValue) {
+  Widget buildCopyButton(double chaosValue, bool isKr) {
     Color backgroundColor = getBackgroundColor(chaosValue);
+    Color textColor = getTextColor(chaosValue);
     List<PoeNinjaItem> scarabItems = getScarabItemsWithChaosValue(chaosValue);
 
     return TextButton(
@@ -102,7 +98,6 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       ),
       onPressed: () async {
         String finalText = '';
-        bool isKr = getCtrlDashboard.isKorean.value;
 
         for (int i = 0; i < scarabItems.length; i++) {
           String addText = '';
@@ -115,7 +110,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
               addText = scarabI18n['regexKr'];
             } else {
               // 2. 없으면 기존 국문 알고리즘 사용
-              String localizedName = scarabI18nString(item.name);
+              String localizedName = scarabI18nString(item.name, isKr);
               List<String> scarabSplit = localizedName.split(' ');
               if (scarabSplit.length >= 2) {
                 String firstWordPart = scarabSplit[0];
@@ -130,11 +125,11 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
               }
             }
           } else {
-            // 1. I18N에 등록된 전용 영문 Regex 우선 사용 (예: wak, dlines$, ^scarab of w)
+            // 1. I18N에 등록된 전용 영문 Regex 우선 사용
             if (scarabI18n != null && scarabI18n['regexEn'] != null) {
               addText = scarabI18n['regexEn'];
             } else {
-              // 2. 없으면 기존 영문 알고리즘 사용 (접두어 없이 순수 키워드만 생성)
+              // 2. 없으면 기존 영문 알고리즘 사용
               String name = item.name.toLowerCase();
               List<String> words = name.split(' ');
 
@@ -172,20 +167,20 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
               '${isKr ? MSG.COPY_TO_CLIPBOARD : MSG.COPY_TO_CLIPBOARD_EN} : $finalText');
         });
       },
-      child: Obx(() => Tooltip(
-            message: getCtrlDashboard.isKorean.value
-                ? MSG.CLICK_TO_COPY_REG
-                : MSG.CLICK_TO_COPY_REG_EN,
-            child: Row(
-              children: [
-                Container(color: backgroundColor).expand(),
-                Center(
-                        child: Text(
-                            '${chaosValue.toInt()}c${getCtrlDashboard.isKorean.value ? LABEL.MORE_THAN : LABEL.MORE_THAN_EN} [${scarabItems.length}]'))
-                    .expand(),
-              ],
-            ),
-          )),
+      child: Tooltip(
+        message: isKr ? MSG.CLICK_TO_COPY_REG : MSG.CLICK_TO_COPY_REG_EN,
+        child: Row(
+          children: [
+            Container(color: backgroundColor).expand(),
+            Center(
+                    child: Text(
+              '${chaosValue.toInt()}c${isKr ? LABEL.MORE_THAN : LABEL.MORE_THAN_EN} [${scarabItems.length}]',
+              style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+            ))
+                .expand(),
+          ],
+        ),
+      ),
     );
   }
 
@@ -220,7 +215,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     });
   }
 
-  Widget buildSheet() {
+  Widget buildSheet(bool isKr) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: sheetColumnQuantity,
@@ -229,7 +224,6 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       itemCount: sheetColumnQuantity * sheetRowQuantity,
       itemBuilder: (context, int index) {
         PoeNinjaItem? getScarabItem = scarabLocation[index];
-        // TODO : DebugMode일때 보여주는 tile
         if (isDebugMode) {
           return TextButton(
             style: ButtonStyle(
@@ -241,98 +235,112 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
               getScarabItem?.name ?? index.toString(),
             ),
             onPressed: () {
-              if (selectableItems.isEmpty) return;
+              if (getScarab.selectableItems.isEmpty) return;
               setState(() {
-                scarabLocation[index] = selectableItems[0];
-                selectableItems.removeAt(0);
+                scarabLocation[index] = getScarab.selectableItems[0];
+                getScarab.selectableItems.removeAt(0);
               });
             },
             onLongPress: () {
               setState(() {
-                selectableItems.add(getScarabItem!);
-                selectableItems.sort((a, b) => a.name.compareTo(b.name));
+                getScarab.selectableItems.add(getScarabItem!);
+                getScarab.selectableItems.sort((a, b) => a.name.compareTo(b.name));
                 scarabLocation.remove(index);
               });
             },
           );
         }
 
-        // TODO : releaseMode일때 보여주는 tile
         return !scarabLocation.containsKey(index)
             ? Container()
-            : buildScarabTooltip(item: getScarabItem);
+            : buildScarabTooltip(item: getScarabItem, isKr: isKr);
       },
     );
   }
 
-  Widget buildScarabTooltip({PoeNinjaItem? item}) {
+  Widget buildScarabTooltip({PoeNinjaItem? item, required bool isKr}) {
     if (item == null) {
       return Container();
     }
-    double getChaosValue = chaosValueMap[item.id] ?? 0.1;
+    double getChaosValue = getScarab.chaosValueMap[item.id] ?? 0.1;
 
     Color backgroundColor = getBackgroundColor(getChaosValue);
+    Color textColor = getTextColor(getChaosValue);
     double opacity = getChaosValue >= 4 ? 1 : 0.5;
 
-    return Obx(() => Tooltip(
-          message:
-              "${scarabI18nString(item.name)}\n${getCtrlDashboard.isKorean.value ? MSG.CLICK_TO_GO_TRADE : MSG.CLICK_TO_GO_TRADE_EN}",
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
+    return Tooltip(
+      message:
+          "${scarabI18nString(item.name, isKr)}\n${isKr ? MSG.CLICK_TO_GO_TRADE : MSG.CLICK_TO_GO_TRADE_EN}",
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+        ),
+        child: Stack(
+          children: [
+            Container(
+              color: backgroundColor,
             ),
-            child: Stack(
-              children: [
-                Container(
-                  color: backgroundColor,
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Text(
+                scarabClass(item.name, isKr),
+                style: TextStyle(
+                  color: getChaosValue >= 4 ? textColor.withAlpha(180) : COLOR.SUBTITLE,
+                  fontSize: 10,
                 ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Text(
-                    scarabClass(item.name),
-                    style: TextStyle(color: COLOR.SUBTITLE),
-                  ),
+              ),
+            ),
+            Opacity(
+              opacity: opacity,
+              child: Image.network(
+                '$imageUrl/${item.icon}',
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.error, size: 10),
+              ),
+            ),
+            Positioned(
+              right: 2,
+              bottom: 0,
+              child: Text(
+                '${getScarab.chaosValueMap[item.id] ?? item.chaosValue}',
+                style: TextStyle(
+                  color: textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  shadows: [
+                    Shadow(offset: const Offset(1, 1), blurRadius: 2.0, color: Colors.black),
+                  ],
                 ),
-                Opacity(
-                  opacity: opacity,
-                  child: Image.network(
-                    '$imageUrl/${item.icon}',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  bottom: 0,
-                  child: Text('${chaosValueMap[item.id] ?? item.chaosValue}'),
-                ),
-                TextButton(
-                  child: Container(),
-                  onPressed: () async {
-                    String domain = getCtrlDashboard.isKorean.value
-                        ? 'poe.game.daum.net'
-                        : 'www.pathofexile.com';
-                    String league = currentLeague;
-                    String itemName = scarabI18nString(item.name);
+              ),
+            ),
+            TextButton(
+              child: Container(),
+              onPressed: () async {
+                String domain =
+                    isKr ? 'poe.game.daum.net' : 'www.pathofexile.com';
+                String league = currentLeague;
+                String itemName = scarabI18nString(item.name, isKr);
 
-                    await launchUrl(
-                      Uri.parse(
-                        'https://$domain/trade/search/$league?q={"query":{"status":{"option":"available"},"type":"$itemName","stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}',
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
-          ),
-        ));
+                await launchUrl(
+                  Uri.parse(
+                    'https://$domain/trade/search/$league?q={"query":{"status":{"option":"available"},"type":"$itemName","stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}',
+                  ),
+                );
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Widget buildManagementList() {
     return ListView.builder(
-      itemCount: selectableItems.length,
+      itemCount: getScarab.selectableItems.length,
       itemBuilder: (context, int index) {
-        PoeNinjaItem item = selectableItems[index];
+        PoeNinjaItem item = getScarab.selectableItems[index];
         return ListTile(
           leading: Image.network('$imageUrl/${item.icon}'),
           title: Text(item.name,
@@ -363,10 +371,10 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   @override
   void initState() {
     super.initState();
-    fetch();
+    getScarab.get();
   }
 
-  String scarabI18nString(String scarabLabel) {
+  String scarabI18nString(String scarabLabel, bool isKr) {
     final scarabData = I18N.SCARAB[scarabLabel];
 
     if (scarabData == null) {
@@ -374,18 +382,18 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       return scarabLabel;
     }
 
-    if (getCtrlDashboard.isKorean.value) {
+    if (isKr) {
       return scarabData['label'] ?? scarabLabel;
     }
 
     return scarabData['value'] ?? scarabLabel;
   }
 
-  String scarabClass(String scarabLabel) {
+  String scarabClass(String scarabLabel, bool isKr) {
     final scarabData = I18N.SCARAB[scarabLabel];
     if (scarabData == null) return '기본클래스';
 
-    if (getCtrlDashboard.isKorean.value) {
+    if (isKr) {
       return scarabData['class'] ?? '기본클래스';
     }
     return scarabData['classEn'] ?? 'Class';
@@ -393,13 +401,13 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
 
   List<PoeNinjaItem> getScarabItemsWithChaosValue(double chaosValue) {
     if (chaosValue >= chaosValueFirst) {
-      return overFortyScarabItems;
+      return getScarab.overFortyScarabItems;
     } else if (chaosValue >= chaosValueSecond) {
-      return overTwentyScarabItems;
+      return getScarab.overTwentyScarabItems;
     } else if (chaosValue >= chaosValueThird) {
-      return overTenScarabItems;
+      return getScarab.overTenScarabItems;
     } else if (chaosValue >= chaosValueFourth) {
-      return overFourScarabItems;
+      return getScarab.overFourScarabItems;
     } else {
       return [];
     }
@@ -407,56 +415,29 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
 
   Color getBackgroundColor(double chaosValue) {
     if (chaosValue >= chaosValueFirst) {
-      return COLOR.OVER_FORTY;
+      return COLOR.TIER_1_BG;
     } else if (chaosValue >= chaosValueSecond) {
-      return COLOR.OVER_TWENTY;
+      return COLOR.TIER_2_BG;
     } else if (chaosValue >= chaosValueThird) {
-      return COLOR.OVER_TEN;
+      return COLOR.TIER_3_BG;
     } else if (chaosValue >= chaosValueFourth) {
-      return COLOR.OVER_FOUR;
+      return COLOR.TIER_4_BG;
     } else {
-      return COLOR.DEFAULT;
+      return COLOR.TIER_5_BG;
     }
   }
 
-  Future<void> fetch() async {
-    await getScarab.get();
-    updateScarabNamesLists();
-  }
-
-  void updateScarabNamesLists() {
-    RestfulResult getResult = getScarab.result.value;
-    if (getResult.data == null) return;
-
-    List<PoeNinjaItem> convertData = getResult.data['filteredData'].toList();
-
-    setState(() {
-      overFortyScarabItems = [];
-      overTwentyScarabItems = [];
-      overTenScarabItems = [];
-      overFourScarabItems = [];
-
-      selectableItems = convertData.where((se) {
-        return !SCARAB_LOCATION.MAP.values.any((e) {
-          return e.name == se.name;
-        });
-      }).toList();
-
-      for (PoeNinjaItem item in convertData) {
-        chaosValueMap[item.id] = item.chaosValue;
-
-        if (item.chaosValue >= 40) {
-          overFortyScarabItems.add(item);
-        } else if (item.chaosValue >= 20) {
-          overTwentyScarabItems.add(item);
-        } else if (item.chaosValue >= 10) {
-          overTenScarabItems.add(item);
-        } else if (item.chaosValue >= 4) {
-          overFourScarabItems.add(item);
-        }
-      }
-
-      selectableItems.sort((a, b) => a.name.compareTo(b.name));
-    });
+  Color getTextColor(double chaosValue) {
+    if (chaosValue >= chaosValueFirst) {
+      return COLOR.TIER_1_TEXT;
+    } else if (chaosValue >= chaosValueSecond) {
+      return COLOR.TIER_2_TEXT;
+    } else if (chaosValue >= chaosValueThird) {
+      return COLOR.TIER_3_TEXT;
+    } else if (chaosValue >= chaosValueFourth) {
+      return COLOR.TIER_4_TEXT;
+    } else {
+      return COLOR.TIER_5_TEXT;
+    }
   }
 }
