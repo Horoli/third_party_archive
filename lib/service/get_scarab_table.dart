@@ -10,8 +10,8 @@ class GetScarabTable extends GetxController {
   List<PoeNinjaItem> overTenScarabItems = [];
   List<PoeNinjaItem> overFourScarabItems = [];
   
-  // 1c 미만 데이터를 뭉치(Chunk) 단위로 관리
-  List<List<PoeNinjaItem>> underOneScarabChunks = []; 
+  // 1~4c 사이의 데이터를 뭉치(Chunk) 단위로 관리
+  List<List<PoeNinjaItem>> oneToFourScarabChunks = []; 
   
   Map<int, dynamic> chaosValueMap = {};
 
@@ -47,7 +47,7 @@ class GetScarabTable extends GetxController {
     overTwentyScarabItems = [];
     overTenScarabItems = [];
     overFourScarabItems = [];
-    List<PoeNinjaItem> tempUnderOne = [];
+    List<PoeNinjaItem> tempOneToFour = [];
     chaosValueMap = {};
 
     final mappedNames = SCARAB_LOCATION.MAP.values.map((e) => e.name).toSet();
@@ -65,16 +65,16 @@ class GetScarabTable extends GetxController {
         overTenScarabItems.add(item);
       } else if (item.chaosValue >= 4) {
         overFourScarabItems.add(item);
-      } else if (item.chaosValue < 1) {
-        tempUnderOne.add(item);
+      } else if (item.chaosValue >= 1 && item.chaosValue < 4) {
+        tempOneToFour.add(item);
       }
     }
 
-    // 1c 미만 아이템들을 35개 단위로 쪼개기 (PoE 255자 제한 대응)
-    underOneScarabChunks = [];
-    for (var i = 0; i < tempUnderOne.length; i += 35) {
-      underOneScarabChunks.add(
-        tempUnderOne.sublist(i, i + 35 > tempUnderOne.length ? tempUnderOne.length : i + 35)
+    // 1~4c 아이템들을 35개 단위로 쪼개기 (PoE 255자 제한 대응)
+    oneToFourScarabChunks = [];
+    for (var i = 0; i < tempOneToFour.length; i += 35) {
+      oneToFourScarabChunks.add(
+        tempOneToFour.sublist(i, i + 35 > tempOneToFour.length ? tempOneToFour.length : i + 35)
       );
     }
 

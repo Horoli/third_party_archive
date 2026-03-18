@@ -107,7 +107,7 @@ Map<String, dynamic> SCARAB = {
     "class": "환영",
     "classEn": "Delirium",
     "regexEn": "mani",
-    "regexKr": "증의.환"
+    "regexKr": "광증의.환"
   },
   "Legion Scarab": {
     "label": "군단 갑충석",
@@ -577,7 +577,7 @@ Map<String, dynamic> SCARAB = {
     "class": "환영",
     "classEn": "Delirium",
     "regexEn": "neur",
-    "regexKr": "증의.환"
+    "regexKr": "경증의.환"
   },
   "Scarab of Divinity": {
     "label": "신성의 갑충석",
@@ -1067,7 +1067,7 @@ Map<String, dynamic> SCARAB = {
     "class": "환영",
     "classEn": "Delirium",
     "regexEn": "para",
-    "regexKr": "증의.환"
+    "regexKr": "집증의.환"
   },
   "Ritual Scarab of Abundance": {
     "label": "풍부함의 의식 갑충석",
@@ -1186,8 +1186,8 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "환영",
     "classEn": "Delirium",
-    "regexEn": "deli",
-    "regexKr": "환영.갑"
+    "regexEn": "deli.*b\$",
+    "regexKr": "^환영"
   },
   "Divination Scarab of The Cloister": {
     "label": "회랑의 점술 갑충석",
@@ -1216,8 +1216,8 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "칼구르",
     "classEn": "Kalguuran",
-    "regexEn": "kalg",
-    "regexKr": "구르.갑"
+    "regexEn": "kalg.*b\$",
+    "regexKr": "^칼구르"
   },
   "Kalguuran Scarab of Guarded Riches": {
     "label": "보호받는 재물의 칼구르 갑충석",
@@ -1226,7 +1226,7 @@ Map<String, dynamic> SCARAB = {
     "descEn": "Map Fragment",
     "class": "칼구르",
     "classEn": "Kalguuran",
-    "regexEn": "rich",
+    "regexEn": "riches",
     "regexKr": "물의.칼"
   },
   "Kalguuran Scarab of Refinement": {
