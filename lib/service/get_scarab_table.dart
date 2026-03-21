@@ -9,6 +9,8 @@ class GetScarabTable extends GetxController {
   List<PoeNinjaItem> overTwentyScarabItems = [];
   List<PoeNinjaItem> overTenScarabItems = [];
   List<PoeNinjaItem> overFourScarabItems = [];
+  List<PoeNinjaItem> underOneScarabItems = [];
+  List<PoeNinjaItem> overOneScarabItems = []; // 1c 이상 전체 리스트 추가
   
   // 1~4c 사이의 데이터를 뭉치(Chunk) 단위로 관리
   List<List<PoeNinjaItem>> oneToFourScarabChunks = []; 
@@ -47,6 +49,8 @@ class GetScarabTable extends GetxController {
     overTwentyScarabItems = [];
     overTenScarabItems = [];
     overFourScarabItems = [];
+    underOneScarabItems = [];
+    overOneScarabItems = []; // 초기화 추가
     List<PoeNinjaItem> tempOneToFour = [];
     chaosValueMap = {};
 
@@ -57,16 +61,22 @@ class GetScarabTable extends GetxController {
     for (PoeNinjaItem item in convertData) {
       chaosValueMap[item.id] = item.chaosValue;
 
-      if (item.chaosValue >= 40) {
-        overFortyScarabItems.add(item);
-      } else if (item.chaosValue >= 20) {
-        overTwentyScarabItems.add(item);
-      } else if (item.chaosValue >= 10) {
-        overTenScarabItems.add(item);
-      } else if (item.chaosValue >= 4) {
-        overFourScarabItems.add(item);
-      } else if (item.chaosValue >= 1 && item.chaosValue < 4) {
-        tempOneToFour.add(item);
+      if (item.chaosValue >= 1) {
+        overOneScarabItems.add(item); // 1c 이상 전체 수집
+
+        if (item.chaosValue >= 40) {
+          overFortyScarabItems.add(item);
+        } else if (item.chaosValue >= 20) {
+          overTwentyScarabItems.add(item);
+        } else if (item.chaosValue >= 10) {
+          overTenScarabItems.add(item);
+        } else if (item.chaosValue >= 4) {
+          overFourScarabItems.add(item);
+        } else if (item.chaosValue >= 1 && item.chaosValue < 4) {
+          tempOneToFour.add(item);
+        }
+      } else {
+        underOneScarabItems.add(item); // 1c 미만 추가
       }
     }
 

@@ -29,6 +29,9 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
 
   bool alreadyShowSnackBar = false;
 
+  // 버튼 공용 너비
+  double buttonWidth = 100;
+
   // Tier 1~4 고정 조건
   List<double> scarabConditionList = [40, 20, 10, 4];
 
@@ -54,7 +57,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                       // --- 추가된 커스텀 선택 기능 버튼 ---
                       if (selectedScarabIds.isNotEmpty) ...[
                         SizedBox(
-                          width: 140,
+                          width: buttonWidth,
                           child: buildCustomCopyButton(isKr),
                         ),
                         IconButton(
@@ -70,7 +73,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
 
                       // Tier 1 ~ Tier 4 버튼
                       ...scarabConditionList.map((value) => SizedBox(
-                            width: 140,
+                            width: buttonWidth,
                             child: buildCopyButton(
                               chaosValue: value,
                               items: getScarabItemsWithChaosValue(value),
@@ -83,15 +86,28 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                           (index) {
                         final chunk = getScarab.oneToFourScarabChunks[index];
                         return SizedBox(
-                          width: 140,
+                          width: buttonWidth,
                           child: buildCopyButton(
                             chaosValue: 2, // Tier 5 색상 유도
                             items: chunk,
-                            label: '1-4c #${index + 1}',
+                            label: '1-4c',
                             isKr: isKr,
                           ),
                         );
                       }),
+
+                      // 1c↑ 전체 제외 (결과적으로 1c 미만만 필터링) - 다른 버튼과 동일한 간격 유지
+                      SizedBox(
+                        width: buttonWidth,
+                        child: buildCopyButton(
+                          chaosValue: 0.1, // 잡템 강조를 위해 낮은 티어 색상 사용
+                          items: getScarab.overOneScarabItems,
+                          label: '1c↓',
+                          isKr: isKr,
+                          isExclude: true,
+                          overrideCount: getScarab.underOneScarabItems.length,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -124,7 +140,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     return buildCopyButton(
       chaosValue: 100, // 강조를 위해 Tier 1 색상 빌림 (또는 별도 색상 지정 가능)
       items: selectedItems,
-      label: isKr ? '선택 복사' : 'Copy Selected',
+      label: isKr ? '선택' : 'Pick', // 텍스트 간소화
       isKr: isKr,
     );
   }
@@ -134,9 +150,14 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     required List<PoeNinjaItem> items,
     required String label,
     required bool isKr,
+    bool isExclude = false,
+    int? overrideCount,
   }) {
     Color backgroundColor = getBackgroundColor(chaosValue);
     Color textColor = getTextColor(chaosValue);
+
+    // 라벨에서 'c' 제거 (아이콘이 상단에 따로 표시되므로)
+    String cleanLabel = label.replaceAll('c', '');
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -153,19 +174,14 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
               combinedRegex += (i == 0 ? '' : '|') + addText;
             }
 
-            if (combinedRegex.isEmpty) return;
+            if (combinedRegex.isEmpty && !isExclude) return;
 
-            // [규칙 1] 전체를 큰따옴표로 묶기
-            String finalText = '"$combinedRegex"';
+            // [규칙 1] 전체를 큰따옴표로 묶기 (제외 필터인 경우 ! 추가)
+            String finalText =
+                isExclude ? '"!$combinedRegex"' : '"$combinedRegex"';
 
             // 클라이언트 언어에 따른 접두사 추가 (국문: 갑충, 영문: scarab)
             finalText = '${isKr ? '갑충' : 'scarab'} $finalText';
-
-            // [규칙 1] 글자 수 제한 체크 (인게임 검색창 50자 제한 주의)
-            if (finalText.length > 50) {
-              // 50자가 넘으면 인게임에서 잘릴 수 있음을 사용자에게 알리는 것이 좋으나,
-              // 일단은 복사 기능에 충실
-            }
 
             await Clipboard.setData(ClipboardData(text: finalText));
             showCenterSnackBar(
@@ -174,23 +190,48 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
           child: Tooltip(
             message: isKr ? MSG.CLICK_TO_COPY_REG : MSG.CLICK_TO_COPY_REG_EN,
             child: Container(
-              height: 40,
+              height: 50,
               decoration: BoxDecoration(
                 border: Border.all(color: textColor.withAlpha(50), width: 1),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Stack(
                 children: [
-                  Icon(Icons.content_copy_rounded,
-                      size: 14, color: textColor.withAlpha(180)),
-                  const SizedBox(width: 6),
-                  Text(
-                    '$label [${items.length}]',
-                    style: TextStyle(
-                        color: textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12),
+                  // 1. 좌측 상단 카오스 오브 아이콘 고정
+                  Positioned(
+                    top: 2,
+                    left: 2,
+                    child: Image.asset(
+                      IMAGE.CHAOS_ORB,
+                      width: 40,
+                      height: 40,
+                      filterQuality: FilterQuality.high,
+                      isAntiAlias: true,
+                    ),
+                  ),
+                  // 2. 우측 상단 텍스트 (라벨)
+                  Positioned(
+                    top: 4,
+                    right: 6,
+                    child: Text(
+                      cleanLabel,
+                      style: TextStyle(
+                          color: textColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12),
+                    ),
+                  ),
+                  // 3. 우측 하단 텍스트 (갯수 - 숫자만)
+                  Positioned(
+                    bottom: 4,
+                    right: 6,
+                    child: Text(
+                      '${overrideCount ?? items.length}',
+                      style: TextStyle(
+                          color: textColor.withAlpha(200),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11),
+                    ),
                   ),
                 ],
               ),
