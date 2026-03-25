@@ -90,12 +90,16 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
       children: [
         Obx(() {
           getCtrlDashboard.isKorean.value;
+          // 갑충석 시세표 → scarab 날짜, 시세확인 → ninja 날짜, 그 외 → 가용한 날짜
           String? date;
           if (selectedCategory == LABEL.SCARAB_TABLE) {
             date = getCtrlScarab.result.value.data?['updateDate'];
           } else if (selectedCategory == LABEL.NINJA_PRICE) {
             date = getCtrlPoeNinja.result.value.data?.date;
           }
+          // 해당 페이지 전용 날짜가 없으면 가용한 데이터에서 가져옴
+          date ??= getCtrlPoeNinja.result.value.data?.date;
+          date ??= getCtrlScarab.result.value.data?['updateDate'];
           return WidgetNinjaSyncInfo(rawDate: date);
         }),
         const SizedBox(width: 6),

@@ -24,6 +24,7 @@ class PageMapModTableState extends State<PageMapModTable> {
 
   bool require8Mods = true;
   bool requireMirage = true;
+  bool requirePrimordial = false;
   bool requireTier16 = true;
   bool requireNightmare = false;
 
@@ -188,6 +189,13 @@ class PageMapModTableState extends State<PageMapModTable> {
                     onChanged: (v) =>
                         setState(() => requireMirage = v ?? true),
                   ),
+                  const SizedBox(height: 4),
+                  buildQueryCheckbox(
+                    label: isKr ? '태초자' : 'Primordial',
+                    value: requirePrimordial,
+                    onChanged: (v) =>
+                        setState(() => requirePrimordial = v ?? false),
+                  ),
                 ],
               ),
               const SizedBox(width: 16),
@@ -306,6 +314,7 @@ class PageMapModTableState extends State<PageMapModTable> {
       selectedModIndices.clear();
       require8Mods = true;
       requireMirage = true;
+      requirePrimordial = false;
       requireTier16 = true;
       requireNightmare = false;
       iiqController.text = '110';
@@ -330,6 +339,7 @@ class PageMapModTableState extends State<PageMapModTable> {
       'selectedIndices': selectedModIndices.toList(),
       'require8Mods': require8Mods,
       'requireMirage': requireMirage,
+      'requirePrimordial': requirePrimordial,
       'requireTier16': requireTier16,
       'requireNightmare': requireNightmare,
       'iiq': iiqController.text.trim(),
@@ -349,6 +359,7 @@ class PageMapModTableState extends State<PageMapModTable> {
             Set<int>.from((data['selectedIndices'] as List).cast<int>());
         require8Mods = data['require8Mods'] ?? true;
         requireMirage = data['requireMirage'] ?? true;
+        requirePrimordial = data['requirePrimordial'] ?? false;
         requireTier16 = data['requireTier16'] ?? true;
         requireNightmare = data['requireNightmare'] ?? false;
         iiqController.text = data['iiq'] ?? '110';
@@ -640,6 +651,8 @@ class PageMapModTableState extends State<PageMapModTable> {
                         "value": {"min": 8},
                         "disabled": false
                       },
+                    if (requirePrimordial)
+                      {"id": "implicit.stat_2696470877"},
                   ],
                   "disabled": false
                 },

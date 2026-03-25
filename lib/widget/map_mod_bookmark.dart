@@ -190,6 +190,7 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
 
       final bool is8Mods = data['require8Mods'] ?? true;
       final bool isMirage = data['requireMirage'] ?? true;
+      final bool isPrimordial = data['requirePrimordial'] ?? false;
       final bool isTier16 = data['requireTier16'] ?? true;
       final bool isNightmare = data['requireNightmare'] ?? false;
       final String iiq = data['iiq'] ?? '';
@@ -225,6 +226,8 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
                     "value": {"min": 8},
                     "disabled": false
                   },
+                if (isPrimordial)
+                  {"id": "implicit.stat_2696470877"},
               ],
               "disabled": false
             },
@@ -263,6 +266,7 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
       final List<String> tags = [];
       if (data['require8Mods'] == true) tags.add('8mod');
       if (data['requireMirage'] == true) tags.add(isKr ? '허상' : 'Mirage');
+      if (data['requirePrimordial'] == true) tags.add(isKr ? '태초자' : 'Primordial');
       if (data['requireTier16'] == true) tags.add('T16');
       if (data['requireNightmare'] == true) tags.add(isKr ? '악몽' : 'NM');
       final String iiq = data['iiq'] ?? '';
