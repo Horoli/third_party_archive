@@ -55,8 +55,10 @@
     - **옵션 리스트**: 일반/악몽 섹션 토글(드롭다운), 가로 2열 배치. 선택 시 amber 강조 + 체크박스.
     - 섹션 헤더에 선택 개수 표시 (예: `일반 옵션(80) 3개 선택`).
 - **거래소 쿼리 구조**:
-    - `status: securable`, `type: 악몽 지도` (악몽 선택 시).
-    - `map_filters`: map_tier, map_iiq, map_iir, map_packsize.
+    - `status: securable`.
+    - `type`: 16T → `{"option": "지도", "discriminator": "map"}`, 악몽 → `"악몽 지도"`.
+    - `type_filters.rarity`: `nonunique` (모든 비고유).
+    - `map_filters`: map_tier(16T시 min/max 16 고정), map_iiq, map_iir, map_packsize.
     - `stats[and]`: enchant(허상), pseudo(8모드), implicit(태초자).
     - `stats[not]`: 선택된 옵션의 `explicitCode` 목록.
 

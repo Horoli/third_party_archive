@@ -153,7 +153,7 @@ class PageMapModTableState extends State<PageMapModTable> {
                   _sectionLabel(isKr ? '지도 구분' : 'Map Type'),
                   const SizedBox(height: 4),
                   buildToggleButtons(
-                    labels: ['T16', isKr ? '악몽' : 'Nightmare'],
+                    labels: ['16T', isKr ? '악몽' : 'Nightmare'],
                     selectedIndex: requireNightmare ? 1 : (requireTier16 ? 0 : -1),
                     onSelected: (index) {
                       setState(() {
@@ -616,13 +616,18 @@ class PageMapModTableState extends State<PageMapModTable> {
             "query": {
               "status": {"option": "securable"},
               if (requireNightmare)
-                "type": isKr ? "악몽 지도" : "Nightmare Map",
+                "type": isKr ? "악몽 지도" : "Nightmare Map"
+              else if (requireTier16)
+                "type": {
+                  "option": isKr ? "지도" : "Map",
+                  "discriminator": "map"
+                },
               "filters": {
                 "map_filters": {
                   "disabled": false,
                   "filters": {
                     if (requireTier16)
-                      "map_tier": {"min": 16, "max": null},
+                      "map_tier": {"min": 16, "max": 16},
                     if (iiqController.text.trim().isNotEmpty)
                       "map_iiq": {
                         "min": int.tryParse(iiqController.text.trim()),
@@ -636,6 +641,11 @@ class PageMapModTableState extends State<PageMapModTable> {
                       "map_packsize": {
                         "min": int.tryParse(packSizeController.text.trim())
                       },
+                  }
+                },
+                "type_filters": {
+                  "filters": {
+                    "rarity": {"option": "nonunique"}
                   }
                 }
               },

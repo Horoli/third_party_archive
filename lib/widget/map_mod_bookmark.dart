@@ -200,18 +200,29 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
       Map<String, dynamic> query = {
         "query": {
           "status": {"option": "securable"},
-          if (isNightmare) "type": isKr ? "악몽 지도" : "Nightmare Map",
+          if (isNightmare)
+            "type": isKr ? "악몽 지도" : "Nightmare Map"
+          else if (isTier16)
+            "type": {
+              "option": isKr ? "지도" : "Map",
+              "discriminator": "map"
+            },
           "filters": {
             "map_filters": {
               "disabled": false,
               "filters": {
-                if (isTier16) "map_tier": {"min": 16, "max": null},
+                if (isTier16) "map_tier": {"min": 16, "max": 16},
                 if (iiq.isNotEmpty)
                   "map_iiq": {"min": int.tryParse(iiq), "max": null},
                 if (iir.isNotEmpty)
                   "map_iir": {"min": int.tryParse(iir)},
                 if (packSize.isNotEmpty)
                   "map_packsize": {"min": int.tryParse(packSize)},
+              }
+            },
+            "type_filters": {
+              "filters": {
+                "rarity": {"option": "nonunique"}
               }
             }
           },
@@ -267,7 +278,7 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
       if (data['require8Mods'] == true) tags.add('8mod');
       if (data['requireMirage'] == true) tags.add(isKr ? '허상' : 'Mirage');
       if (data['requirePrimordial'] == true) tags.add(isKr ? '태초자' : 'Primordial');
-      if (data['requireTier16'] == true) tags.add('T16');
+      if (data['requireTier16'] == true) tags.add('16T');
       if (data['requireNightmare'] == true) tags.add(isKr ? '악몽' : 'NM');
       final String iiq = data['iiq'] ?? '';
       final String iir = data['iir'] ?? '';
