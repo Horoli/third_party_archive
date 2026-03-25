@@ -160,6 +160,88 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
     );
   }
 
+  // --- Trade ---
+
+  Future<void> launchTradeFromSaved(String json, bool isKr) async {
+    try {
+      final data = jsonDecode(json);
+
+      // explicitCodes가 저장되어 있으면 사용, 없으면 normalMods에서 복원
+      List<String> codes = [];
+      if (data['explicitCodes'] != null) {
+        codes = (data['explicitCodes'] as List).cast<String>();
+      } else if (data['selectedIndices'] != null) {
+        final indices = (data['selectedIndices'] as List).cast<int>();
+        for (int idx in indices) {
+          final mod = idx < widget.normalMods.length
+              ? widget.normalMods[idx]
+              : (idx - widget.normalMods.length < widget.nightmareMods.length
+                  ? widget.nightmareMods[idx - widget.normalMods.length]
+                  : null);
+          if (mod == null) continue;
+          final code = mod['explicitCode']?.toString() ?? '';
+          if (code.isNotEmpty) codes.add(code);
+        }
+      }
+
+      List<Map<String, dynamic>> notFilters =
+          codes.map((c) => {"id": c, "disabled": false} as Map<String, dynamic>).toList();
+      if (notFilters.isEmpty) return;
+
+      final bool is8Mods = data['require8Mods'] ?? true;
+      final bool isMirage = data['requireMirage'] ?? true;
+      final bool isTier16 = data['requireTier16'] ?? true;
+      final bool isNightmare = data['requireNightmare'] ?? false;
+      final String iiq = data['iiq'] ?? '';
+      final String iir = data['iir'] ?? '';
+      final String packSize = data['packSize'] ?? '';
+
+      Map<String, dynamic> query = {
+        "query": {
+          "status": {"option": "securable"},
+          if (isNightmare) "type": isKr ? "악몽 지도" : "Nightmare Map",
+          "filters": {
+            "map_filters": {
+              "disabled": false,
+              "filters": {
+                if (isTier16) "map_tier": {"min": 16, "max": null},
+                if (iiq.isNotEmpty)
+                  "map_iiq": {"min": int.tryParse(iiq), "max": null},
+                if (iir.isNotEmpty)
+                  "map_iir": {"min": int.tryParse(iir)},
+                if (packSize.isNotEmpty)
+                  "map_packsize": {"min": int.tryParse(packSize)},
+              }
+            }
+          },
+          "stats": [
+            {
+              "type": "and",
+              "filters": [
+                if (isMirage) {"id": "enchant.stat_2436559047"},
+                if (is8Mods)
+                  {
+                    "id": "pseudo.pseudo_number_of_affix_mods",
+                    "value": {"min": 8},
+                    "disabled": false
+                  },
+              ],
+              "disabled": false
+            },
+            {"type": "not", "filters": notFilters}
+          ]
+        },
+        "sort": {"price": "asc"}
+      };
+
+      final domain = isKr ? 'poe.game.daum.net' : 'www.pathofexile.com';
+      final jsonQuery = jsonEncode(query);
+      final url =
+          'https://$domain/trade/search/$currentLeague?q=$jsonQuery';
+      await launchUrl(Uri.parse(url));
+    } catch (_) {}
+  }
+
   // --- Describe ---
 
   Map<String, String> describeEntry(String json, bool isKr,
@@ -293,8 +375,10 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
                         info: info,
                         icon: Icons.open_in_new,
                         iconColor: Colors.amber,
-                        onTap: () =>
-                            widget.onFavoriteTap?.call(favorites[index]),
+                        onTap: () {
+                          widget.onFavoriteTap?.call(favorites[index]);
+                          launchTradeFromSaved(favorites[index], isKr);
+                        },
                         onDelete: () => deleteFavorite(index),
                         onEdit: () => showRenameDialog(index, isKr),
                       );

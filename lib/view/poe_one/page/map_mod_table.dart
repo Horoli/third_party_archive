@@ -87,7 +87,6 @@ class PageMapModTableState extends State<PageMapModTable> {
                       : null,
                   onFavoriteTap: (json) {
                     loadFavorite(json);
-                    launchTradeFromSaved(json, isKr);
                   },
                   onHistoryTap: (json) => loadFavorite(json),
                 ),
@@ -320,6 +319,13 @@ class PageMapModTableState extends State<PageMapModTable> {
     final selectedMods = getSelectedMods();
     final regex = buildCombinedRegex(selectedMods, isKr);
 
+    // explicitCodes 추출 (거래소 쿼리용, mod 데이터 없이도 사용 가능)
+    List<String> explicitCodes = [];
+    for (var mod in selectedMods) {
+      final code = mod['explicitCode']?.toString() ?? '';
+      if (code.isNotEmpty) explicitCodes.add(code);
+    }
+
     return {
       'selectedIndices': selectedModIndices.toList(),
       'require8Mods': require8Mods,
@@ -330,6 +336,7 @@ class PageMapModTableState extends State<PageMapModTable> {
       'iir': iirController.text.trim(),
       'packSize': packSizeController.text.trim(),
       'regex': regex,
+      'explicitCodes': explicitCodes,
     };
   }
 
@@ -349,79 +356,6 @@ class PageMapModTableState extends State<PageMapModTable> {
         packSizeController.text = data['packSize'] ?? '';
       });
     } catch (_) {}
-  }
-
-  /// 저장된 설정으로 거래소 쿼리를 생성하여 이동
-  Future<void> launchTradeFromSaved(String json, bool isKr) async {
-    final data = jsonDecode(json);
-    final List<int> indices =
-        (data['selectedIndices'] as List).cast<int>();
-
-    // 선택된 인덱스에서 explicitCode 추출
-    List<Map<String, dynamic>> notFilters = [];
-    for (int idx in indices) {
-      final mod = idx < normalMods.length
-          ? normalMods[idx]
-          : nightmareMods[idx - normalMods.length];
-      final code = mod['explicitCode']?.toString() ?? '';
-      if (code.isNotEmpty) {
-        notFilters.add({"id": code, "disabled": false});
-      }
-    }
-
-    if (notFilters.isEmpty) return;
-
-    final bool is8Mods = data['require8Mods'] ?? true;
-    final bool isMirage = data['requireMirage'] ?? true;
-    final bool isTier16 = data['requireTier16'] ?? true;
-    final bool isNightmare = data['requireNightmare'] ?? false;
-    final String iiq = data['iiq'] ?? '';
-    final String iir = data['iir'] ?? '';
-    final String packSize = data['packSize'] ?? '';
-
-    Map<String, dynamic> query = {
-      "query": {
-        "status": {"option": "securable"},
-        if (isNightmare) "type": isKr ? "악몽 지도" : "Nightmare Map",
-        "filters": {
-          "map_filters": {
-            "disabled": false,
-            "filters": {
-              if (isTier16) "map_tier": {"min": 16, "max": null},
-              if (iiq.isNotEmpty)
-                "map_iiq": {"min": int.tryParse(iiq), "max": null},
-              if (iir.isNotEmpty)
-                "map_iir": {"min": int.tryParse(iir)},
-              if (packSize.isNotEmpty)
-                "map_packsize": {"min": int.tryParse(packSize)},
-            }
-          }
-        },
-        "stats": [
-          {
-            "type": "and",
-            "filters": [
-              if (isMirage) {"id": "enchant.stat_2436559047"},
-              if (is8Mods)
-                {
-                  "id": "pseudo.pseudo_number_of_affix_mods",
-                  "value": {"min": 8},
-                  "disabled": false
-                },
-            ],
-            "disabled": false
-          },
-          {"type": "not", "filters": notFilters}
-        ]
-      },
-      "sort": {"price": "asc"}
-    };
-
-    final domain = isKr ? 'poe.game.daum.net' : 'www.pathofexile.com';
-    final jsonQuery = jsonEncode(query);
-    final url =
-        'https://$domain/trade/search/$currentLeague?q=$jsonQuery';
-    await launchUrl(Uri.parse(url));
   }
 
   /// 입력된 regex를 파싱하여 매칭되는 옵션을 자동 선택
