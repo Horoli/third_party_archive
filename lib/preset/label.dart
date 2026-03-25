@@ -20,12 +20,14 @@ const String RANDOM_BUILD = '랜덤빌드 선택기';
 const String NINJA_PRICE = '시세확인';
 const String RECEIVING_DAMAGE = '받는피해 계산기';
 const String SCARAB_TABLE = '갑충석 시세표';
+const String MAP_MOD_TABLE = '지도 옵션 필터';
 
 const String THIRD_PARTY_EN = 'Third-party Apps';
 const String RANDOM_BUILD_EN = 'Random Build Selector';
 const String NINJA_PRICE_EN = 'Price Check';
 const String RECEIVING_DAMAGE_EN = 'Damage Taken Calculator';
 const String SCARAB_TABLE_EN = 'Scarab Price Table';
+const String MAP_MOD_TABLE_EN = 'Map Mod Filter';
 
 const String CURRENCY = 'Currency';
 const String FRAGMENT = 'Fragment';

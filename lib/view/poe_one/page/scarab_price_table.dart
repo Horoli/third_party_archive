@@ -32,8 +32,16 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   // 버튼 공용 너비
   double buttonWidth = 100;
 
-  // Tier 1~4 고정 조건
+  // Tier 조건
   List<double> scarabConditionList = [40, 20, 10, 4];
+
+  /// 4c 이상 전체 아이템
+  List<PoeNinjaItem> get allOverFourItems => [
+        ...getScarab.overFortyScarabItems,
+        ...getScarab.overTwentyScarabItems,
+        ...getScarab.overTenScarabItems,
+        ...getScarab.overFourScarabItems,
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -71,38 +79,58 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
                       ],
                       // ------------------------------
 
-                      // Tier 1 ~ Tier 4 버튼
-                      ...scarabConditionList.map((value) => SizedBox(
-                            width: buttonWidth,
-                            child: buildCopyButton(
-                              chaosValue: value,
-                              items: getScarabItemsWithChaosValue(value),
-                              label: '${value.toInt()}c↑',
-                              isKr: isKr,
-                            ),
-                          )),
-                      // Tier 5 (1~4c) 분할 버튼
+                      // 40↑
+                      SizedBox(
+                        width: buttonWidth,
+                        child: buildCopyButton(
+                          chaosValue: 40,
+                          items: getScarab.overFortyScarabItems,
+                          label: '40',
+                          isKr: isKr,
+                        ),
+                      ),
+                      // 10↑
+                      SizedBox(
+                        width: buttonWidth,
+                        child: buildCopyButton(
+                          chaosValue: 10,
+                          items: getScarab.overTenScarabItems,
+                          label: '10',
+                          isKr: isKr,
+                        ),
+                      ),
+                      // 4↑
+                      SizedBox(
+                        width: buttonWidth,
+                        child: buildCopyButton(
+                          chaosValue: 4,
+                          items: getScarab.overFourScarabItems,
+                          label: '4',
+                          isKr: isKr,
+                        ),
+                      ),
+                      // 4~1 분할 버튼
                       ...List.generate(getScarab.oneToFourScarabChunks.length,
                           (index) {
                         final chunk = getScarab.oneToFourScarabChunks[index];
                         return SizedBox(
                           width: buttonWidth,
                           child: buildCopyButton(
-                            chaosValue: 2, // Tier 5 색상 유도
+                            chaosValue: 2,
                             items: chunk,
-                            label: '1-4c',
+                            label: '4~1',
                             isKr: isKr,
                           ),
                         );
                       }),
 
-                      // 1c↑ 전체 제외 (결과적으로 1c 미만만 필터링) - 다른 버튼과 동일한 간격 유지
+                      // 1↓
                       SizedBox(
                         width: buttonWidth,
                         child: buildCopyButton(
                           chaosValue: 0.1, // 잡템 강조를 위해 낮은 티어 색상 사용
                           items: getScarab.overOneScarabItems,
-                          label: '1c↓',
+                          label: '1↓',
                           isKr: isKr,
                           isExclude: true,
                           overrideCount: getScarab.underOneScarabItems.length,
@@ -544,17 +572,17 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
 
   Color getBackgroundColor(double chaosValue) {
     if (chaosValue >= 40) return COLOR.TIER_1_BG;
-    if (chaosValue >= 20) return COLOR.TIER_2_BG;
-    if (chaosValue >= 10) return COLOR.TIER_3_BG;
-    if (chaosValue >= 4) return COLOR.TIER_4_BG;
+    if (chaosValue >= 10) return COLOR.TIER_2_BG;
+    if (chaosValue >= 4) return COLOR.TIER_3_BG;
+    if (chaosValue >= 1) return COLOR.TIER_4_BG;
     return COLOR.TIER_5_BG;
   }
 
   Color getTextColor(double chaosValue) {
     if (chaosValue >= 40) return COLOR.TIER_1_TEXT;
-    if (chaosValue >= 20) return COLOR.TIER_2_TEXT;
-    if (chaosValue >= 10) return COLOR.TIER_3_TEXT;
-    if (chaosValue >= 4) return COLOR.TIER_4_TEXT;
+    if (chaosValue >= 10) return COLOR.TIER_2_TEXT;
+    if (chaosValue >= 4) return COLOR.TIER_3_TEXT;
+    if (chaosValue >= 1) return COLOR.TIER_4_TEXT;
     return COLOR.TIER_5_TEXT;
   }
 }

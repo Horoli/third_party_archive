@@ -61,13 +61,16 @@ class WidgetHomeLandscapeState
                         child: Column(
                           children: [
                             buildChaosDivineRatio(),
-                            // const Divider(),
                             const ChangeCalculator(),
-                            // const Divider(),
                             const SizedBox(height: 8),
-                            // SingleChildScrollView(
-                            // child: buildAdPlace().sizedBox(height: 600),
-                            // ).sizedBox(height: 600),
+                            const Divider(color: Colors.white24),
+                            const Expanded(
+                              child: WidgetMapModBookmark(
+                                favoriteTitle: '지도 옵션 필터 즐겨찾기',
+                                favoriteTitleEn: 'Map Mod Filter Favorites',
+                                showHistory: false,
+                              ),
+                            ),
                           ],
                         ),
                       ).expand()

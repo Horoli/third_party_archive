@@ -16,134 +16,185 @@ class ChangeCalculatorState extends State<ChangeCalculator> {
   FocusNode itemPriceFocus = FocusNode();
   FocusNode payedDivFocus = FocusNode();
 
+  static const _textStyle = TextStyle(
+      color: Colors.white, fontSize: 12, fontFamily: 'monospace');
+
+  InputDecoration _decoration({String? labelText, bool readOnly = false}) {
+    return InputDecoration(
+      labelText: labelText,
+      labelStyle: const TextStyle(color: Colors.white38, fontSize: 11),
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      filled: true,
+      fillColor: readOnly ? Colors.white.withAlpha(5) : Colors.black45,
+      isDense: true,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: Colors.white.withAlpha(30)),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: Colors.white.withAlpha(30)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: const BorderSide(color: Colors.amber),
+      ),
+      errorStyle: const TextStyle(fontSize: 0, height: 0),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       bool isKr = getCtrlDashboard.isKorean.value;
-      return Center(
-        child: Column(
-          children: [
-            Text(isKr ? LABEL.CHANGE_CALCULATOR : LABEL.CHANGE_CALCULATOR_EN),
-            const Padding(padding: EdgeInsets.all(4)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildTypeSelector(LABEL.BUY),
-                const Padding(padding: EdgeInsets.all(4)),
-                buildTypeSelector(LABEL.SELL),
-              ],
-            ),
-            Row(
-              children: [
-                Text('${isKr ? '아이템 가격' : 'Item Price'} :'),
-                GImageDivineOrb,
-                buildDivineOrbTextField(
-                    focusNode: itemPriceFocus,
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 헤더
+          Row(
+            children: [
+              Text(
+                isKr ? LABEL.CHANGE_CALCULATOR : LABEL.CHANGE_CALCULATOR_EN,
+                style: const TextStyle(
+                    color: Colors.white54,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Spacer(),
+              // 구매/판매 토글
+              _buildToggle(LABEL.BUY, isKr ? LABEL.BUY : LABEL.BUY_EN),
+              const SizedBox(width: 4),
+              _buildToggle(LABEL.SELL, isKr ? LABEL.SELL : LABEL.SELL_EN),
+            ],
+          ),
+          const SizedBox(height: 8),
+          // 아이템 가격
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(width: 24, height: 24, child: GImageDivineOrb),
+              const SizedBox(width: 6),
+              Expanded(
+                child: SizedBox(
+                  height: 46,
+                  child: TextFormField(
                     controller: ctrlItemPrice,
+                    focusNode: itemPriceFocus,
+                    style: _textStyle,
+                    keyboardType: TextInputType.number,
+                    autovalidateMode: AutovalidateMode.always,
+                    decoration: _decoration(
+                      labelText: isKr ? '아이템 가격' : 'Item Price',
+                    ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return isKr ? '값을 입력해주세요' : 'Please enter a value';
-                      }
+                      if (value == null || value.isEmpty) return '';
                       return null;
                     },
                     onChanged: (value) {
-                      if (ctrlItemPrice.text == '' || ctrlPayedDiv.text == '') {
-                        return;
-                      }
+                      if (ctrlItemPrice.text.isEmpty ||
+                          ctrlPayedDiv.text.isEmpty) return;
                       changeCal();
                     },
                     onEditingComplete: () {
                       FocusScope.of(context).requestFocus(payedDivFocus);
-                    }).expand()
-              ],
-            ),
-            Row(
-              children: [
-                Text(isSell != LABEL.BUY
-                    ? (isKr ? '받을 돈 : ' : 'Receive : ')
-                    : (isKr ? '줄 돈 : ' : 'Pay : ')),
-                GImageDivineOrb,
-                buildDivineOrbTextField(
-                  focusNode: payedDivFocus,
-                  controller: ctrlPayedDiv,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return isKr ? '값을 입력해주세요' : 'Please enter a value';
-                    }
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          // 줄 돈 / 받을 돈
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(width: 24, height: 24, child: GImageDivineOrb),
+              const SizedBox(width: 6),
+              Expanded(
+                child: SizedBox(
+                  height: 46,
+                  child: TextFormField(
+                    controller: ctrlPayedDiv,
+                    focusNode: payedDivFocus,
+                    style: _textStyle,
+                    keyboardType: TextInputType.number,
+                    autovalidateMode: AutovalidateMode.always,
+                    decoration: _decoration(
+                      labelText: isSell != LABEL.BUY
+                          ? (isKr ? '받을 돈' : 'Receive')
+                          : (isKr ? '줄 돈' : 'Pay'),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return '';
+                      if (value.contains('.')) return '';
+                      return null;
+                    },
+                    onChanged: (value) {
+                      if (ctrlItemPrice.text.isEmpty ||
+                          ctrlPayedDiv.text.isEmpty ||
+                          value.contains('.')) return;
+                      changeCal();
+                    },
+                    onEditingComplete: () {
+                      FocusScope.of(context).requestFocus(itemPriceFocus);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          // 잔돈
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(width: 24, height: 24, child: GImageChaosOrb),
+              const SizedBox(width: 6),
+              Expanded(
+                child: SizedBox(
+                  height: 46,
+                  child: TextField(
+                    controller: ctrlChangeChaos,
+                    readOnly: true,
+                    style: _textStyle,
+                    decoration: _decoration(
+                      labelText: isKr ? '잔돈' : 'Change',
+                      readOnly: true,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+    });
+  }
 
-                    if (value.contains(".")) {
-                      return isKr ? '소수점을 포함할 수 없습니다' : 'Cannot include decimals';
-                    }
-
-                    return null;
-                  },
-                  onChanged: (value) {
-                    if (ctrlItemPrice.text == '' ||
-                        ctrlPayedDiv.text == '' ||
-                        value.contains(".")) {
-                      return;
-                    }
-                    changeCal();
-                  },
-                  onEditingComplete: () {
-                    FocusScope.of(context).requestFocus(itemPriceFocus);
-                  },
-                ).expand(),
-              ],
-            ),
-            Row(
-              children: [
-                Text('${isKr ? '잔돈' : 'Change'} :'),
-                GImageChaosOrb,
-                TextField(
-                  controller: ctrlChangeChaos,
-                  readOnly: true,
-                ).expand()
-              ],
-            )
-          ],
+  Widget _buildToggle(String type, String label) {
+    final isSelected = isSell == type;
+    return InkWell(
+      onTap: () => setState(() => isSell = type),
+      borderRadius: BorderRadius.circular(4),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? Colors.amber.withAlpha(50)
+              : Colors.white.withAlpha(10),
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(
+            color: isSelected ? Colors.amber : Colors.white.withAlpha(30),
+          ),
         ),
-      );
-    });
-  }
-
-  Widget buildTypeSelector(String type) {
-    return Obx(() {
-      bool isKr = getCtrlDashboard.isKorean.value;
-      String label = type;
-      if (type == LABEL.BUY) label = isKr ? LABEL.BUY : LABEL.BUY_EN;
-      if (type == LABEL.SELL) label = isKr ? LABEL.SELL : LABEL.SELL_EN;
-
-      return ElevatedButton(
-        style: isSell == type
-            ? ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(GSelectedButtonColor),
-              )
-            : null,
-        onPressed: () {
-          setState(() {
-            isSell = type;
-          });
-        },
-        child: Text(label),
-      );
-    });
-  }
-
-  Widget buildDivineOrbTextField({
-    required TextEditingController controller,
-    FocusNode? focusNode,
-    String? Function(String?)? validator,
-    required Function(String) onChanged,
-    VoidCallback? onEditingComplete,
-  }) {
-    return TextFormField(
-      controller: controller,
-      focusNode: focusNode,
-      autovalidateMode: AutovalidateMode.always,
-      validator: validator,
-      onChanged: onChanged,
-      onEditingComplete: onEditingComplete,
+        child: Text(label,
+            style: TextStyle(
+                color: isSelected ? Colors.amber : Colors.white54,
+                fontSize: 11,
+                fontWeight:
+                    isSelected ? FontWeight.bold : FontWeight.normal)),
+      ),
     );
   }
 

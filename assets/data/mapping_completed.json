@@ -1,0 +1,956 @@
+[
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3796523155",
+    "contentKr": "몬스터에게 걸리는 저주 효과 #% 감폭",
+    "contentEn": "#% less effect of Curses on Monsters",
+    "regexKr": "주.*폭",
+    "regexEn": "rses"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2138205941",
+    "contentKr": "몬스터의 주문 피해 억제 확률 +#%",
+    "contentEn": "Monsters have +#% chance to Suppress Spell Damage",
+    "regexKr": "제.확",
+    "regexEn": "pres"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1837040413",
+    "contentKr": "서로 가까이 있는 적을 처치하면 이계 몬스터를 불러옴",
+    "contentEn": "Slaying Enemies close together can attract monsters from Beyond this realm",
+    "regexKr": "이계",
+    "regexEn": "yi"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_4181072906",
+    "contentKr": "플레이어의 생명력 및 에너지 보호막 회복 속도 #% 감폭",
+    "contentEn": "Players have #% less Recovery Rate of Life and Energy Shield",
+    "regexKr": "및.*감",
+    "regexEn": "s rec"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1910157106",
+    "contentKr": "플레이어가 생명력, 마나 또는 에너지 보호막 재생 불가",
+    "contentEn": "Players cannot Regenerate Life, Mana or Energy Shield",
+    "regexKr": "재생",
+    "regexEn": "gen"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3376488707",
+    "contentKr": "플레이어의 모든 저항 최대치 #%",
+    "contentEn": "Players have #% to all maximum Resistances",
+    "regexKr": "대치.-(9|1[0-2])%",
+    "regexEn": "o al"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1041951480",
+    "contentKr": "몬스터 기절 면역",
+    "contentEn": "Monsters cannot be Stunned",
+    "regexKr": "기절",
+    "regexEn": "tun"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3464419871",
+    "contentKr": "몬스터가 물리 피해의 #%를 반사",
+    "contentEn": "Monsters reflect #% of Physical Damage",
+    "regexKr": "가.물.*반",
+    "regexEn": "f ph"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2764017512",
+    "contentKr": "몬스터가 원소 피해의 #%를 반사",
+    "contentEn": "Monsters reflect #% of Elemental Damage",
+    "regexKr": "원.*반",
+    "regexEn": "f el"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_57326096",
+    "contentKr": "몬스터의 치명타 피해 배율 +#%",
+    "contentEn": "+#% to Monster Critical Strike Multiplier",
+    "regexKr": "배율",
+    "regexEn": "ip"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_322206271",
+    "contentKr": "몬스터가 #%의 확률로 원소 상태 이상 긴급회피",
+    "contentEn": "Monsters have #% chance to Avoid Elemental Ailments",
+    "regexKr": "급회",
+    "regexEn": "d el"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1140978125",
+    "contentKr": "몬스터는 흡수 대상이 되지 않음",
+    "contentEn": "Monsters cannot be Leeched from",
+    "regexKr": "는.흡",
+    "regexEn": "eec"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2549889921",
+    "contentKr": "플레이어의 플라스크 충전량 #% 감소",
+    "contentEn": "Players gain #% reduced Flask Charges",
+    "regexKr": "전량",
+    "regexEn": "sk "
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1106651798",
+    "contentKr": "몬스터 도발 면역",
+    "contentEn": "Monsters cannot be Taunted",
+    "regexKr": "도발",
+    "regexEn": "tau"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_144665660",
+    "contentKr": "몬스터가 #%의 확률로 중독, 꿰뚫기, 출혈 회피",
+    "contentEn": "Monsters have a #% chance to avoid Poison, Impale, and Bleeding",
+    "regexKr": "출혈",
+    "regexEn": "n,"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_839186746",
+    "contentKr": "몬스터의 물리 피해 감소 +#%",
+    "contentEn": "+#% Monster Physical Damage Reduction",
+    "regexKr": "해.감",
+    "regexEn": "e r"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_95249895",
+    "contentKr": "몬스터의 생명력 #% 증폭",
+    "contentEn": "#% more Monster Life",
+    "regexKr": "력.*증폭",
+    "regexEn": "r l"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1497673356",
+    "contentKr": "몬스터가 #%의 추가 물리 피해를 화염 속성으로 가함",
+    "contentEn": "Monsters deal #% extra Physical Damage as Fire",
+    "regexKr": "염.속",
+    "regexEn": " as f"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3448216135",
+    "contentKr": "몬스터가 #%의 추가 물리 피해를 냉기 속성으로 가함",
+    "contentEn": "Monsters deal #% extra Physical Damage as Cold",
+    "regexKr": "기.속",
+    "regexEn": "as c"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3416853625",
+    "contentKr": "몬스터가 #%의 추가 물리 피해를 번개 속성으로 가함",
+    "contentEn": "Monsters deal #% extra Physical Damage as Lightning",
+    "regexKr": "개.속",
+    "regexEn": "ht"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1840747977",
+    "contentKr": "몬스터가 물리 피해의 #%를 추가 카오스 피해로 획득",
+    "contentEn": "Monsters gain #% of their Physical Damage as Extra Chaos Damage",
+    "regexKr": "축",
+    "regexEn": "ao"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1309819744",
+    "contentKr": "몬스터가 투사체 #개 추가 발사",
+    "contentEn": "Monsters fire # additional Projectiles",
+    "regexKr": "투.추",
+    "regexEn": "e # "
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1890519597",
+    "contentKr": "몬스터 피해 #% 증가",
+    "contentEn": "#% increased Monster Damage",
+    "regexKr": "터.피.*증",
+    "regexEn": "ed m.*da"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3909654181",
+    "contentKr": "몬스터의 공격, 시전 및 이동 속도 #% 증가",
+    "contentEn": "Monsters have #% increased Attack, Cast and Movement Speed",
+    "regexKr": "동.속.*증",
+    "regexEn": "k,"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2109106920",
+    "contentKr": "고유 보스의 공격 및 시전 속도 #% 증가",
+    "contentEn": "Unique Boss has #% increased Attack and Cast Speed",
+    "regexKr": "격.및",
+    "regexEn": "d c"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3040667106",
+    "contentKr": "고유 보스의 효과 범위 #% 증가",
+    "contentEn": "Unique Boss has #% increased Area of Effect",
+    "regexKr": "고.*범",
+    "regexEn": "os.*area"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2553656203",
+    "contentKr": "몬스터가 명중 시 #%의 확률로 점화, 동결, 감전 유발",
+    "contentEn": "Monsters have a #% chance to Ignite, Freeze and Shock on Hit",
+    "regexKr": "상.유",
+    "regexEn": "k o"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1054098949",
+    "contentKr": "몬스터의 원소 저항 +#%",
+    "contentEn": "+#% Monster Elemental Resistances",
+    "regexKr": "카.*항",
+    "regexEn": "r el"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2887760183",
+    "contentKr": "몬스터가 최대 생명력의 #%를 추가 에너지 보호막 최대치로 획득",
+    "contentEn": "Monsters gain #% of Maximum Life as Extra Maximum Energy Shield",
+    "regexKr": "치로",
+    "regexEn": "um l"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_799271621",
+    "contentKr": "지역에 고유 보스 2마리 등장",
+    "contentEn": "Area contains two Unique Bosses",
+    "regexKr": "2마",
+    "regexEn": "tw"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_816367946",
+    "contentKr": "모든 몬스터의 적중 피해가 항상 점화 유발",
+    "contentEn": "All Monster Damage from Hits always Ignites",
+    "regexKr": "항상",
+    "regexEn": "lw"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3183973644",
+    "contentKr": "몬스터의 스킬 #회 추가 연쇄",
+    "contentEn": "Monsters' skills Chain # additional times",
+    "regexKr": "가.연",
+    "regexEn": "l t"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_4154059009",
+    "contentKr": "몬스터가 사술 방지 보유",
+    "contentEn": "Monsters are Hexproof",
+    "regexKr": "사술",
+    "regexEn": "e h"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1541224187",
+    "contentKr": "몬스터의 공격이 명중 시 #%의 확률로 꿰뚫음",
+    "contentEn": "Monsters' Attacks have #% chance to Impale on Hit",
+    "regexKr": "뚫음",
+    "regexEn": "' a"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1000591322",
+    "contentKr": "지역에 다수의 토템 존재",
+    "contentEn": "Area contains many Totems",
+    "regexKr": "토.*존",
+    "regexEn": "ny"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1813544255",
+    "contentKr": "지역에 염소인간 서식",
+    "contentEn": "Area is inhabited by Goatmen",
+    "regexKr": "소인",
+    "regexEn": "go"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2961018200",
+    "contentKr": "지역에 흉물 서식",
+    "contentEn": "Area is inhabited by Abominations",
+    "regexKr": "에.흉",
+    "regexEn": "abo"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3516340048",
+    "contentKr": "지역에 혼 서식",
+    "contentEn": "Area is inhabited by Ghosts",
+    "regexKr": "혼.서",
+    "regexEn": " gh"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_4252630904",
+    "contentKr": "지역에 키타바 광신자 거주",
+    "contentEn": "Area is inhabited by Cultists of Kitava",
+    "regexKr": "키타",
+    "regexEn": " k"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3134632618",
+    "contentKr": "지역에 루나리스 광신도 거주",
+    "contentEn": "Area is inhabited by Lunaris fanatics",
+    "regexKr": "루",
+    "regexEn": "lu"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2457517302",
+    "contentKr": "지역에 솔라리스 광신도 거주",
+    "contentEn": "Area is inhabited by Solaris fanatics",
+    "regexKr": "솔",
+    "regexEn": " so"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2651141461",
+    "contentKr": "지역에 인간형 적 서식",
+    "contentEn": "Area is inhabited by Humanoids",
+    "regexKr": "간형",
+    "regexEn": "hu"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3916182167",
+    "contentKr": "지역에 악마 서식",
+    "contentEn": "Area is inhabited by Demons",
+    "regexKr": "악",
+    "regexEn": "y d"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_4198346809",
+    "contentKr": "지역에 동물 서식",
+    "contentEn": "Area is inhabited by Animals",
+    "regexKr": "동물",
+    "regexEn": "nim"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_645841425",
+    "contentKr": "지역에 원거리형 몬스터 서식",
+    "contentEn": "Area is inhabited by ranged monsters",
+    "regexKr": "리형",
+    "regexEn": "ang"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_808491979",
+    "contentKr": "지역에 언데드 서식",
+    "contentEn": "Area is inhabited by Undead",
+    "regexKr": "언",
+    "regexEn": "nde"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_25085466",
+    "contentKr": "지역에 바다 마녀 및 유충 서식",
+    "contentEn": "Area is inhabited by Sea Witches and their Spawn",
+    "regexKr": "녀",
+    "regexEn": "a w"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_45546355",
+    "contentKr": "지역에 해골 서식",
+    "contentEn": "Area is inhabited by Skeletons",
+    "regexKr": "해골",
+    "regexEn": "ske"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3550168289",
+    "contentKr": "지도에 탈주 유배자 1명 추가 등장",
+    "contentEn": "Your Maps are inhabited by an additional Rogue Exile",
+    "regexKr": "유배",
+    "regexEn": "gu"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3793155082",
+    "contentKr": "지도 내 희귀 몬스터 수 #% 증가",
+    "contentEn": "#% increased number of Rare Monsters in your Maps",
+    "regexKr": "귀.*증",
+    "regexEn": "f r"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2588474575",
+    "contentKr": "고유 보스가 사로잡힘",
+    "contentEn": "Unique Bosses are Possessed",
+    "regexKr": "사로",
+    "regexEn": "ses "
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_4164174520",
+    "contentKr": "몬스터가 공격 명중 시 #%의 확률로 힘줄 절단 유발",
+    "contentEn": "Monsters have #% chance to Maim on Hit with Attacks",
+    "regexKr": "힘줄",
+    "regexEn": "mai"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1629869774",
+    "contentKr": "몬스터가 명중 시 #%의 확률로 실명 유발",
+    "contentEn": "Monsters have #% chance to Blind on Hit",
+    "regexKr": "실명",
+    "regexEn": "bli"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_406353061",
+    "contentKr": "몬스터가 명중 시 #%의 확률로 권능 충전 획득",
+    "contentEn": "Monsters have #% chance to gain a Power Charge on Hit",
+    "regexKr": "시.권.*득",
+    "regexEn": " a p"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_687813731",
+    "contentKr": "몬스터가 명중 시 #%의 확률로 인내 충전 획득",
+    "contentEn": "Monsters have #% chance to gain an Endurance Charge on Hit",
+    "regexKr": "시.인",
+    "regexEn": "n e"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1742567045",
+    "contentKr": "몬스터가 명중 시 #%의 확률로 격분 충전 획득",
+    "contentEn": "Monsters have #% chance to gain a Frenzy Charge on Hit",
+    "regexKr": "시.격",
+    "regexEn": "a fr"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1948962470",
+    "contentKr": "지역에 신성화 지대 존재",
+    "contentEn": "Area has patches of Consecrated Ground",
+    "regexKr": "신성",
+    "regexEn": "nse"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3577222856",
+    "contentKr": "지역에 훼손된 지대 존재",
+    "contentEn": "Area has patches of desecrated ground",
+    "regexKr": "훼손",
+    "regexEn": "f d"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_272758639",
+    "contentKr": "플레이어의 방어도 #% 감폭",
+    "contentEn": "Players have #% less Armour",
+    "regexKr": "어도",
+    "regexEn": "rm"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3222482040",
+    "contentKr": "몬스터가 명중 시 #%의 확률로 권능, 격분, 인내 충전 강탈",
+    "contentEn": "Monsters have #% chance to steal Power, Frenzy and Endurance charges on Hit",
+    "regexKr": "강탈",
+    "regexEn": "r,"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_941368244",
+    "contentKr": "플레이어의 재사용 대기시간 회복 속도 #% 증폭",
+    "contentEn": "Players have #% more Cooldown Recovery Rate",
+    "regexKr": "용.대기",
+    "regexEn": "coo"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2450628570",
+    "contentKr": "플레이어가 비-저주 오라 스킬로 받는 효과 #% 증가",
+    "contentEn": "Players have #% increased effect of Non-Curse Auras from Skills",
+    "regexKr": "오라",
+    "regexEn": "n-"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3667574329",
+    "contentKr": "플레이어의 정확도 #% 증폭",
+    "contentEn": "Players have #% more Accuracy Rating",
+    "regexKr": "플.*정",
+    "regexEn": "e ac"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1708461270",
+    "contentKr": "몬스터의 효과 범위 #% 증가",
+    "contentEn": "Monsters have #% increased Area of Effect",
+    "regexKr": "몬.*범",
+    "regexEn": "rs.*d area"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_558910024",
+    "contentKr": "플레이어가 원소 약화 저주에 걸림",
+    "contentEn": "Players are Cursed with Elemental Weakness",
+    "regexKr": "소.약",
+    "regexEn": "kn"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_4103440490",
+    "contentKr": "플레이어가 쇠약화 저주에 걸림",
+    "contentEn": "Players are Cursed with Enfeeble",
+    "regexKr": "쇠약",
+    "regexEn": "enf"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2326202293",
+    "contentKr": "플레이어가 시간의 사슬 저주에 걸림",
+    "contentEn": "Players are Cursed with Temporal Chains",
+    "regexKr": "사슬",
+    "regexEn": "emp"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_337935900",
+    "contentKr": "몬스터가 치명타로 받는 추가 피해 #% 감소",
+    "contentEn": "Monsters take #% reduced Extra Damage from Critical Strikes",
+    "regexKr": "치.*감",
+    "regexEn": "m c"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1217583941",
+    "contentKr": "플레이어에게 적용되는 버프가 #% 더 빠르게 만료됨",
+    "contentEn": "Buffs on Players expire #% faster",
+    "regexKr": "플..*버",
+    "regexEn": "n p"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3873704640",
+    "contentKr": "지도 내 마법 몬스터 수 #% 증가",
+    "contentEn": "#% increased number of Magic Monsters in your Maps",
+    "regexKr": "법.몬",
+    "regexEn": "gi"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3350803563",
+    "contentKr": "몬스터의 공격 명중 시 중독",
+    "contentEn": "Monsters Poison on Hit",
+    "regexKr": "시.중",
+    "regexEn": "n o"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1026390635",
+    "contentKr": "플레이어가 노출 유발 불가",
+    "contentEn": "Players cannot inflict Exposure",
+    "regexKr": "노출",
+    "regexEn": "t i"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1588049749",
+    "contentKr": "몬스터의 정확도 #% 증가",
+    "contentEn": "Monsters have #% increased Accuracy Rating",
+    "regexKr": "몬.*정",
+    "regexEn": "d ac"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_2312028586",
+    "contentKr": "플레이어의 효과 범위 #% 감폭",
+    "contentEn": "Players have #% less Area of Effect",
+    "regexKr": "플.*범",
+    "regexEn": "ss are"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_133340941",
+    "contentKr": "지역에 용암 지대 존재",
+    "contentEn": "Area has patches of Burning Ground",
+    "regexKr": "암.지",
+    "regexEn": "rn"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_349586058",
+    "contentKr": "지역에 얼음 지대 존재",
+    "contentEn": "Area has patches of Chilled Ground",
+    "regexKr": "얼음",
+    "regexEn": "chi"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_3246076198",
+    "contentKr": "지역에 #%만큼 피해가 증가한 감전 지대 존재",
+    "contentEn": "Area has patches of Shocked Ground which increase Damage taken by #%",
+    "regexKr": "감.*대",
+    "regexEn": "f s"
+  },
+  {
+    "type": "map",
+    "kind": "normal",
+    "explicitCode": "explicit.stat_1366534040",
+    "contentKr": "플레이어가 취약성 저주에 걸림",
+    "contentEn": "Players are Cursed with Vulnerability",
+    "regexKr": "취약",
+    "regexEn": "vu"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_2753403220",
+    "contentKr": "몬스터의 투사체가 지형과 충돌 시 #%의 확률로 연쇄",
+    "contentEn": "Monsters' Projectiles have #% chance to be able to Chain when colliding with Terrain",
+    "regexKr": "충돌",
+    "regexEn": "rr"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_881836292",
+    "contentKr": "몬스터의 공격 피해 막기 확률 +#%",
+    "contentEn": "Monsters have +#% Chance to Block Attack Damage",
+    "regexKr": "공.*막",
+    "regexEn": "loc"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_1751584857",
+    "contentKr": "몬스터가 명중 시 탐욕스러운 덩굴 #개 유발",
+    "contentEn": "Monsters inflict # Grasping Vine on Hit",
+    "regexKr": "탐욕",
+    "regexEn": "# g"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_1706239920",
+    "contentKr": "희귀 몬스터가 #%의 확률로 폭발성 중심부 보유",
+    "contentEn": "Rare Monsters have #% chance to have a Volatile Core",
+    "regexKr": "성.중",
+    "regexEn": "o h"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_4062840317",
+    "contentKr": "몬스터가 물리 피해의 #%를 추가 무작위 원소 피해로 획득",
+    "contentEn": "Monsters gain #% of their Physical Damage as Extra Damage of a random Element",
+    "regexKr": "무.*원",
+    "regexEn": "f a"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_2306522833",
+    "contentKr": "몬스터의 이동 속도 #% 증가",
+    "contentEn": "#% increased Monster Movement Speed",
+    "regexKr": "동.속.*증",
+    "regexEn": "er m"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_3052102815",
+    "contentKr": "플레이어들이 피얼룩 톱날에 습격당함",
+    "contentEn": "Players are assaulted by Bloodstained Sawblades",
+    "regexKr": "톱",
+    "regexEn": "sa"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_25225034",
+    "contentKr": "지역에 질식의 구체 등장",
+    "contentEn": "Area contains Drowning Orbs",
+    "regexKr": "질",
+    "regexEn": "dr"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_2919181457",
+    "contentKr": "몬스터가 주는 모든 피해가 점화, 동결, 감전 유발 가능",
+    "contentEn": "All Monster Damage can Ignite, Freeze and Shock",
+    "regexKr": "시.점",
+    "regexEn": "ge c"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_2931889194",
+    "contentKr": "지역 내 희귀 몬스터가 쉐이퍼의 손길에 닿음",
+    "contentEn": "Rare monsters in area are Shaper-Touched",
+    "regexKr": "쉐",
+    "regexEn": "r-"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_4150353141",
+    "contentKr": "지도 보스가 결합 보스 대동",
+    "contentEn": "Map Boss is accompanied by a Synthesis Boss",
+    "regexKr": "대동",
+    "regexEn": "sy"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_2577650864",
+    "contentKr": "지역에 미궁 위해 요소 등장",
+    "contentEn": "Area contains Labyrinth Hazards",
+    "regexKr": "미궁",
+    "regexEn": "yr"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_1207482628",
+    "contentKr": "플레이어에게 적용되는 플라스크 효과 #% 증폭",
+    "contentEn": "Players have #% more effect of Flasks applied to them",
+    "regexKr": "크.효",
+    "regexEn": "f f"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_2073168229",
+    "contentKr": "지역에 작열의 총주교의 룬 등장",
+    "contentEn": "Area contains Runes of the Searing Exarch",
+    "regexKr": "룬",
+    "regexEn": "ru"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_1103106414",
+    "contentKr": "몬스터의 권능 충전 최대치 +#",
+    "contentEn": "Monsters have +# to Maximum Power Charges",
+    "regexKr": "의.권",
+    "regexEn": "um p"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_3900284865",
+    "contentKr": "몬스터의 격분 충전 최대치 +#",
+    "contentEn": "Monsters have +# to Maximum Frenzy Charges",
+    "regexKr": "의.격",
+    "regexEn": "m f"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_4067268731",
+    "contentKr": "몬스터의 인내 충전 최대치 +#",
+    "contentEn": "Monsters have +# to Maximum Endurance Charges",
+    "regexKr": "의.인",
+    "regexEn": "m end"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_134839587",
+    "contentKr": "몬스터의 중독 지속시간 #% 증가",
+    "contentEn": "Monsters have #% increased Poison Duration",
+    "regexKr": "독.지",
+    "regexEn": " du"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_872972810",
+    "contentKr": "고유 몬스터가 무작위 성소 버프 1개 보유",
+    "contentEn": "Unique Monsters have a random Shrine Buff",
+    "regexKr": "소.버",
+    "regexEn": "hr"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_4102870672",
+    "contentKr": "플레이어가 플라스크 사용 시 #%의 확률로 유성의 대상이 됨",
+    "contentEn": "Players have #% chance to be targeted by a Meteor when they use a Flask",
+    "regexKr": "유성",
+    "regexEn": "eo"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_1898978455",
+    "contentKr": "몬스터 피해가 #%의 원소 저항 관통",
+    "contentEn": "Monster Damage Penetrates #% Elemental Resistances",
+    "regexKr": "관통",
+    "regexEn": "pen"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_1943574423",
+    "contentKr": "지역에 불안정한 촉수 마귀 등장",
+    "contentEn": "Area contains Unstable Tentacle Fiends",
+    "regexKr": "촉수",
+    "regexEn": "s u"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_1200027417",
+    "contentKr": "몬스터에게 적용되는 디버프가 #% 더 빠르게 만료됨",
+    "contentEn": "Debuffs on Monsters expire #% faster",
+    "regexKr": "몬.*디",
+    "regexEn": "deb"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_1594156261",
+    "contentKr": "메이븐이 플레이어를 방해함",
+    "contentEn": "The Maven interferes with Players",
+    "regexKr": "메이",
+    "regexEn": "rf"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_2946888410",
+    "contentKr": "흡수로 인한 플레이어의 초당 총 생명력, 마나, 에너지 보호막 회복량 최대치 #% 증가",
+    "contentEn": "Players have #% increased Maximum total Life, Mana and Energy Shield Recovery per second from Leech",
+    "regexKr": "의.초",
+    "regexEn": "m t"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_3097694855",
+    "contentKr": "희귀 몬스터가 사망 시 #%의 확률로 분쇄됨",
+    "contentEn": "#% chance for Rare Monsters to Fracture on death",
+    "regexKr": "분쇄",
+    "regexEn": "fo"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_2156372077",
+    "contentKr": "동료에게 영향을 주는 플레이어의 오라 스킬이 적에게도 영향을 줌",
+    "contentEn": "Auras from Player Skills which affect Allies also affect Enemies",
+    "regexKr": "적에",
+    "regexEn": "af"
+  },
+  {
+    "type": "map",
+    "kind": "nightmare",
+    "explicitCode": "explicit.stat_2796704737",
+    "contentKr": "지역에 움직이며 무작위 징표를 유발하는 징표 찍힌 지대 여러 개 등장",
+    "contentEn": "Area contains patches of moving Marked Ground, inflicting random Marks",
+    "regexKr": "찍",
+    "regexEn": "rk"
+  }
+]

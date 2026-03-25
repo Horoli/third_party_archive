@@ -124,6 +124,8 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
         return isKr ? LABEL.RECEIVING_DAMAGE : LABEL.RECEIVING_DAMAGE_EN;
       case LABEL.SCARAB_TABLE:
         return isKr ? LABEL.SCARAB_TABLE : LABEL.SCARAB_TABLE_EN;
+      case LABEL.MAP_MOD_TABLE:
+        return isKr ? LABEL.MAP_MOD_TABLE : LABEL.MAP_MOD_TABLE_EN;
       default:
         return label;
     }
@@ -166,20 +168,18 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
         // if (!isPort) buildSelectCategoryButton(label: LABEL.RANDOM_BUILD),
         buildSelectCategoryButton(label: LABEL.NINJA_PRICE),
         if (!isPort) buildSelectCategoryButton(label: LABEL.SCARAB_TABLE),
+        if (!isPort) buildSelectCategoryButton(label: LABEL.MAP_MOD_TABLE),
       ];
 
   Widget buildSelectCategoryButton({
     required String label,
   }) {
-    return Obx(() => ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor:
-                selectedCategory == label ? GSelectedButtonColor : null,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(0)),
-            ),
-          ),
-          onPressed: () async {
+    return Obx(() {
+      final isSelected = selectedCategory == label;
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 3),
+        child: InkWell(
+          onTap: () async {
             if (label == LABEL.THIRD_PARTY) {
               await getCtrlDashboard.changeSelectedTag(LABEL.TAG_ALL);
             }
@@ -191,8 +191,34 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
               }
             });
           },
-          child: Text(getLocalizedLabel(label)),
-        ));
+          borderRadius: BorderRadius.circular(4),
+          child: Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? Colors.amber.withAlpha(50)
+                  : Colors.white.withAlpha(10),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(
+                color: isSelected
+                    ? Colors.amber
+                    : Colors.white.withAlpha(30),
+              ),
+            ),
+            child: Text(
+              getLocalizedLabel(label),
+              style: TextStyle(
+                color: isSelected ? Colors.amber : Colors.white54,
+                fontSize: 12,
+                fontWeight:
+                    isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ),
+        ),
+      );
+    });
   }
 
   List<Widget> buildTagList() {
@@ -249,6 +275,8 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
         return const PageReceivingDamageCalculator();
       case (LABEL.SCARAB_TABLE):
         return const PageScarabPriceTable();
+      case (LABEL.MAP_MOD_TABLE):
+        return const PageMapModTable();
     }
     return Container();
   }
