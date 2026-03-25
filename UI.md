@@ -67,17 +67,35 @@
     - **아이콘 정렬**: Divine/Chaos 오브 아이콘을 `SizedBox(24x24)`로 고정, `crossAxisAlignment.center`로 필드와 수직 중앙 정렬.
 - **완전한 i18n 적용**: 모든 입력 필드 레이블, 버튼, 결과 텍스트가 다국어화되었습니다.
 
-## 5. 카테고리 선택 버튼 (2026-03-25)
-- **스타일 통합**: 기존 `ElevatedButton` → amber 토글 스타일로 변경. 선택 시 amber 배경/테두리, 미선택 시 투명.
+## 5. 글로벌 토글 버튼 (`WidgetToggleButton`) (2026-03-25)
+- **공용 위젯**: `lib/widget/toggle_button.dart`에 amber 테마 토글 버튼을 StatelessWidget으로 분리.
+- **파라미터**: `label`, `isSelected`, `onTap`, `fontSize`(기본 12), `padding`(커스터마이징 가능).
+- **적용 대상**: 카테고리 선택, 태그 네비게이션, 시세확인 타입 선택, 잔돈 계산기 구매/판매, 지도 구분 T16/악몽, 언어 전환 KR/EN.
 
-## 6. 공용 위젯 (`WidgetMapModBookmark`)
+## 6. 시세확인 (Price Check) (2026-03-25)
+- **타입 선택 버튼**: `ElevatedButton` → `WidgetToggleButton` 적용.
+- **시세 목록 타일 (`TilePoeItem`)**: `ListTile` → 커스텀 `Container` 타일로 개편.
+    - 아이콘 36x36 `ClipRRect`, 아이템명 ellipsis, Divine(amber bold) + 구분선 + Chaos(white70 monospace) 가격 표시.
+    - `ListView.separated`로 아이템 간 gap 추가.
+- **목록 패널 간 구분**: Currency / Fragment / Scarab 패널 사이에 `VerticalDivider` 추가.
+
+## 7. 써드파티 앱 목록 (Third Party Apps) (2026-03-25)
+- **버튼 스타일 통합**: 링크 열기/URL 복사/사용법 보기 버튼을 `ElevatedButton` → 아웃라인 스타일로 변경.
+- **펼치기/접기 버튼**: `ElevatedButton` → `InkWell` 기반 통일 스타일.
+- **i18n 적용**: 버튼 텍스트 한/영 전환 지원 추가.
+
+## 8. 언어 전환 (FAB 영역) (2026-03-25)
+- **KR/EN 분리**: 단일 `FloatingActionButton` → `WidgetToggleButton` 2개로 분리. 활성 언어에 amber 강조.
+- **동기화 시간 툴팁 수정**: `Synced by poe.ninja :` → `poe.ninja 동기화 시간` (KR) / `Synced with poe.ninja` (EN).
+
+## 9. 공용 위젯 (`WidgetMapModBookmark`)
 - **재사용**: 지도 옵션 필터 좌측 패널 + landscape 우측 패널(잔돈 계산기 하단)에서 공유.
 - **동기화**: `static RxInt _changeNotifier`를 통해 모든 인스턴스가 데이터 변경을 실시간 감지.
 - **설정 옵션**: `favoriteTitle`/`favoriteTitleEn` (타이틀 커스터마이징), `showHistory` (히스토리 표시 여부), `buildSaveData` (저장 데이터 콜백).
 
-## 7. 메인 홈 및 네비게이션
+## 10. 메인 홈 및 네비게이션
 - **메뉴 간소화**: 활발히 사용되는 기능 위주로 사이드바 메뉴를 재구성했습니다.
 - **반응형 대응**: 기기 너비에 따라 Drawer와 컨텐츠 배치를 자동 최적화합니다.
 
-## 8. 날짜 표시 표준화
+## 11. 날짜 표시 표준화
 - 앱 내의 모든 데이터 업데이트 시간은 `yyyy-MM-dd HH:mm` 형식으로 표시됩니다.

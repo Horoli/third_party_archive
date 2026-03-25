@@ -422,34 +422,12 @@ class PageMapModTableState extends State<PageMapModTable> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(labels.length, (i) {
-        final isSelected = i == selectedIndex;
         return Padding(
           padding: EdgeInsets.only(right: i < labels.length - 1 ? 4 : 0),
-          child: InkWell(
+          child: WidgetToggleButton(
+            label: labels[i],
+            isSelected: i == selectedIndex,
             onTap: () => onSelected(i),
-            borderRadius: BorderRadius.circular(4),
-            child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? Colors.amber.withAlpha(50)
-                    : Colors.white.withAlpha(10),
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(
-                  color: isSelected
-                      ? Colors.amber
-                      : Colors.white.withAlpha(30),
-                ),
-              ),
-              child: Text(labels[i],
-                  style: TextStyle(
-                      color: isSelected ? Colors.amber : Colors.white54,
-                      fontSize: 12,
-                      fontWeight: isSelected
-                          ? FontWeight.bold
-                          : FontWeight.normal)),
-            ),
           ),
         );
       }),

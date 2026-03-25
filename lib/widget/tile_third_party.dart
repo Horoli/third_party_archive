@@ -79,21 +79,21 @@ class TileThirdPartyState extends State<TileThirdParty> {
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white.withOpacity(0.1),
-                      shadowColor: Colors.transparent,
-                      padding: EdgeInsets.zero,
-                      minimumSize: Size.zero,
+                  child: InkWell(
+                    onTap: () => setState(() => isExpanded = !isExpanded),
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withAlpha(10),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Icon(
+                        isExpanded ? Icons.expand_less : Icons.expand_more,
+                        color: Colors.white54,
+                        size: 20,
+                      ),
                     ),
-                    child: Icon(
-                      isExpanded ? Icons.expand_less : Icons.expand_more,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        isExpanded = !isExpanded;
-                      });
-                    },
                   ),
                 ),
             ],
@@ -103,45 +103,73 @@ class TileThirdPartyState extends State<TileThirdParty> {
     );
   }
 
-  Widget buildButtonSet() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          child: const Text('링크 열기'),
-          onPressed: () async {
-            await launchUrl(Uri.parse(
-              thirdParty.url['main']!,
-            ));
-            await postUserAction(
-              id: GUuid,
-              label: thirdParty.label,
-              url: thirdParty.url['main']!,
-              platform: GPlatform,
-            );
-          },
-        ).flex(),
-        const Padding(padding: EdgeInsets.all(8)),
-        ElevatedButton(
-          child: const Text('URL 복사'),
-          onPressed: () {
-            Clipboard.setData(ClipboardData(text: thirdParty.url['main']!));
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text(MSG.COPY_TO_CLIPBOARD)),
-            );
-          },
-        ).flex(),
-        const Padding(padding: EdgeInsets.all(8)),
-        if (thirdParty.url['manual'] != "")
-          ElevatedButton(
-            child: const Text('사용법 보기'),
-            onPressed: () async {
-              await launchUrl(Uri.parse(
-                thirdParty.url['manual']!,
-              ));
-            },
-          ).flex(),
-      ],
+  Widget _buildActionButton({
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(4),
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: Colors.white.withAlpha(10),
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: Colors.white.withAlpha(30)),
+          ),
+          child: Text(label,
+              style: const TextStyle(color: Colors.white54, fontSize: 11)),
+        ),
+      ),
     );
+  }
+
+  Widget buildButtonSet() {
+    final GetDashboard dash = Get.find<GetDashboard>();
+    return Obx(() {
+      final isKr = dash.isKorean.value;
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildActionButton(
+            label: isKr ? '링크 열기' : 'Open Link',
+            onTap: () async {
+              await launchUrl(Uri.parse(thirdParty.url['main']!));
+              await postUserAction(
+                id: GUuid,
+                label: thirdParty.label,
+                url: thirdParty.url['main']!,
+                platform: GPlatform,
+              );
+            },
+          ),
+          const SizedBox(height: 6),
+          _buildActionButton(
+            label: isKr ? 'URL 복사' : 'Copy URL',
+            onTap: () {
+              Clipboard.setData(
+                  ClipboardData(text: thirdParty.url['main']!));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text(isKr
+                        ? MSG.COPY_TO_CLIPBOARD
+                        : MSG.COPY_TO_CLIPBOARD_EN)),
+              );
+            },
+          ),
+          if (thirdParty.url['manual'] != "") ...[
+            const SizedBox(height: 6),
+            _buildActionButton(
+              label: isKr ? '사용법 보기' : 'Manual',
+              onTap: () async {
+                await launchUrl(Uri.parse(thirdParty.url['manual']!));
+              },
+            ),
+          ],
+        ],
+      );
+    });
   }
 }

@@ -21,8 +21,9 @@ class TilePoeItem<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       itemCount: items.length,
+      separatorBuilder: (context, index) => const SizedBox(height: 2),
       itemBuilder: (context, index) {
         T item = items[index];
         return itemBuilders[item.runtimeType]!(item);
@@ -37,17 +38,72 @@ class TilePoeItem<T> extends StatelessWidget {
   }) {
     double divineChaos = divineChaosCal(chaosValue);
     int divine = (chaosValue / GDivineOrb).floor();
-    bool check = chaosValue > GDivineOrb;
-    return ListTile(
-      leading: Image.network('$imageUrl/$icon'),
-      title: Text(name),
-      subtitle: Row(
+    bool hasDivine = chaosValue > GDivineOrb;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.white.withAlpha(15)),
+        ),
+      ),
+      child: Row(
         children: [
-          if (divine != 0) GImageDivineOrb,
-          if (divine != 0) Text('$divine'),
-          if (divine != 0) const VerticalDivider(),
-          GImageChaosOrb,
-          Text('${check ? divineChaos.round() : chaosValue}'),
+          // 아이콘
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: Image.network(
+              '$imageUrl/$icon',
+              width: 36,
+              height: 36,
+              fit: BoxFit.contain,
+              errorBuilder: (c, e, s) =>
+                  const Icon(Icons.error, size: 20, color: Colors.white24),
+            ),
+          ),
+          const SizedBox(width: 10),
+          // 아이템명
+          Expanded(
+            child: Text(
+              name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 13,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+          ),
+          const SizedBox(width: 8),
+          // 가격
+          if (hasDivine && divine != 0) ...[
+            SizedBox(width: 20, height: 20, child: GImageDivineOrb),
+            const SizedBox(width: 2),
+            Text(
+              '$divine',
+              style: const TextStyle(
+                color: Colors.amber,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Container(
+              width: 1,
+              height: 14,
+              margin: const EdgeInsets.symmetric(horizontal: 6),
+              color: Colors.white.withAlpha(30),
+            ),
+          ],
+          SizedBox(width: 20, height: 20, child: GImageChaosOrb),
+          const SizedBox(width: 2),
+          Text(
+            '${hasDivine ? divineChaos.round() : chaosValue.round()}',
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+              fontFamily: 'monospace',
+            ),
+          ),
         ],
       ),
     );

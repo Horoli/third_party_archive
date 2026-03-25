@@ -98,17 +98,36 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
           }
           return WidgetNinjaSyncInfo(rawDate: date);
         }),
-        const Padding(padding: EdgeInsets.all(4)),
-        FloatingActionButton.small(
-          backgroundColor: Colors.black.withAlpha(150),
-          shape: const CircleBorder(side: BorderSide(color: Colors.grey)),
-          onPressed: () => getCtrlDashboard.toggleLanguage(),
-          child: Obx(() => Text(
-                getCtrlDashboard.isKorean.value ? 'KO' : 'EN',
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
-              )),
-        ),
+        const SizedBox(width: 6),
+        Obx(() {
+          final isKr = getCtrlDashboard.isKorean.value;
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              WidgetToggleButton(
+                label: 'KR',
+                isSelected: isKr,
+                fontSize: 11,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                onTap: () {
+                  if (!isKr) getCtrlDashboard.toggleLanguage();
+                },
+              ),
+              const SizedBox(width: 4),
+              WidgetToggleButton(
+                label: 'EN',
+                isSelected: !isKr,
+                fontSize: 11,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                onTap: () {
+                  if (isKr) getCtrlDashboard.toggleLanguage();
+                },
+              ),
+            ],
+          );
+        }),
       ],
     );
   }
@@ -174,51 +193,25 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
   Widget buildSelectCategoryButton({
     required String label,
   }) {
-    return Obx(() {
-      final isSelected = selectedCategory == label;
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 3),
-        child: InkWell(
-          onTap: () async {
-            if (label == LABEL.THIRD_PARTY) {
-              await getCtrlDashboard.changeSelectedTag(LABEL.TAG_ALL);
-            }
-            setState(() {
-              selectedCategory = label;
-              if (isPort) {
-                appBarLabel = label;
-                Navigator.pop(context);
+    return Obx(() => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3),
+          child: WidgetToggleButton(
+            label: getLocalizedLabel(label),
+            isSelected: selectedCategory == label,
+            onTap: () async {
+              if (label == LABEL.THIRD_PARTY) {
+                await getCtrlDashboard.changeSelectedTag(LABEL.TAG_ALL);
               }
-            });
-          },
-          borderRadius: BorderRadius.circular(4),
-          child: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: isSelected
-                  ? Colors.amber.withAlpha(50)
-                  : Colors.white.withAlpha(10),
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(
-                color: isSelected
-                    ? Colors.amber
-                    : Colors.white.withAlpha(30),
-              ),
-            ),
-            child: Text(
-              getLocalizedLabel(label),
-              style: TextStyle(
-                color: isSelected ? Colors.amber : Colors.white54,
-                fontSize: 12,
-                fontWeight:
-                    isSelected ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
+              setState(() {
+                selectedCategory = label;
+                if (isPort) {
+                  appBarLabel = label;
+                  Navigator.pop(context);
+                }
+              });
+            },
           ),
-        ),
-      );
-    });
+        ));
   }
 
   List<Widget> buildTagList() {
@@ -288,18 +281,14 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
   }) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        style: selected
-            ? ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(GSelectedButtonColor),
-              )
-            : null,
-        onPressed: () async {
+      child: WidgetToggleButton(
+        label: label,
+        isSelected: selected,
+        onTap: () async {
           await getCtrlDashboard.changeSelectedTag(label);
           tabController.animateTo(index);
           if (isPort) Navigator.pop(context);
         },
-        child: Text(label),
       ),
     );
   }

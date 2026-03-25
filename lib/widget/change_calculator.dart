@@ -63,9 +63,21 @@ class ChangeCalculatorState extends State<ChangeCalculator> {
               ),
               const Spacer(),
               // 구매/판매 토글
-              _buildToggle(LABEL.BUY, isKr ? LABEL.BUY : LABEL.BUY_EN),
+              WidgetToggleButton(
+                label: isKr ? LABEL.BUY : LABEL.BUY_EN,
+                isSelected: isSell == LABEL.BUY,
+                fontSize: 11,
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                onTap: () => setState(() => isSell = LABEL.BUY),
+              ),
               const SizedBox(width: 4),
-              _buildToggle(LABEL.SELL, isKr ? LABEL.SELL : LABEL.SELL_EN),
+              WidgetToggleButton(
+                label: isKr ? LABEL.SELL : LABEL.SELL_EN,
+                isSelected: isSell == LABEL.SELL,
+                fontSize: 11,
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                onTap: () => setState(() => isSell = LABEL.SELL),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -170,32 +182,6 @@ class ChangeCalculatorState extends State<ChangeCalculator> {
         ],
       );
     });
-  }
-
-  Widget _buildToggle(String type, String label) {
-    final isSelected = isSell == type;
-    return InkWell(
-      onTap: () => setState(() => isSell = type),
-      borderRadius: BorderRadius.circular(4),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? Colors.amber.withAlpha(50)
-              : Colors.white.withAlpha(10),
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(
-            color: isSelected ? Colors.amber : Colors.white.withAlpha(30),
-          ),
-        ),
-        child: Text(label,
-            style: TextStyle(
-                color: isSelected ? Colors.amber : Colors.white54,
-                fontSize: 11,
-                fontWeight:
-                    isSelected ? FontWeight.bold : FontWeight.normal)),
-      ),
-    );
   }
 
   void changeCal() {

@@ -74,3 +74,4 @@ part 'widget/hover_button.dart';
 part 'widget/hover_image_button.dart';
 part 'widget/ninja_sync_info.dart';
 part 'widget/map_mod_bookmark.dart';
+part 'widget/toggle_button.dart';

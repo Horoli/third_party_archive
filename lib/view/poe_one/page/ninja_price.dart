@@ -47,20 +47,7 @@ class PageChangeCalculatorState extends State<PageChangeCalculator> {
           children: [
             buildTypeSelector(),
             Row(
-              children: [
-                if (selectedType.contains('Currency'))
-                  TilePoeItem<PoeNinjaCurrency>(
-                    items: data.currency,
-                  ).expand(),
-                if (selectedType.contains('Fragment'))
-                  TilePoeItem<PoeNinjaFragment>(items: data.fragment).expand(),
-                if (selectedType.contains('Scarab'))
-                  TilePoeItem<PoeNinjaItem>(items: data.scarab).expand(),
-                if (selectedType.contains('Map'))
-                  TilePoeItem<PoeNinjaMap>(items: data.map).expand(),
-                if (selectedType.contains('Invitation'))
-                  TilePoeItem(items: data.invitation).expand(),
-              ],
+              children: _buildPanelsWithDividers(),
             ).expand(),
           ],
         );
@@ -69,40 +56,61 @@ class PageChangeCalculatorState extends State<PageChangeCalculator> {
   }
 
   Widget buildTypeSelector() {
-    return Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(listType.length, (index) {
-          return ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.resolveWith((states) {
-                if (selectedType.contains(listType[index])) {
-                  return GSelectedButtonColor;
-                }
-                return null;
-              }),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 3),
+            child: WidgetToggleButton(
+              label: listType[index],
+              isSelected: selectedType.contains(listType[index]),
+              onTap: () {
+                setState(() {
+                  if (isPort) {
+                    selectedType = [listType[index]];
+                    return;
+                  }
+                  if (selectedType.contains(listType[index])) {
+                    selectedType.remove(listType[index]);
+                    return;
+                  }
+                  selectedType.add(listType[index]);
+                });
+              },
             ),
-            onPressed: () {
-              setState(() {
-                if (isPort) {
-                  selectedType = [listType[index]];
-                  return;
-                }
-                if (selectedType.contains(listType[index])) {
-                  selectedType.remove(listType[index]);
-                  return;
-                }
-                selectedType.add(listType[index]);
-              });
-            },
-            child: Text(listType[index]),
           );
-        }));
+        }),
+      ),
+    );
   }
 
   @override
   void initState() {
     super.initState();
     fetch();
+  }
+
+  List<Widget> _buildPanelsWithDividers() {
+    final List<Widget> panels = [];
+    final Map<String, Widget> typeWidgets = {
+      'Currency': TilePoeItem<PoeNinjaCurrency>(items: data.currency),
+      'Fragment': TilePoeItem<PoeNinjaFragment>(items: data.fragment),
+      'Scarab': TilePoeItem<PoeNinjaItem>(items: data.scarab),
+      'Map': TilePoeItem<PoeNinjaMap>(items: data.map),
+      'Invitation': TilePoeItem(items: data.invitation),
+    };
+
+    for (int i = 0; i < selectedType.length; i++) {
+      if (i > 0) {
+        panels.add(const VerticalDivider(
+            width: 1, color: Colors.white24));
+      }
+      final widget = typeWidgets[selectedType[i]];
+      if (widget != null) panels.add(Expanded(child: widget));
+    }
+    return panels;
   }
 
   Future<RestfulResult> fetch() async {

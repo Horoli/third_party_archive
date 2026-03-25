@@ -47,8 +47,8 @@ const String MORE_THAN_EN = '+';
 const String TYPE_COUNT = ''; // 숫자를 []로 감쌀 것이므로 빈 값 처리
 const String TYPE_COUNT_EN = '';
 
-const String DATA_SYNCED_WITH_POE_NINJA = 'Synced by poe.ninja :';
-const String DATA_SYNCED_WITH_POE_NINJA_EN = 'Synced by poe.ninja :';
+const String DATA_SYNCED_WITH_POE_NINJA = 'poe.ninja 동기화 시간';
+const String DATA_SYNCED_WITH_POE_NINJA_EN = 'Synced with poe.ninja';
 
 const String CHANGE_CALCULATOR = '잔돈 계산기';
 const String CHANGE_CALCULATOR_EN = 'Change Calculator';
