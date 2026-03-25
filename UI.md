@@ -42,7 +42,7 @@
 - **상단 컨트롤 바**:
     - **지도 옵션**: 아이템 수량(IIQ), 아이템 희귀도(IIR), 무리 규모(Pack Size) — `floatingLabel` 입력 필드.
     - **지도 구분**: T16 / 악몽 토글 (둘 중 하나만 선택).
-    - **속성부여**: 8모드, 허상 체크박스.
+    - **속성부여**: 8모드, 허상, 태초자(Primordial) 체크박스.
     - **선택 정보**: 선택 개수, 글자수(255한도), Regex 복사 버튼, 거래소 이동 버튼, 초기화 버튼.
     - **Regex 미리보기**: `"!regex|regex"` 형태로 항상 표시. 255자 초과 시 빨간색.
     - 선택 0개 시 Regex 복사/거래소 이동 버튼 반투명 + 클릭 비활성화.
@@ -57,7 +57,7 @@
 - **거래소 쿼리 구조**:
     - `status: securable`, `type: 악몽 지도` (악몽 선택 시).
     - `map_filters`: map_tier, map_iiq, map_iir, map_packsize.
-    - `stats[and]`: enchant(허상), pseudo(8모드).
+    - `stats[and]`: enchant(허상), pseudo(8모드), implicit(태초자).
     - `stats[not]`: 선택된 옵션의 `explicitCode` 목록.
 
 ## 4. 잔돈 계산기 (Change Calculator)
@@ -87,6 +87,7 @@
 ## 8. 언어 전환 (FAB 영역) (2026-03-25)
 - **KR/EN 분리**: 단일 `FloatingActionButton` → `WidgetToggleButton` 2개로 분리. 활성 언어에 amber 강조.
 - **동기화 시간 툴팁 수정**: `Synced by poe.ninja :` → `poe.ninja 동기화 시간` (KR) / `Synced with poe.ninja` (EN).
+- **동기화 시간 전역 표시**: 모든 페이지에서 poe.ninja 동기화 시간이 표시되도록 fallback 로직 추가 (해당 페이지 전용 날짜 → ninja → scarab 순).
 
 ## 9. 공용 위젯 (`WidgetMapModBookmark`)
 - **재사용**: 지도 옵션 필터 좌측 패널 + landscape 우측 패널(잔돈 계산기 하단)에서 공유.
