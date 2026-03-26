@@ -5,10 +5,20 @@ class GetDashboard extends GetxController {
       RestfulResult(statusCode: 0, message: '').obs;
 
   RxString selectedTag = 'ALL'.obs;
-  RxBool isKorean = true.obs;
+  RxBool isKorean = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    final saved = GSharedPreference.getBool('isKorean');
+    if (saved != null) {
+      isKorean.value = saved;
+    }
+  }
 
   void toggleLanguage() {
     isKorean.value = !isKorean.value;
+    GSharedPreference.setBool('isKorean', isKorean.value);
     update();
   }
 

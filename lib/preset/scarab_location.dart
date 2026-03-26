@@ -11,7 +11,7 @@ final Map<int, PoeNinjaItem> MAP = {
     "chaosValue": 1,
     "id": 135012,
     "name": "Abyss Scarab of Descending",
-    "icon": "ed15ac96b0df1cea85929138d366be9fe472c2384e972c34ab94ccd53f13bda9"
+    "icon": "4af5a5b1c76da60155cb3b41bbdd1ec79f264ade0eb66143812dd1b0b339fa7c"
   },
   "61": {
     "chaosValue": 2,

@@ -21,7 +21,18 @@ Dart의 `library`와 `part` 패턴을 사용하여 소스 코드를 체계적으
 - `lib/widget/ninja_sync_info.dart`: 데이터 동기화 시간을 표준화하여 보여주는 공통 위젯입니다.
 - `lib/widget/map_mod_bookmark.dart`: 지도 옵션 필터 즐겨찾기/히스토리 공용 위젯입니다. (`static RxInt`를 활용한 다중 인스턴스 동기화)
 
-## 주요 업데이트 요약 (2026-03-25)
+## 주요 업데이트 요약 (2026-03-26)
+### 2026-03-26
+5.  **갑충석 시세표 디버그 모드 UI 개선**:
+    - 그리드 셀: `TextButton` → 아이콘+가격 표시(amber 테마), 빈 셀은 인덱스 표시, 툴팁 안내.
+    - 미배치 목록: 헤더에 미배치 개수, 다음 배치 아이템 강조, 커스텀 타일 스타일 적용.
+    - 상단 디버그 바: `Export JSON`(클립보드 복사) + `Console`(print) 버튼 분리.
+    - 이미지 동기화: 서버 데이터 수신 후 `scarabLocation`의 icon/chaosValue를 자동 갱신.
+6.  **언어 상태 로컬 저장 및 기본 언어 EN 전환**:
+    - `SharedPreferences`로 언어 설정 저장/복원, 기본 언어를 EN으로 변경.
+    - EN 모드에서 Third-Party Apps 카테고리 비노출, EN 전환 시 자동 리다이렉트.
+
+### 2026-03-25
 1.  **지도 옵션 필터 (Map Mod Filter) 신규 기능**:
     - `assets/data/mapping_completed.json`에서 맵 옵션 데이터를 로드하여 일반/악몽 옵션으로 분류 표시.
     - **다중 선택** → Regex 추출(255자 한도) → 클립보드 복사 또는 POE 거래소 리다이렉션.

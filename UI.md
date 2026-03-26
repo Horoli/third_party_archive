@@ -96,9 +96,20 @@
 - **동기화**: `static RxInt _changeNotifier`를 통해 모든 인스턴스가 데이터 변경을 실시간 감지.
 - **설정 옵션**: `favoriteTitle`/`favoriteTitleEn` (타이틀 커스터마이징), `showHistory` (히스토리 표시 여부), `buildSaveData` (저장 데이터 콜백).
 
-## 10. 메인 홈 및 네비게이션
+## 10. 갑충석 시세표 디버그 모드 (Debug Mode) (2026-03-26)
+- **그리드 셀 스타일 개선**: `TextButton` → `InkWell` + `Container`, 배치된 셀은 아이콘+가격 표시(amber 테마), 빈 셀은 인덱스 번호 표시, 툴팁으로 아이템명/조작법 안내.
+- **미배치 목록 개선**: `ListTile` → 커스텀 `Row` 타일, 헤더에 미배치 개수 표시, 다음 배치 아이템 amber 강조 + 화살표, 아이콘 32x32 `ClipRRect` + ellipsis 이름 + monospace 가격.
+- **상단 디버그 바 개선**: 단순 `print` TextButton → DEBUG 라벨 + `Export JSON`(클립보드 복사) + `Console`(print) 버튼 분리.
+- **이미지 동기화**: 서버 데이터 수신 후 `scarabLocation`의 icon/chaosValue를 최신 서버 데이터로 자동 동기화 (`_syncScarabLocationWithServer`).
+
+## 11. 언어 상태 로컬 저장 (2026-03-26)
+- **SharedPreferences 연동**: 언어 설정(KR/EN)을 `SharedPreferences`에 저장하여 앱 재시작 후에도 유지.
+- **기본 언어 EN**: 글로벌 앱 대응을 위해 기본 언어를 EN으로 변경. 저장된 값이 있으면 해당 값으로 복원.
+- **EN일 때 Third-Party Apps 숨김**: EN 모드에서는 한국어 전용 써드파티 앱 목록 카테고리가 비노출. EN 전환 시 해당 페이지에 있으면 자동으로 갑충석 시세표로 리다이렉트.
+
+## 12. 메인 홈 및 네비게이션
 - **메뉴 간소화**: 활발히 사용되는 기능 위주로 사이드바 메뉴를 재구성했습니다.
 - **반응형 대응**: 기기 너비에 따라 Drawer와 컨텐츠 배치를 자동 최적화합니다.
 
-## 11. 날짜 표시 표준화
+## 13. 날짜 표시 표준화
 - 앱 내의 모든 데이터 업데이트 시간은 `yyyy-MM-dd HH:mm` 형식으로 표시됩니다.

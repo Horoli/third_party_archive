@@ -126,7 +126,14 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 onTap: () {
-                  if (isKr) getCtrlDashboard.toggleLanguage();
+                  if (isKr) {
+                    getCtrlDashboard.toggleLanguage();
+                    if (selectedCategory == LABEL.THIRD_PARTY) {
+                      setState(() {
+                        selectedCategory = LABEL.SCARAB_TABLE;
+                      });
+                    }
+                  }
                 },
               ),
             ],
@@ -187,7 +194,8 @@ abstract class WidgetOneHomeState<T extends WidgetOneHome> extends State<T>
       );
 
   List<Widget> get categorySelectors => [
-        buildSelectCategoryButton(label: LABEL.THIRD_PARTY),
+        if (getCtrlDashboard.isKorean.value)
+          buildSelectCategoryButton(label: LABEL.THIRD_PARTY),
         // if (!isPort) buildSelectCategoryButton(label: LABEL.RANDOM_BUILD),
         buildSelectCategoryButton(label: LABEL.NINJA_PRICE),
         if (!isPort) buildSelectCategoryButton(label: LABEL.SCARAB_TABLE),

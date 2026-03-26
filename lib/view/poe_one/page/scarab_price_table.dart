@@ -381,26 +381,76 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
       itemBuilder: (context, int index) {
         PoeNinjaItem? getScarabItem = scarabLocation[index];
         if (isDebugMode) {
-          return TextButton(
-            style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(
-                    getScarabItem == null ? Colors.white : Colors.amber)),
-            child: Text(getScarabItem?.name ?? index.toString()),
-            onPressed: () {
-              if (getScarab.selectableItems.isEmpty) return;
-              setState(() {
-                scarabLocation[index] = getScarab.selectableItems[0];
-                getScarab.selectableItems.removeAt(0);
-              });
-            },
-            onLongPress: () {
-              setState(() {
-                getScarab.selectableItems.add(getScarabItem!);
-                getScarab.selectableItems
-                    .sort((a, b) => a.name.compareTo(b.name));
-                scarabLocation.remove(index);
-              });
-            },
+          final bool hasItem = getScarabItem != null;
+          return Tooltip(
+            message: hasItem
+                ? '${getScarabItem.name}\n(롱프레스: 제거)'
+                : '$index (클릭: 배치)',
+            child: InkWell(
+              onTap: () {
+                if (getScarab.selectableItems.isEmpty) return;
+                setState(() {
+                  scarabLocation[index] = getScarab.selectableItems[0];
+                  getScarab.selectableItems.removeAt(0);
+                });
+              },
+              onLongPress: hasItem
+                  ? () {
+                      setState(() {
+                        getScarab.selectableItems.add(getScarabItem);
+                        getScarab.selectableItems
+                            .sort((a, b) => a.name.compareTo(b.name));
+                        scarabLocation.remove(index);
+                      });
+                    }
+                  : null,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: hasItem ? Colors.amber.withAlpha(40) : Colors.white10,
+                  border: Border.all(
+                    color: hasItem
+                        ? Colors.amber.withAlpha(100)
+                        : Colors.white24,
+                    width: 1,
+                  ),
+                ),
+                child: hasItem
+                    ? Stack(
+                        children: [
+                          Opacity(
+                            opacity: 0.8,
+                            child: Image.network(
+                              '$imageUrl/${getScarabItem.icon}',
+                              fit: BoxFit.cover,
+                              errorBuilder: (c, e, s) =>
+                                  const Icon(Icons.error, size: 10),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 1,
+                            right: 2,
+                            child: Text(
+                              formatPrice(getScarabItem.chaosValue),
+                              style: const TextStyle(
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Center(
+                        child: Text(
+                          '$index',
+                          style: const TextStyle(
+                            color: Colors.white24,
+                            fontSize: 9,
+                          ),
+                        ),
+                      ),
+              ),
+            ),
           );
         }
         return !scarabLocation.containsKey(index)
@@ -511,39 +561,219 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   }
 
   Widget buildManagementList() {
-    return ListView.builder(
-      itemCount: getScarab.selectableItems.length,
-      itemBuilder: (context, int index) {
-        PoeNinjaItem item = getScarab.selectableItems[index];
-        return ListTile(
-          leading: Image.network('$imageUrl/${item.icon}'),
-          title: Text(item.name,
-              style: TextStyle(
-                  color: index == 0 ? Colors.amber : Colors.white,
-                  fontWeight:
-                      index == 0 ? FontWeight.bold : FontWeight.normal)),
-          subtitle: Text(formatPrice(item.chaosValue)),
-        );
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          color: Colors.black26,
+          child: Row(
+            children: [
+              const Icon(Icons.inventory_2_outlined,
+                  color: Colors.amber, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                '미배치 (${getScarab.selectableItems.length})',
+                style: const TextStyle(
+                  color: Colors.amber,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Divider(color: Colors.white24, height: 1),
+        Expanded(
+          child: ListView.separated(
+            itemCount: getScarab.selectableItems.length,
+            separatorBuilder: (_, __) =>
+                const Divider(color: Colors.white10, height: 1),
+            itemBuilder: (context, int index) {
+              PoeNinjaItem item = getScarab.selectableItems[index];
+              final bool isNext = index == 0;
+              return Container(
+                color: isNext ? Colors.amber.withAlpha(20) : Colors.transparent,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Image.network(
+                        '$imageUrl/${item.icon}',
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.cover,
+                        errorBuilder: (c, e, s) =>
+                            const Icon(Icons.error, size: 16),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        item.name,
+                        style: TextStyle(
+                          color: isNext ? Colors.amber : Colors.white70,
+                          fontWeight:
+                              isNext ? FontWeight.bold : FontWeight.normal,
+                          fontSize: 12,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      formatPrice(item.chaosValue),
+                      style: TextStyle(
+                        color: isNext ? Colors.amber : Colors.white54,
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                      ),
+                    ),
+                    if (isNext) ...[
+                      const SizedBox(width: 4),
+                      const Icon(Icons.arrow_back,
+                          color: Colors.amber, size: 12),
+                    ],
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
   Widget buildManagementPrintButton() {
-    return TextButton(
-      onPressed: () {
-        Map<String, dynamic> showScarabLocationData = scarabLocation.map(
-            (key, value) =>
-                MapEntry<String, dynamic>(key.toString(), value.map));
-        print(jsonEncode(showScarabLocationData));
-      },
-      child: const Text('print'),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      color: Colors.black26,
+      child: Row(
+        children: [
+          const Icon(Icons.bug_report, color: Colors.amber, size: 16),
+          const SizedBox(width: 6),
+          const Text(
+            'DEBUG',
+            style: TextStyle(
+              color: Colors.amber,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+          const Spacer(),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(4),
+              onTap: () {
+                Map<String, dynamic> showScarabLocationData =
+                    scarabLocation.map((key, value) =>
+                        MapEntry<String, dynamic>(
+                            key.toString(), value.map));
+                final jsonStr = jsonEncode(showScarabLocationData);
+                Clipboard.setData(ClipboardData(text: jsonStr));
+                showCenterSnackBar('JSON copied to clipboard');
+              },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.amber.withAlpha(100)),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.copy, color: Colors.amber, size: 14),
+                    SizedBox(width: 4),
+                    Text(
+                      'Export JSON',
+                      style: TextStyle(
+                        color: Colors.amber,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(4),
+              onTap: () {
+                Map<String, dynamic> showScarabLocationData =
+                    scarabLocation.map((key, value) =>
+                        MapEntry<String, dynamic>(
+                            key.toString(), value.map));
+                print(jsonEncode(showScarabLocationData));
+                showCenterSnackBar('Printed to console');
+              },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white24),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.terminal, color: Colors.white54, size: 14),
+                    SizedBox(width: 4),
+                    Text(
+                      'Console',
+                      style: TextStyle(
+                        color: Colors.white54,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   @override
   void initState() {
     super.initState();
-    getScarab.get();
+    getScarab.get().then((_) {
+      _syncScarabLocationWithServer();
+    });
+  }
+
+  /// 서버에서 받아온 최신 데이터로 scarabLocation의 icon/chaosValue를 동기화
+  void _syncScarabLocationWithServer() {
+    final serverData =
+        getScarab.result.value.data?['filteredData'] as List<PoeNinjaItem>?;
+    if (serverData == null) return;
+
+    final Map<String, PoeNinjaItem> serverMap = {
+      for (var item in serverData) item.name: item,
+    };
+
+    final updatedLocation = <int, PoeNinjaItem>{};
+    for (final entry in scarabLocation.entries) {
+      final serverItem = serverMap[entry.value.name];
+      if (serverItem != null) {
+        updatedLocation[entry.key] = serverItem;
+      } else {
+        updatedLocation[entry.key] = entry.value;
+      }
+    }
+
+    setState(() {
+      scarabLocation = updatedLocation;
+    });
   }
 
   String scarabI18nString(String scarabLabel, bool isKr) {
