@@ -1065,7 +1065,8 @@ class PageMapModTableState extends State<PageMapModTable> {
                     ),
                   ),
                   if ((mod['addMap'] ?? 0) > 0 ||
-                      (mod['addScarab'] ?? 0) > 0)
+                      (mod['addScarab'] ?? 0) > 0 ||
+                      (mod['addCurrency'] ?? 0) > 0)
                     Padding(
                       padding: const EdgeInsets.only(top: 3),
                       child: Wrap(
@@ -1080,6 +1081,11 @@ class PageMapModTableState extends State<PageMapModTable> {
                             _buildBadge(
                               isKr ? '갑충+${mod['addScarab']}%' : 'Scarab+${mod['addScarab']}%',
                               Colors.orange,
+                            ),
+                          if ((mod['addCurrency'] ?? 0) > 0)
+                            _buildBadge(
+                              isKr ? '화폐+${mod['addCurrency']}%' : 'Currency+${mod['addCurrency']}%',
+                              Colors.green,
                             ),
                         ],
                       ),
