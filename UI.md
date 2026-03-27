@@ -31,36 +31,44 @@
     - **리스너 통합**: 그리드 셀마다 존재하던 개별 `Obx` 리스너를 제거하고, 상위 수준에서 언어 변경을 한 번에 관찰하도록 수정하여 로딩 속도를 개선했습니다.
     - **연산 최적화**: `Set` 기반의 상태 확인 알고리즘으로 메인 스레드 부하를 최소화했습니다.
 
-## 3. 지도 옵션 필터 (Map Mod Filter) (2026-03-25)
+## 3. 지도 옵션 필터 (Map Mod Filter) (2026-03-27)
 - **레이아웃 구조**:
     ```
     [ 상단: 쿼리 옵션 + 선택정보/버튼 + regex 미리보기 ]
     ──────────────────────────────────────────────────
-    [ 좌: 즐겨찾기  │ 우: 검색바 + 옵션 리스트 (2열)  ]
-    [    히스토리   │                                 ]
+    [ 좌: 즐겨찾기  │ 우: 검색바 + 옵션 리스트          ]
+    [    히스토리   │    접두어(Prefix) | 접미어(Suffix) ]
     ```
 - **상단 컨트롤 바**:
     - **지도 옵션**: 아이템 수량(IIQ), 아이템 희귀도(IIR), 무리 규모(Pack Size) — `floatingLabel` 입력 필드.
     - **지도 구분**: T16 / 악몽 토글 (둘 중 하나만 선택).
     - **속성부여**: 8모드, 허상, 태초자(Primordial) 체크박스.
+    - **증폭 필터**: 갑충석/지도/화폐 증폭 — 체크 시 min 입력 필드 노출. `pseudo.pseudo_map_more_scarab/map/currency_drops`로 쿼리.
     - **선택 정보**: 선택 개수, 글자수(255한도), Regex 복사 버튼, 거래소 이동 버튼, 초기화 버튼.
-    - **Regex 미리보기**: `"!regex|regex"` 형태로 항상 표시. 255자 초과 시 빨간색.
+    - **Regex 미리보기**: 허상 체크 시 `허상 "!regex"` / `mirage "!regex"` 형태로 접두어 포함. 255자 초과 시 빨간색.
     - 선택 0개 시 Regex 복사/거래소 이동 버튼 반투명 + 클릭 비활성화.
 - **좌측 패널**:
     - **즐겨찾기**: 선택 상태 + 옵션을 로컬 스토리지에 저장 (최대 10개, 가득 차면 저장 불가). 클릭 시 설정 복원 + 즉시 거래소 이동. 이름 변경(✏️) 및 삭제(✕) 지원.
     - **히스토리**: 거래소 이동, Regex 복사, 즐겨찾기 저장 시 자동 기록 (최대 10개, 라운드로빈). 클릭 시 설정 복원만.
-    - **4줄 타일 표시**: 라벨 / N개 제외 / 태그(8mod, 허상, T16...) / Regex (`ellipsis` 처리).
+    - **4줄 타일 표시**: 라벨 / N개 제외 / 태그(8mod, 허상, T16, 갑충↑35...) / Regex (`ellipsis` 처리).
 - **우측 패널**:
     - **인앱 검색 바**: 한/영 옵션명으로 실시간 필터링.
-    - **옵션 리스트**: 일반/악몽 섹션 토글(드롭다운), 가로 2열 배치. 선택 시 amber 강조 + 체크박스.
+    - **옵션 리스트**: 일반/악몽 섹션 토글(드롭다운). 좌측 접두어(Prefix), 우측 접미어(Suffix)로 2열 배치. 선택 시 amber 강조 + 체크박스.
+    - **뱃지**: 지도 증폭(blue), 갑충석 증폭(orange) 값이 있는 옵션에 뱃지 표시. 텍스트 2줄 초과 시 `ellipsis`.
     - 섹션 헤더에 선택 개수 표시 (예: `일반 옵션(80) 3개 선택`).
+- **데이터 스키마 (`mapping_completed.json`)**:
+    - `explicitCode`: 배열로 통일 (합성 모드는 복수 코드).
+    - `affix`: `"prefix"` / `"suffix"` 구분자.
+    - `queryKr`: `contentKr`과 `explicit_kr.json` 텍스트가 다를 때만 저장.
+    - `addIiq`, `addIir`, `addPackSize`, `addScarab`, `addCurrency`, `addMap`: 모드별 부가 수치.
+    - 총 125개 항목 (일반 76 + 악몽 49).
 - **거래소 쿼리 구조**:
     - `status: securable`.
     - `type`: 16T → `{"option": "지도", "discriminator": "map"}`, 악몽 → `"악몽 지도"`.
     - `type_filters.rarity`: `nonunique` (모든 비고유).
     - `map_filters`: map_tier(16T시 min/max 16 고정), map_iiq, map_iir, map_packsize.
-    - `stats[and]`: enchant(허상), pseudo(8모드), implicit(태초자).
-    - `stats[not]`: 선택된 옵션의 `explicitCode` 목록.
+    - `stats[and]`: enchant(허상), pseudo(8모드), implicit(태초자), pseudo(갑충석/지도/화폐 증폭 min값).
+    - `stats[not]`: 선택된 옵션의 `explicitCode` 배열 목록.
 
 ## 4. 잔돈 계산기 (Change Calculator)
 - **UI 스타일 통합 (2026-03-25)**: 지도 옵션 필터와 동일한 스타일로 전면 개편.
@@ -95,6 +103,7 @@
 - **재사용**: 지도 옵션 필터 좌측 패널 + landscape 우측 패널(잔돈 계산기 하단)에서 공유.
 - **동기화**: `static RxInt _changeNotifier`를 통해 모든 인스턴스가 데이터 변경을 실시간 감지.
 - **설정 옵션**: `favoriteTitle`/`favoriteTitleEn` (타이틀 커스터마이징), `showHistory` (히스토리 표시 여부), `buildSaveData` (저장 데이터 콜백).
+- **즐겨찾기 리다이렉트 제어 (`favoriteRedirect`)**: 지도 옵션 필터 페이지에서는 설정 복원만 (`false`), 잔돈계산기 하단에서는 거래소 리다이렉트 (`true`, 기본값).
 
 ## 10. 갑충석 시세표 디버그 모드 (Debug Mode) (2026-03-26)
 - **그리드 셀 스타일 개선**: `TextButton` → `InkWell` + `Container`, 배치된 셀은 아이콘+가격 표시(amber 테마), 빈 셀은 인덱스 번호 표시, 툴팁으로 아이템명/조작법 안내.
@@ -102,9 +111,10 @@
 - **상단 디버그 바 개선**: 단순 `print` TextButton → DEBUG 라벨 + `Export JSON`(클립보드 복사) + `Console`(print) 버튼 분리.
 - **이미지 동기화**: 서버 데이터 수신 후 `scarabLocation`의 icon/chaosValue를 최신 서버 데이터로 자동 동기화 (`_syncScarabLocationWithServer`).
 
-## 11. 언어 상태 로컬 저장 (2026-03-26)
+## 11. 언어 상태 로컬 저장 및 라우팅 (2026-03-27)
 - **SharedPreferences 연동**: 언어 설정(KR/EN)을 `SharedPreferences`에 저장하여 앱 재시작 후에도 유지.
-- **기본 언어 EN**: 글로벌 앱 대응을 위해 기본 언어를 EN으로 변경. 저장된 값이 있으면 해당 값으로 복원.
+- **기본 언어 KR**: `/one` 접근 시 기본 언어는 한국어. 저장된 값이 있으면 해당 값으로 복원.
+- **URL 기반 언어 설정**: `/one/kr` → KR 강제, `/one/en` → EN 강제. `onGenerateRoute`로 라우트 분기.
 - **EN일 때 Third-Party Apps 숨김**: EN 모드에서는 한국어 전용 써드파티 앱 목록 카테고리가 비노출. EN 전환 시 해당 페이지에 있으면 자동으로 갑충석 시세표로 리다이렉트.
 
 ## 12. 메인 홈 및 네비게이션

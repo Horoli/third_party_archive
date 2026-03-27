@@ -27,10 +27,16 @@ class PageMapModTableState extends State<PageMapModTable> {
   bool requirePrimordial = false;
   bool requireTier16 = true;
   bool requireNightmare = false;
+  bool requireScarabDrop = false;
+  bool requireMapDrop = false;
+  bool requireCurrencyDrop = false;
 
   final TextEditingController iiqController = TextEditingController(text: '110');
   final TextEditingController iirController = TextEditingController();
   final TextEditingController packSizeController = TextEditingController();
+  final TextEditingController scarabDropController = TextEditingController();
+  final TextEditingController mapDropController = TextEditingController();
+  final TextEditingController currencyDropController = TextEditingController();
 
   String searchQuery = '';
   final TextEditingController searchController = TextEditingController();
@@ -83,6 +89,7 @@ class PageMapModTableState extends State<PageMapModTable> {
                   key: bookmarkKey,
                   normalMods: normalMods,
                   nightmareMods: nightmareMods,
+                  favoriteRedirect: false,
                   buildSaveData: selectedModIndices.isNotEmpty
                       ? () => buildFavoriteData()
                       : null,
@@ -109,10 +116,18 @@ class PageMapModTableState extends State<PageMapModTable> {
     });
   }
 
+  /// 허상 체크 시 접두어 포함한 최종 regex 문자열
+  String buildFinalRegex(String regex, bool isKr) {
+    if (regex.isEmpty) return '';
+    final prefix = requireMirage ? (isKr ? '허상 ' : 'mirage ') : '';
+    return '$prefix"!$regex"';
+  }
+
   Widget buildControlBar(bool isKr) {
     final selectedMods = getSelectedMods();
     final regex = buildCombinedRegex(selectedMods, isKr);
-    final charCount = regex.length;
+    final displayRegex = buildFinalRegex(regex, isKr);
+    final charCount = displayRegex.length;
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -195,6 +210,35 @@ class PageMapModTableState extends State<PageMapModTable> {
                     value: requirePrimordial,
                     onChanged: (v) =>
                         setState(() => requirePrimordial = v ?? false),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 16),
+              // 증폭 필터
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _sectionLabel(isKr ? '증폭 필터' : 'Drop Filter'),
+                  const SizedBox(height: 4),
+                  _buildCheckboxWithInput(
+                    label: isKr ? '갑충석' : 'Scarab',
+                    checked: requireScarabDrop,
+                    controller: scarabDropController,
+                    onCheck: (v) => setState(() => requireScarabDrop = v ?? false),
+                  ),
+                  const SizedBox(height: 4),
+                  _buildCheckboxWithInput(
+                    label: isKr ? '지도' : 'Map',
+                    checked: requireMapDrop,
+                    controller: mapDropController,
+                    onCheck: (v) => setState(() => requireMapDrop = v ?? false),
+                  ),
+                  const SizedBox(height: 4),
+                  _buildCheckboxWithInput(
+                    label: isKr ? '화폐' : 'Currency',
+                    checked: requireCurrencyDrop,
+                    controller: currencyDropController,
+                    onCheck: (v) => setState(() => requireCurrencyDrop = v ?? false),
                   ),
                 ],
               ),
@@ -296,7 +340,7 @@ class PageMapModTableState extends State<PageMapModTable> {
                 ),
               ),
               child: SelectableText(
-                '"!$regex"',
+                displayRegex,
                 style: TextStyle(
                   color: charCount > 255 ? Colors.redAccent : Colors.amber,
                   fontSize: 12,
@@ -331,8 +375,12 @@ class PageMapModTableState extends State<PageMapModTable> {
     // explicitCodes 추출 (거래소 쿼리용, mod 데이터 없이도 사용 가능)
     List<String> explicitCodes = [];
     for (var mod in selectedMods) {
-      final code = mod['explicitCode']?.toString() ?? '';
-      if (code.isNotEmpty) explicitCodes.add(code);
+      final raw = mod['explicitCode'];
+      if (raw is List) {
+        explicitCodes.addAll(raw.cast<String>());
+      } else if (raw != null && raw.toString().isNotEmpty) {
+        explicitCodes.add(raw.toString());
+      }
     }
 
     return {
@@ -345,6 +393,12 @@ class PageMapModTableState extends State<PageMapModTable> {
       'iiq': iiqController.text.trim(),
       'iir': iirController.text.trim(),
       'packSize': packSizeController.text.trim(),
+      'requireScarabDrop': requireScarabDrop,
+      'requireMapDrop': requireMapDrop,
+      'requireCurrencyDrop': requireCurrencyDrop,
+      'scarabDrop': scarabDropController.text.trim(),
+      'mapDrop': mapDropController.text.trim(),
+      'currencyDrop': currencyDropController.text.trim(),
       'regex': regex,
       'explicitCodes': explicitCodes,
     };
@@ -365,6 +419,12 @@ class PageMapModTableState extends State<PageMapModTable> {
         iiqController.text = data['iiq'] ?? '110';
         iirController.text = data['iir'] ?? '';
         packSizeController.text = data['packSize'] ?? '';
+        requireScarabDrop = data['requireScarabDrop'] ?? false;
+        requireMapDrop = data['requireMapDrop'] ?? false;
+        requireCurrencyDrop = data['requireCurrencyDrop'] ?? false;
+        scarabDropController.text = data['scarabDrop'] ?? '';
+        mapDropController.text = data['mapDrop'] ?? '';
+        currencyDropController.text = data['currencyDrop'] ?? '';
       });
     } catch (_) {}
   }
@@ -555,14 +615,15 @@ class PageMapModTableState extends State<PageMapModTable> {
           if (selectedMods.isEmpty) return;
 
           final regex = buildCombinedRegex(selectedMods, isKr);
-          if (regex.length > 255) {
+          final finalRegex = buildFinalRegex(regex, isKr);
+          if (finalRegex.length > 255) {
             showCenterSnackBar(isKr
-                ? '255자 초과! 선택을 줄여주세요 (${regex.length}자)'
-                : 'Over 255 chars! Reduce selection (${regex.length})');
+                ? '255자 초과! 선택을 줄여주세요 (${finalRegex.length}자)'
+                : 'Over 255 chars! Reduce selection (${finalRegex.length})');
             return;
           }
 
-          await Clipboard.setData(ClipboardData(text: '"!$regex"'));
+          await Clipboard.setData(ClipboardData(text: finalRegex));
           bookmarkKey.currentState?.saveHistory(buildFavoriteData());
           showCenterSnackBar(
               '${isKr ? MSG.COPY_TO_CLIPBOARD : MSG.COPY_TO_CLIPBOARD_EN} : "!$regex"');
@@ -601,13 +662,20 @@ class PageMapModTableState extends State<PageMapModTable> {
         onTap: () async {
           if (selectedMods.isEmpty) return;
 
-          // "not" 필터에 넣을 stat ID 목록
-          List<Map<String, dynamic>> notFilters = selectedMods
-              .where((mod) =>
-                  mod['explicitCode'] != null &&
-                  mod['explicitCode'].toString().isNotEmpty)
-              .map((mod) => {"id": mod['explicitCode']})
-              .toList();
+          // "not" 필터에 넣을 stat ID 목록 (explicitCode가 배열일 수 있음)
+          List<Map<String, dynamic>> notFilters = [];
+          for (var mod in selectedMods) {
+            final raw = mod['explicitCode'];
+            if (raw is List) {
+              for (var code in raw) {
+                if (code.toString().isNotEmpty) {
+                  notFilters.add({"id": code.toString()});
+                }
+              }
+            } else if (raw != null && raw.toString().isNotEmpty) {
+              notFilters.add({"id": raw.toString()});
+            }
+          }
 
           if (notFilters.isEmpty) return;
 
@@ -663,6 +731,24 @@ class PageMapModTableState extends State<PageMapModTable> {
                       },
                     if (requirePrimordial)
                       {"id": "implicit.stat_2696470877"},
+                    if (requireScarabDrop)
+                      {
+                        "id": "pseudo.pseudo_map_more_scarab_drops",
+                        "value": {"min": int.tryParse(scarabDropController.text.trim()) ?? 1},
+                        "disabled": false
+                      },
+                    if (requireMapDrop)
+                      {
+                        "id": "pseudo.pseudo_map_more_map_drops",
+                        "value": {"min": int.tryParse(mapDropController.text.trim()) ?? 1},
+                        "disabled": false
+                      },
+                    if (requireCurrencyDrop)
+                      {
+                        "id": "pseudo.pseudo_map_more_currency_drops",
+                        "value": {"min": int.tryParse(currencyDropController.text.trim()) ?? 1},
+                        "disabled": false
+                      },
                   ],
                   "disabled": false
                 },
@@ -787,8 +873,10 @@ class PageMapModTableState extends State<PageMapModTable> {
           onToggle: () => setState(() => isNormalExpanded = !isNormalExpanded),
           isKr: isKr,
         ),
-        if (isNormalExpanded)
+        if (isNormalExpanded) ...[
+          _buildColumnLabels(isKr),
           ...buildFilteredModRows(filteredNormal, isKr),
+        ],
         // Nightmare 섹션
         buildSectionHeader(
           title: isKr ? '악몽 옵션' : 'Nightmare Mods',
@@ -800,27 +888,37 @@ class PageMapModTableState extends State<PageMapModTable> {
               setState(() => isNightmareExpanded = !isNightmareExpanded),
           isKr: isKr,
         ),
-        if (isNightmareExpanded)
+        if (isNightmareExpanded) ...[
+          _buildColumnLabels(isKr),
           ...buildFilteredModRows(filteredNightmare, isKr),
+        ],
       ],
     );
   }
 
   List<Widget> buildFilteredModRows(
       List<MapEntry<int, Map<String, dynamic>>> entries, bool isKr) {
+    final prefixes = entries.where((e) => e.value['affix'] == 'prefix').toList();
+    final suffixes = entries.where((e) => e.value['affix'] == 'suffix').toList();
+    final maxLen = prefixes.length > suffixes.length
+        ? prefixes.length
+        : suffixes.length;
+
     List<Widget> rows = [];
-    for (int i = 0; i < entries.length; i += 2) {
+    for (int i = 0; i < maxLen; i++) {
       rows.add(Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-              child: buildModTile(
-                  entries[i].value, entries[i].key, isKr)),
-          if (i + 1 < entries.length)
-            Expanded(
-                child: buildModTile(
-                    entries[i + 1].value, entries[i + 1].key, isKr))
-          else
-            const Expanded(child: SizedBox()),
+            child: i < prefixes.length
+                ? buildModTile(prefixes[i].value, prefixes[i].key, isKr)
+                : const SizedBox(),
+          ),
+          Expanded(
+            child: i < suffixes.length
+                ? buildModTile(suffixes[i].value, suffixes[i].key, isKr)
+                : const SizedBox(),
+          ),
         ],
       ));
     }
@@ -945,21 +1043,48 @@ class PageMapModTableState extends State<PageMapModTable> {
                   color: Colors.deepPurple.withAlpha(150),
                   borderRadius: BorderRadius.circular(3),
                 ),
-                child: const Text(
-                  '악몽',
-                  style: TextStyle(color: Colors.white70, fontSize: 9),
+                child: Text(
+                  isKr ? '악몽' : 'NM',
+                  style: const TextStyle(color: Colors.white70, fontSize: 9),
                 ),
               ),
             // 옵션 내용
             Expanded(
-              child: Text(
-                content,
-                style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.white70,
-                  fontSize: 13,
-                  fontWeight:
-                      isSelected ? FontWeight.bold : FontWeight.normal,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    content,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : Colors.white70,
+                      fontSize: 13,
+                      fontWeight:
+                          isSelected ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                  if ((mod['addMap'] ?? 0) > 0 ||
+                      (mod['addScarab'] ?? 0) > 0)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 3),
+                      child: Wrap(
+                        spacing: 4,
+                        children: [
+                          if ((mod['addMap'] ?? 0) > 0)
+                            _buildBadge(
+                              isKr ? '지도+${mod['addMap']}%' : 'Map+${mod['addMap']}%',
+                              Colors.blue,
+                            ),
+                          if ((mod['addScarab'] ?? 0) > 0)
+                            _buildBadge(
+                              isKr ? '갑충+${mod['addScarab']}%' : 'Scarab+${mod['addScarab']}%',
+                              Colors.orange,
+                            ),
+                        ],
+                      ),
+                    ),
+                ],
               ),
             ),
             // Regex 미리보기
@@ -979,6 +1104,94 @@ class PageMapModTableState extends State<PageMapModTable> {
               ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildColumnLabels(bool isKr) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      color: Colors.black26,
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              isKr ? '접두어 (Prefix)' : 'Prefix',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white38,
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              isKr ? '접미어 (Suffix)' : 'Suffix',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white38,
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCheckboxWithInput({
+    required String label,
+    required bool checked,
+    required TextEditingController controller,
+    required ValueChanged<bool?> onCheck,
+  }) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: 18,
+          height: 18,
+          child: Checkbox(
+            value: checked,
+            onChanged: onCheck,
+            activeColor: Colors.amber,
+            side: const BorderSide(color: Colors.white38),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            visualDensity: VisualDensity.compact,
+          ),
+        ),
+        const SizedBox(width: 4),
+        Text(label, style: const TextStyle(color: Colors.white70, fontSize: 12)),
+        if (checked) ...[
+          const SizedBox(width: 6),
+          SizedBox(
+            width: 50,
+            height: 28,
+            child: TextField(
+              controller: controller,
+              style: _inputTextStyle,
+              keyboardType: TextInputType.number,
+              decoration: _inputDecoration(hintText: 'min'),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildBadge(String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+      decoration: BoxDecoration(
+        color: color.withAlpha(60),
+        borderRadius: BorderRadius.circular(3),
+        border: Border.all(color: color.withAlpha(100), width: 0.5),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(color: color, fontSize: 9, fontWeight: FontWeight.bold),
       ),
     );
   }

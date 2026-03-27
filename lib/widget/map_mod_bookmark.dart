@@ -24,6 +24,9 @@ class WidgetMapModBookmark extends StatefulWidget {
   /// 히스토리 표시 여부
   final bool showHistory;
 
+  /// 즐겨찾기 클릭 시 거래소 리다이렉트 여부
+  final bool favoriteRedirect;
+
   const WidgetMapModBookmark({
     super.key,
     this.onFavoriteTap,
@@ -34,6 +37,7 @@ class WidgetMapModBookmark extends StatefulWidget {
     this.favoriteTitle,
     this.favoriteTitleEn,
     this.showHistory = true,
+    this.favoriteRedirect = true,
   });
 
   @override
@@ -179,8 +183,12 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
                   ? widget.nightmareMods[idx - widget.normalMods.length]
                   : null);
           if (mod == null) continue;
-          final code = mod['explicitCode']?.toString() ?? '';
-          if (code.isNotEmpty) codes.add(code);
+          final raw = mod['explicitCode'];
+          if (raw is List) {
+            codes.addAll(raw.cast<String>());
+          } else if (raw != null && raw.toString().isNotEmpty) {
+            codes.add(raw.toString());
+          }
         }
       }
 
@@ -196,6 +204,12 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
       final String iiq = data['iiq'] ?? '';
       final String iir = data['iir'] ?? '';
       final String packSize = data['packSize'] ?? '';
+      final bool isScarabDrop = data['requireScarabDrop'] ?? false;
+      final bool isMapDrop = data['requireMapDrop'] ?? false;
+      final bool isCurrencyDrop = data['requireCurrencyDrop'] ?? false;
+      final String scarabDrop = data['scarabDrop'] ?? '';
+      final String mapDrop = data['mapDrop'] ?? '';
+      final String currencyDrop = data['currencyDrop'] ?? '';
 
       Map<String, dynamic> query = {
         "query": {
@@ -239,6 +253,24 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
                   },
                 if (isPrimordial)
                   {"id": "implicit.stat_2696470877"},
+                if (isScarabDrop)
+                  {
+                    "id": "pseudo.pseudo_map_more_scarab_drops",
+                    "value": {"min": int.tryParse(scarabDrop) ?? 1},
+                    "disabled": false
+                  },
+                if (isMapDrop)
+                  {
+                    "id": "pseudo.pseudo_map_more_map_drops",
+                    "value": {"min": int.tryParse(mapDrop) ?? 1},
+                    "disabled": false
+                  },
+                if (isCurrencyDrop)
+                  {
+                    "id": "pseudo.pseudo_map_more_currency_drops",
+                    "value": {"min": int.tryParse(currencyDrop) ?? 1},
+                    "disabled": false
+                  },
               ],
               "disabled": false
             },
@@ -286,6 +318,18 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
       if (iiq.isNotEmpty) tags.add('${isKr ? '수량' : 'IIQ'}$iiq');
       if (iir.isNotEmpty) tags.add('${isKr ? '레어' : 'IIR'}$iir');
       if (packSize.isNotEmpty) tags.add('${isKr ? '무리' : 'Pack'}$packSize');
+      if (data['requireScarabDrop'] == true) {
+        final v = data['scarabDrop'] ?? '';
+        tags.add('${isKr ? '갑충' : 'Scarab'}↑${v.isNotEmpty ? v : '1'}');
+      }
+      if (data['requireMapDrop'] == true) {
+        final v = data['mapDrop'] ?? '';
+        tags.add('${isKr ? '지도' : 'Map'}↑${v.isNotEmpty ? v : '1'}');
+      }
+      if (data['requireCurrencyDrop'] == true) {
+        final v = data['currencyDrop'] ?? '';
+        tags.add('${isKr ? '화폐' : 'Currency'}↑${v.isNotEmpty ? v : '1'}');
+      }
 
       // regex: 저장된 값 우선, 없으면 mod 데이터에서 복원
       String savedRegex = (data['regex'] ?? '').toString();
@@ -392,7 +436,9 @@ class WidgetMapModBookmarkState extends State<WidgetMapModBookmark> {
                         iconColor: Colors.amber,
                         onTap: () {
                           widget.onFavoriteTap?.call(favorites[index]);
-                          launchTradeFromSaved(favorites[index], isKr);
+                          if (widget.favoriteRedirect) {
+                            launchTradeFromSaved(favorites[index], isKr);
+                          }
                         },
                         onDelete: () => deleteFavorite(index),
                         onEdit: () => showRenameDialog(index, isKr),

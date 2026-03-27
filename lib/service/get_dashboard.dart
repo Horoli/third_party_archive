@@ -5,7 +5,7 @@ class GetDashboard extends GetxController {
       RestfulResult(statusCode: 0, message: '').obs;
 
   RxString selectedTag = 'ALL'.obs;
-  RxBool isKorean = false.obs;
+  RxBool isKorean = true.obs;
 
   @override
   void onInit() {

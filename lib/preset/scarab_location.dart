@@ -215,7 +215,7 @@ final Map<int, PoeNinjaItem> MAP = {
     "chaosValue": 1,
     "id": 118273,
     "name": "Cartography Scarab of the Multitude",
-    "icon": "de5e0b8c0b5cc9f2754877a4208c842979aea1f366ca53c9852fb4f2a335f2a6"
+    "icon": "785279c20dc9788ae48e2cc706e853d679b88ad146ebfd25e67d5554111fbd17"
   },
   "110": {
     "chaosValue": 1,
@@ -257,7 +257,7 @@ final Map<int, PoeNinjaItem> MAP = {
     "chaosValue": 1,
     "id": 118281,
     "name": "Divination Scarab of Plenty",
-    "icon": "b9870b5c3f2bd0d7992a65a9fae1c426214c3430cb6a7693ff5619c616e721ef"
+    "icon": "8f84695e5cc8641a3bbd1a2b609833991681f553e2a92ee67c6ae3ed06a0a5c4"
   },
   "35": {
     "chaosValue": 1,

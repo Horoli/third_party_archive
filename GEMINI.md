@@ -21,15 +21,30 @@ Dart의 `library`와 `part` 패턴을 사용하여 소스 코드를 체계적으
 - `lib/widget/ninja_sync_info.dart`: 데이터 동기화 시간을 표준화하여 보여주는 공통 위젯입니다.
 - `lib/widget/map_mod_bookmark.dart`: 지도 옵션 필터 즐겨찾기/히스토리 공용 위젯입니다. (`static RxInt`를 활용한 다중 인스턴스 동기화)
 
-## 주요 업데이트 요약 (2026-03-26)
+## 주요 업데이트 요약 (2026-03-27)
+### 2026-03-27
+7.  **지도 옵션 필터 데이터 스키마 확장**:
+    - `mapping_completed.json`: `explicitCode` 배열 통일, `affix`(prefix/suffix), `queryKr`, `addIiq/addIir/addPackSize/addScarab/addCurrency/addMap` 필드 추가.
+    - nightmare(uber) 전용 21개 모드 신규 추가 (총 125개).
+    - `regexKr`/`regexEn` 전체 항목 채움 완료.
+8.  **지도 옵션 필터 UI 개선**:
+    - **증폭 필터**: 갑충석/지도/화폐 증폭 체크박스 + min 입력 필드. `pseudo.pseudo_map_more_*_drops`로 거래소 쿼리.
+    - **Prefix/Suffix 2열 배치**: 좌측 접두어, 우측 접미어로 분리. 섹션 헤더 아래에 컬럼 라벨 표시.
+    - **뱃지**: 지도 증폭(blue), 갑충석 증폭(orange) 뱃지 표시. 텍스트 2줄 `ellipsis`.
+    - **Regex 허상 접두어**: 허상 체크 시 `허상 "!regex"` / `mirage "!regex"` 형태로 출력.
+    - **악몽 뱃지 i18n**: EN 모드에서 `NM`으로 표시.
+9.  **URL 기반 언어 라우팅**:
+    - `/one/kr` → KR 강제, `/one/en` → EN 강제, `/one` → 기본 KR (SharedPreferences 복원).
+    - `onGenerateRoute`로 라우트 분기 처리.
+
 ### 2026-03-26
 5.  **갑충석 시세표 디버그 모드 UI 개선**:
     - 그리드 셀: `TextButton` → 아이콘+가격 표시(amber 테마), 빈 셀은 인덱스 표시, 툴팁 안내.
     - 미배치 목록: 헤더에 미배치 개수, 다음 배치 아이템 강조, 커스텀 타일 스타일 적용.
     - 상단 디버그 바: `Export JSON`(클립보드 복사) + `Console`(print) 버튼 분리.
     - 이미지 동기화: 서버 데이터 수신 후 `scarabLocation`의 icon/chaosValue를 자동 갱신.
-6.  **언어 상태 로컬 저장 및 기본 언어 EN 전환**:
-    - `SharedPreferences`로 언어 설정 저장/복원, 기본 언어를 EN으로 변경.
+6.  **언어 상태 로컬 저장**:
+    - `SharedPreferences`로 언어 설정 저장/복원.
     - EN 모드에서 Third-Party Apps 카테고리 비노출, EN 전환 시 자동 리다이렉트.
 
 ### 2026-03-25
