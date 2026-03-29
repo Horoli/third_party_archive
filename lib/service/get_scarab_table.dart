@@ -6,7 +6,6 @@ class GetScarabTable extends GetxController {
 
   List<PoeNinjaItem> selectableItems = [];
   List<PoeNinjaItem> overFortyScarabItems = [];
-  List<PoeNinjaItem> overTwentyScarabItems = [];
   List<PoeNinjaItem> overTenScarabItems = [];
   List<PoeNinjaItem> overFourScarabItems = [];
   List<PoeNinjaItem> underOneScarabItems = [];
@@ -46,7 +45,6 @@ class GetScarabTable extends GetxController {
 
   void _processScarabData(List<PoeNinjaItem> convertData) {
     overFortyScarabItems = [];
-    overTwentyScarabItems = [];
     overTenScarabItems = [];
     overFourScarabItems = [];
     underOneScarabItems = [];
@@ -66,8 +64,6 @@ class GetScarabTable extends GetxController {
 
         if (item.chaosValue >= 40) {
           overFortyScarabItems.add(item);
-        } else if (item.chaosValue >= 20) {
-          overTwentyScarabItems.add(item);
         } else if (item.chaosValue >= 10) {
           overTenScarabItems.add(item);
         } else if (item.chaosValue >= 4) {

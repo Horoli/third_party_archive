@@ -33,12 +33,11 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   double buttonWidth = 100;
 
   // Tier 조건
-  List<double> scarabConditionList = [40, 20, 10, 4];
+  List<double> scarabConditionList = [40, 10, 4];
 
   /// 4c 이상 전체 아이템
   List<PoeNinjaItem> get allOverFourItems => [
         ...getScarab.overFortyScarabItems,
-        ...getScarab.overTwentyScarabItems,
         ...getScarab.overTenScarabItems,
         ...getScarab.overFourScarabItems,
       ];
@@ -794,7 +793,6 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
 
   List<PoeNinjaItem> getScarabItemsWithChaosValue(double chaosValue) {
     if (chaosValue >= 40) return getScarab.overFortyScarabItems;
-    if (chaosValue >= 20) return getScarab.overTwentyScarabItems;
     if (chaosValue >= 10) return getScarab.overTenScarabItems;
     if (chaosValue >= 4) return getScarab.overFourScarabItems;
     return [];
