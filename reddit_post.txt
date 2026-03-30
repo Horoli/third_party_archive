@@ -1,0 +1,57 @@
+[Tool] I made a free web tool for map mod filtering, scarab pricing, and trade shortcuts
+
+Hey exiles,
+
+I built a free web-based tool for PoE 1 that helps with endgame mapping workflow. No login, no install — just open and use.
+
+**Link:** https://thirdparty.horoli.dev/one/en
+
+---
+
+## What it does
+
+### Scarab Price Table
+- Visual grid of all scarabs with real-time pricing from poe.ninja
+- Color-coded by value tier (40c+ / 10c+ / 4c+ / 1c+ / <1c)
+- One-click copy regex to your stash search — filter by price range instantly
+- Click individual scarabs to build a custom regex for only the ones you want
+- "1↓" button generates an exclusion regex so only your cheap scarabs show up in the stash tab — great for bulk dumping
+
+### Map Mod Filter
+- Full list of map mods (normal + nightmare/uber) with prefix/suffix separation
+- Select the mods you want to **exclude**, and it builds the trade regex + trade site query automatically
+- Query options: Tier 16, Nightmare, 8-mod, Mirage, Primordial, IIQ/IIR/Pack Size minimums
+- **Drop amplification filters**: filter maps by Scarab / Map / Currency drop amplification (min value)
+- Badges show which mods give bonus Map/Scarab/Currency amplification so you know what you're excluding
+- Favorites & History: save your filter presets locally (up to 10), restore with one click
+- Regex preview with 255-char limit indicator
+- When Mirage is checked, regex auto-prefixes with `mirage "!regex"` for stash search
+
+### Price Check
+- Quick overview of Currency, Fragment, and Scarab prices from poe.ninja
+- Divine/Chaos ratio display
+
+### Change Calculator
+- Calculate change when trading currency
+- Buy/Sell toggle with Divine/Chaos conversion
+
+---
+
+## How it works
+
+- Pricing data is synced from **poe.ninja** (sync time shown at bottom-right)
+- The Scarab Price Table was inspired by [this Reddit post](https://www.reddit.com/r/pathofexile/comments/1c1c4g4/i_made_a_visual_spreadsheet_to_easily_tell_which/) and its [spreadsheet](https://docs.google.com/spreadsheets/d/1rnNo9vJclxBfLVQqVxOR_0zuB5UXYwgdsXwAmF0Q-g0/edit?gid=1774539217#gid=1774539217) — huge thanks to the original author. I added real-time pricing, regex generation, and stash search integration on top of that concept
+- Trade queries redirect directly to the official trade site with all filters pre-filled
+- Language preference (EN/KR) is saved locally and persists across sessions
+
+---
+
+## Tech
+
+- Flutter Web, fully client-side
+- No account needed, no data collected
+- Open source: https://github.com/horoli/third_party_archive
+
+---
+
+Happy to hear feedback or feature requests. Hope this helps your mapping workflow!
