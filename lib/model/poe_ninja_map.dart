@@ -2,10 +2,8 @@ part of third_party_archive;
 
 class PoeNinjaMap extends PoeNinja {
   final double chaosValue;
-  final int mapTier;
   PoeNinjaMap({
     required this.chaosValue,
-    required this.mapTier,
     required super.id,
     required super.name,
     required super.icon,
@@ -14,8 +12,7 @@ class PoeNinjaMap extends PoeNinja {
   factory PoeNinjaMap.fromMap({required Map item}) {
     return PoeNinjaMap(
       chaosValue: double.parse(item['chaosValue'].toString()),
-      mapTier: item['mapTier'],
-      id: item['id'],
+      id: item['id'].toString(),
       name: item['name'],
       icon: item['icon'],
     );
@@ -24,7 +21,6 @@ class PoeNinjaMap extends PoeNinja {
   @override
   Map<String, dynamic> get map => {
         'chaosValue': chaosValue,
-        'mapTier': mapTier,
         'id': id,
         'name': name,
         'icon': icon,

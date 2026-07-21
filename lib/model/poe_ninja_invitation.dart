@@ -12,7 +12,7 @@ class PoeNinjaInvitation extends PoeNinja {
   factory PoeNinjaInvitation.fromMap({required Map item}) {
     return PoeNinjaInvitation(
       chaosValue: double.parse(item['chaosValue'].toString()),
-      id: item['id'],
+      id: item['id'].toString(),
       name: item['name'],
       icon: item['icon'],
     );

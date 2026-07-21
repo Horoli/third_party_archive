@@ -14,7 +14,7 @@ class GetScarabTable extends GetxController {
   // 1~4c 사이의 데이터를 뭉치(Chunk) 단위로 관리
   List<List<PoeNinjaItem>> oneToFourScarabChunks = []; 
   
-  Map<int, dynamic> chaosValueMap = {};
+  Map<String, dynamic> chaosValueMap = {};
 
   Future<RestfulResult> get() async {
     Uri uri = isLocal

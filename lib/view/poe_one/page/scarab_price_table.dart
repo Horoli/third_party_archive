@@ -20,7 +20,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   Map<int, PoeNinjaItem> scarabLocation = SCARAB_LOCATION.MAP;
 
   // 선택된 갑충석들의 ID를 저장하는 Set
-  Set<int> selectedScarabIds = {};
+  Set<String> selectedScarabIds = {};
 
   int selectedGridIndex = -1;
 
