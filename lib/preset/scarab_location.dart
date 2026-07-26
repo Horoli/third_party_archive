@@ -2,670 +2,694 @@ import 'package:third_party_archive/third_party_archive.dart';
 
 final Map<int, PoeNinjaItem> MAP = {
   "59": {
-    "chaosValue": 1,
-    "id": 113715,
+    "chaosValue": 1.15,
+    "id": "abyss-scarab",
     "name": "Abyss Scarab",
-    "icon": "3950aa1074a16e81e7026b01bea94224f63e3c90d0a16fb3e4a3a2b7f7346b8a"
+    "icon": "1b985f8a82ea4729b778cbfa775ef91794ad8cb084c7a58995a892664a3d3630"
   },
   "62": {
-    "chaosValue": 1,
-    "id": 135012,
+    "chaosValue": 4.95,
+    "id": "abyss-scarab-of-descending",
     "name": "Abyss Scarab of Descending",
-    "icon": "4af5a5b1c76da60155cb3b41bbdd1ec79f264ade0eb66143812dd1b0b339fa7c"
-  },
-  "61": {
-    "chaosValue": 2,
-    "id": 113743,
-    "name": "Abyss Scarab of Edifice",
-    "icon": "023427d181260e08aa813aacb071bddfd3799d1c4078eac088bbbd1e67c39898"
+    "icon": "a769c0cf4476219c756b752715d1b9f8238b83697ef297213c40d252115058ad"
   },
   "60": {
-    "chaosValue": 1,
-    "id": 113731,
+    "chaosValue": 1.62,
+    "id": "abyss-scarab-of-multitudes",
     "name": "Abyss Scarab of Multitudes",
-    "icon": "b6e03832012cddfcd4d3143aa148395aac8f379a023de5dead3da8febd8fa290"
-  },
-  "63": {
-    "chaosValue": 1.3,
-    "id": 117977,
-    "name": "Abyss Scarab of Profound Depth",
-    "icon": "9a6d62155447351cd9f4c477a167fcbcebcdd94e80e8aeacd682f837ff90b22c"
+    "icon": "47f4d13e058714d1761c8f7a45b470322271d00d4d0cdb7a3138c59bda9fed18"
   },
   "120": {
-    "chaosValue": 1,
-    "id": 113728,
+    "chaosValue": 1.15,
+    "id": "ambush-scarab",
     "name": "Ambush Scarab",
-    "icon": "375758149049af493c2ca226ae673a5630b4ee57dfb18a42cf877a78af455fe4"
+    "icon": "b92ab46729b10a56bd6fc7d14cc4647f17c16916eca1fc7089f62207aa0580aa"
   },
   "124": {
-    "chaosValue": 1,
-    "id": 113709,
+    "chaosValue": 1.45,
+    "id": "ambush-scarab-of-discernment",
     "name": "Ambush Scarab of Discernment",
-    "icon": "e1c40785e872578fa02d53029502854fad2edcb4ccef170ad7d135b42d0012c1"
+    "icon": "b3fb31cd881943746d67c78114b8fb69fa2918cb6aea8bd7920fddcad6c4cddf"
   },
   "121": {
-    "chaosValue": 1,
-    "id": 113738,
+    "chaosValue": 0.9118,
+    "id": "ambush-scarab-of-hidden-compartments",
     "name": "Ambush Scarab of Hidden Compartments",
-    "icon": "492b2d9af02e0555b44dc709cec7254e6c90e912462349ca8b42d9bf4fc6934d"
+    "icon": "fd8ff98caffdc8064cd659376ae2c0dc592ed0c91af31c77b9bfef2c6bc69318"
   },
   "122": {
-    "chaosValue": 1,
-    "id": 113711,
+    "chaosValue": 1.12,
+    "id": "ambush-scarab-of-potency",
     "name": "Ambush Scarab of Potency",
-    "icon": "fcff69d8fda6a69fabd847ed1a8693f82aea2504b2b875c383b3c522a9e86524"
+    "icon": "8ab01f4573041454801c8f15ccfca449f3d385cf4e4bae1965c3935b56764b8b"
   },
   "137": {
-    "chaosValue": 1,
-    "id": 113683,
+    "chaosValue": 0.2857,
+    "id": "anarchy-scarab",
     "name": "Anarchy Scarab",
-    "icon": "0cae3cac26eb0755292ee4ea474b38f0d15c0297cf4d2f95120b054d230b3e63"
+    "icon": "4c47e5726ce7a979f3b85908f0688a2586609ab64c97b4d08962e832f27dea01"
   },
   "138": {
     "chaosValue": 1,
-    "id": 113729,
+    "id": "113729",
     "name": "Anarchy Scarab of Gigantification",
     "icon": "cee2fc3bedba84fbe7e9ca2d9eaf7763d141bb25cbee12221b908967c4531975"
   },
   "139": {
     "chaosValue": 1,
-    "id": 113765,
+    "id": "113765",
     "name": "Anarchy Scarab of Partnership",
     "icon": "2b98174810ecf9fef56561a687b59fadd590ecaa984c09f29f82930db0b66d1a"
   },
   "140": {
     "chaosValue": 1,
-    "id": 135386,
+    "id": "135386",
     "name": "Anarchy Scarab of the Exceptional",
     "icon": "bbff6e0200e01b821accfad2be8f32d1e64856284b9a8f8179f8bd113877329d"
   },
   "52": {
-    "chaosValue": 1,
-    "id": 113733,
+    "chaosValue": 0.8696,
+    "id": "bestiary-scarab",
     "name": "Bestiary Scarab",
-    "icon": "b0b7ff74e5fceeeebc889d7c4090c5313ff94201165961b61e51f8e9472973e4"
+    "icon": "09ce205e27270ac8aee9ea0a1d70a42ecf59bf8658d1f66f4a68f7e4d8ef38d6"
   },
   "54": {
-    "chaosValue": 1,
-    "id": 113726,
+    "chaosValue": 2.06,
+    "id": "bestiary-scarab-of-duplicating",
     "name": "Bestiary Scarab of Duplicating",
-    "icon": "ece46ad4eb477d03b2dbc5b9a83c9f5df4f9e08e1940e109bc22ba2562b49e32"
+    "icon": "4fba80705e5770cf42f7547afd64b2053a62ef24f6b5b02f788ab514eb19a1c2"
   },
   "53": {
-    "chaosValue": 1,
-    "id": 113721,
+    "chaosValue": 1.97,
+    "id": "bestiary-scarab-of-the-herd",
     "name": "Bestiary Scarab of the Herd",
-    "icon": "a37cbbf72c664ab5b528850cfb74c44339e9bdc76596d410b7d04863ce8cc07a"
+    "icon": "69adabd74282ae1174a5974d34ab9d1081238dc217cb99d5efb50ed78036bded"
   },
   "69": {
-    "chaosValue": 1,
-    "id": 113739,
+    "chaosValue": 0.6316,
+    "id": "betrayal-scarab",
     "name": "Betrayal Scarab",
-    "icon": "8d701e1370fe5e41cd568d1429dc2b4fe1b4886d21e4b72c30091f8d77354010"
+    "icon": "277bb4b0d5fc56684d8bd71cbaee07c67ad6b960d44ed5e0e518df09cc065049"
   },
   "71": {
-    "chaosValue": 1,
-    "id": 113770,
+    "chaosValue": 0.7619,
+    "id": "betrayal-scarab-of-reinforcements",
     "name": "Betrayal Scarab of Reinforcements",
-    "icon": "1ddcb0c9a644318230b8e7efaa61dfc89bb0834a4e45e34ddcdd373a727770ae"
+    "icon": "8732f84b338690b907352fcb6365be777bea020485e22c9c4c08089cda0a791e"
   },
   "72": {
     "chaosValue": 1,
-    "id": 134997,
+    "id": "betrayal-scarab-of-unbreaking",
     "name": "Betrayal Scarab of Unbreaking",
-    "icon": "add96644386f740be09eb8207d9a4c841d7572b07980662dbcb9cead505ab7ab"
+    "icon": "96fc7eaefa3ae5ae9a1c732ff7618d3a5e2675daa8d1f1e392f4333846ce9e86"
   },
   "70": {
-    "chaosValue": 1,
-    "id": 124868,
+    "chaosValue": 1.5,
+    "id": "betrayal-scarab-of-the-allflame",
     "name": "Betrayal Scarab of the Allflame",
-    "icon": "e94ed5491a73ff618df4bee33abc0837730b64fe5be817499c59d2fc51d481dd"
+    "icon": "d38f056b7eb857eae265b9bfccf6d5279f68e1a0b65efbf47bc97049a8ea636e"
   },
   "154": {
-    "chaosValue": 1,
-    "id": 113701,
+    "chaosValue": 0.6154,
+    "id": "beyond-scarab",
     "name": "Beyond Scarab",
-    "icon": "e8f3dac7ba18bdcf50f71658a78ec282ce2892035e301d39e72717b83eb069cd"
+    "icon": "8787dac9b927d920ee1fdacf77b4a71a29339c3726fd44e5d34fcd9b8b096aa3"
   },
   "155": {
     "chaosValue": 1,
-    "id": 113747,
+    "id": "beyond-scarab-of-haemophilia",
     "name": "Beyond Scarab of Haemophilia",
-    "icon": "62199a2c11bd1ec47463b9931ecfae1133f3fcebeeb839c157a6c9880669681f"
+    "icon": "dd2c62a9b5f614f2865508025887079b62b86ba280621a2caa30766e29dd2f12"
   },
   "156": {
-    "chaosValue": 1,
-    "id": 113831,
+    "chaosValue": 3.23,
+    "id": "beyond-scarab-of-resurgence",
     "name": "Beyond Scarab of Resurgence",
-    "icon": "d8efd890051093d439c8c1179fe86f34d1b9b0a1c88a4997ad2f284f80337dbd"
+    "icon": "a37dbe56a7a11e2c9f10e091e3762fd0fa2b9c322d1228521845c8ae61644ed3"
   },
   "157": {
     "chaosValue": 1,
-    "id": 113737,
+    "id": "113737",
     "name": "Beyond Scarab of the Invasion",
     "icon": "a33debe6e97986d2ac87c58cd830de01a663d7a4aa67821dc35ceaf9a4b06f47"
   },
   "76": {
-    "chaosValue": 1,
-    "id": 113705,
+    "chaosValue": 0.823,
+    "id": "blight-scarab",
     "name": "Blight Scarab",
-    "icon": "0a846d9cb5a52cb4c7a0dc68fe2a3c224c85aa55be0e3c601c0a34d2ca8b1e8b"
+    "icon": "4f62a44594a698e2ffcb592c06d110fd4a46f8b9207fbafb1e890ad2a985f93e"
   },
   "78": {
-    "chaosValue": 4,
-    "id": 113766,
+    "chaosValue": 1,
+    "id": "blight-scarab-of-blooming",
     "name": "Blight Scarab of Blooming",
-    "icon": "bb234e781d103d63645de750615d6b1500b39d3a30302f899495b5b0dc24c3a4"
+    "icon": "0808924bf15784cbf88640c90cd84621a35e9a4942662585d77f6ee0e3beb3ce"
   },
   "79": {
     "chaosValue": 5,
-    "id": 117975,
+    "id": "blight-scarab-of-invigoration",
     "name": "Blight Scarab of Invigoration",
-    "icon": "f84d6e85c5e2d0b484b96b6da2ec04dab78d9c043ef5f704e12ef9de670f26b3"
+    "icon": "af0fde95483144b3e9d6379c157f91dbb91387082feefd961c7ecf378cb41a10"
   },
   "77": {
-    "chaosValue": 2,
-    "id": 118276,
+    "chaosValue": 1.56,
+    "id": "blight-scarab-of-the-blightheart",
     "name": "Blight Scarab of the Blightheart",
-    "icon": "d45557938ee4d8ab7d22898da209cb5c87f71ffcf25eac05e2dafe4c2b99127c"
+    "icon": "66f360c7c68929736627176cc3c6c7390788253dcd2124624dc1c86ef2f1a39a"
   },
   "94": {
-    "chaosValue": 1,
-    "id": 134999,
+    "chaosValue": 0.8856,
+    "id": "breach-scarab-of-instability",
     "name": "Breach Scarab of Instability",
-    "icon": "043d385e05fc15fb9cf79421ac605f4aa214dbf57dbadb8d24084aa2ffee35df"
+    "icon": "809f2ee3f02d351bb7b005ce823be7eb51fdde657a34cfdb61dc5f61789fd6bf"
   },
   "93": {
-    "chaosValue": 1,
-    "id": 135013,
+    "chaosValue": 0.6117,
+    "id": "breach-scarab-of-the-hive",
     "name": "Breach Scarab of the Hive",
-    "icon": "1d3af36d5930337a1bb2955b50f3b0a33044d89475dcd55f1715677191b8cb7f"
+    "icon": "1ffce03bdcdbcac093e60ecae921e7bb4029c4ceb8f99fcd4f5b686efc8ea362"
   },
   "96": {
     "chaosValue": 1.2,
-    "id": 134959,
+    "id": "134959",
     "name": "Breach Scarab of the Incensed Swarm",
     "icon": "bcf4840c31779a377310702d40ec8f85d5b8b3665a61ed95c4b0844de4369844"
   },
   "95": {
-    "chaosValue": 1,
-    "id": 134998,
+    "chaosValue": 2.53,
+    "id": "breach-scarab-of-the-marshal",
     "name": "Breach Scarab of the Marshal",
-    "icon": "ea0adc754b337072b9899839d7ba13cc3ff16e04303a13edbbea20c778bcde42"
+    "icon": "132a3f117ff03aff03315c7b23701a11a2dc59c52efaf2ff6c799493a9673bc9"
   },
   "21": {
-    "chaosValue": 1,
-    "id": 113706,
+    "chaosValue": 1.61,
+    "id": "cartography-scarab-of-corruption",
     "name": "Cartography Scarab of Corruption",
-    "icon": "0e714cceef88bba6c073e985a02727db50ea156c79638f47c338b2055bff0bc3"
+    "icon": "9e6ff5ab65a3f03b15037deb2aa1b465354aafaed27b4a31bcd265fbbbee93a5"
   },
   "18": {
-    "chaosValue": 1,
-    "id": 118277,
+    "chaosValue": 0.8262,
+    "id": "cartography-scarab-of-escalation",
     "name": "Cartography Scarab of Escalation",
-    "icon": "1cfcea496bd2abe227e520bbba40745cd27b05bd9fb0066b9f09d67e6e584381"
+    "icon": "64e0c50ca28c90dbbe6c52f36d6fbf971746fdd2a6654de1a9da7951acff7c1a"
   },
   "19": {
-    "chaosValue": 1.4,
-    "id": 118275,
+    "chaosValue": 1,
+    "id": "cartography-scarab-of-risk",
     "name": "Cartography Scarab of Risk",
-    "icon": "97e82ab861f025d92262bad92f3cd44640668e962e306e5d83114c8330062681"
+    "icon": "80fb475e510f7c3a44bb6efc9b1374a25b6aed4cc099c566f366f105339a308b"
   },
   "20": {
-    "chaosValue": 1,
-    "id": 118273,
+    "chaosValue": 1.02,
+    "id": "cartography-scarab-of-the-multitude",
     "name": "Cartography Scarab of the Multitude",
-    "icon": "785279c20dc9788ae48e2cc706e853d679b88ad146ebfd25e67d5554111fbd17"
+    "icon": "c28b8d8830b1a78c16dd25ff6f56ff8f5039f15befbcd1adf24288e047572b71"
   },
   "110": {
-    "chaosValue": 1,
-    "id": 113716,
+    "chaosValue": 0.7119,
+    "id": "delirium-scarab",
     "name": "Delirium Scarab",
-    "icon": "366bc71fdb2fff6ffca90f60c35b1087d7e143606e3320eeb05fcc504168bcbc"
+    "icon": "7dbc75edaa148101bf785d51b9048a796c75d804d81642dd1fd23015631fa2a5"
   },
   "114": {
     "chaosValue": 1,
-    "id": 113769,
+    "id": "113769",
     "name": "Delirium Scarab of Delusions",
     "icon": "1706a8ade38e3006413cd2a170bee6234ccadb833e2fa263262924a1829d7a2e"
   },
   "111": {
     "chaosValue": 1,
-    "id": 113718,
+    "id": "delirium-scarab-of-mania",
     "name": "Delirium Scarab of Mania",
-    "icon": "185e656604cfcaf12f80491455e5b40e65635391130c8d8ce04c60bb1ae507de"
+    "icon": "40f9d7b597d9a4cef0a54ead88ac91d8443de35c7feb61a9504495444a9dd5ea"
   },
   "113": {
     "chaosValue": 1,
-    "id": 113691,
+    "id": "113691",
     "name": "Delirium Scarab of Neuroses",
     "icon": "9bce7612a1524cf73e8447471b8d48f1acfb048a311383c18dcc86639f1c27f9"
   },
   "112": {
-    "chaosValue": 1,
-    "id": 113730,
+    "chaosValue": 1.34,
+    "id": "delirium-scarab-of-paranoia",
     "name": "Delirium Scarab of Paranoia",
-    "icon": "e3496f966e340b8d80b2c04cda85b1672933bab6f6e1a6ea473b89355100cd17"
+    "icon": "62819cfc8639d4c1b11a20466ace15eaeda07f984b291fb736cd3560ebfd2e35"
   },
   "37": {
-    "chaosValue": 2.6,
-    "id": 118282,
+    "chaosValue": 3.33,
+    "id": "divination-scarab-of-pilfering",
     "name": "Divination Scarab of Pilfering",
-    "icon": "b9870b5c3f2bd0d7992a65a9fae1c426214c3430cb6a7693ff5619c616e721ef"
+    "icon": "2aa5cf58185efefe3e0f6857203504a1eb3c9f4106b3a84a28552575e281cdf8"
   },
   "36": {
-    "chaosValue": 1,
-    "id": 118281,
+    "chaosValue": 2.23,
+    "id": "divination-scarab-of-plenty",
     "name": "Divination Scarab of Plenty",
-    "icon": "8f84695e5cc8641a3bbd1a2b609833991681f553e2a92ee67c6ae3ed06a0a5c4"
+    "icon": "cae0bba9bb6a98ae9b1a9d0c4a67f144078392f2a64273ec3857e4b7eefbdf73"
   },
   "35": {
-    "chaosValue": 1,
-    "id": 121388,
+    "chaosValue": 1.45,
+    "id": "divination-scarab-of-the-cloister",
     "name": "Divination Scarab of The Cloister",
-    "icon": "0035cf63dacde7e10842806e986b08749aea82bb6c7eb1ded58ef17104292d61"
+    "icon": "37b28a2edc73e12e68a2de92b24c9399c25fe160cc92a07e0ddf733c258d0197"
   },
   "127": {
-    "chaosValue": 1,
-    "id": 113736,
+    "chaosValue": 0.5467,
+    "id": "expedition-scarab",
     "name": "Expedition Scarab",
-    "icon": "cceb0e4862d9c2b708c92a4a9cfb70d00c664364c05b18316a6e9b2541ce85d5"
+    "icon": "232b7f4065975a5a6d62cb7e41926ad7cb28fe2ccd192b642c1e264b26133c91"
   },
   "131": {
     "chaosValue": 2,
-    "id": 113829,
+    "id": "113829",
     "name": "Expedition Scarab of Archaeology",
     "icon": "493e7bb47e5ebb9dcb4d259c4bd1070ff169c77f3fa7d835fe220a9f66be6604"
   },
   "130": {
     "chaosValue": 1,
-    "id": 134995,
+    "id": "134995",
     "name": "Expedition Scarab of Infusion",
     "icon": "6375cd77bf8a0137e7fd5b1a96320674637bf29bf6c9a89c5f0df6e81915937f"
   },
   "128": {
-    "chaosValue": 1,
-    "id": 113746,
+    "chaosValue": 0.9897,
+    "id": "expedition-scarab-of-runefinding",
     "name": "Expedition Scarab of Runefinding",
-    "icon": "9ba2531caaa89fc624e12f73ca0d79002a23d82a7220eaa0fb47ae1376dc2efc"
+    "icon": "306950243af9994edf82d0d4b859db4ccc3000ed434d110a84a0c4ca4f38a5e3"
   },
   "129": {
-    "chaosValue": 1,
-    "id": 113700,
+    "chaosValue": 0.5,
+    "id": "expedition-scarab-of-verisium-powder",
     "name": "Expedition Scarab of Verisium Powder",
-    "icon": "05ae299a3d42a4449da4f521ae198899376aeb82ca595abe8bdb4665fb058ab5"
+    "icon": "b06725735321b609e068e99601b2aa14f2de8ff9b155357822739dbe2a67ce65"
   },
   "144": {
-    "chaosValue": 1,
-    "id": 113694,
+    "chaosValue": 0.9572,
+    "id": "harvest-scarab",
     "name": "Harvest Scarab",
-    "icon": "07e2bfb516463ef845bb47d2c1734465aff62f9acf3dbadba80d79444fef1b02"
+    "icon": "acf915ee7f7fc53205e95b8a1ef335fdf3a8cc937aff502bdbd9a292d6f3c6b5"
   },
   "146": {
-    "chaosValue": 5,
-    "id": 113909,
+    "chaosValue": 9.59,
+    "id": "harvest-scarab-of-cornucopia",
     "name": "Harvest Scarab of Cornucopia",
-    "icon": "fa57f5a3fc7d09b675d8c7c5fd98980a0dc1a566af83588ec0412aed02221303"
+    "icon": "5e07212ba13c6e7597d68b8eb1d28d0f98810f741340eb87dfd40857f9a6f332"
   },
   "145": {
-    "chaosValue": 1,
-    "id": 113827,
+    "chaosValue": 2.48,
+    "id": "harvest-scarab-of-doubling",
     "name": "Harvest Scarab of Doubling",
-    "icon": "56edf1fdad608924eba239f46e1e833cfc6bdc52e57bd964d12515207e9d610b"
+    "icon": "81d98a400696cb0aaae3f43e7a8a7d165a321b8b3562d9f1f9e9ad8fea31697e"
   },
   "86": {
-    "chaosValue": 1,
-    "id": 113702,
+    "chaosValue": 0.5161,
+    "id": "incursion-scarab",
     "name": "Incursion Scarab",
-    "icon": "4bd34bb957e3136b4a89640611218aa8d8e3869fdca3758764776504042067a7"
+    "icon": "81785ba987d1c5aab3704f284ba71a0a55dc968acc98811ce39b72b656ceab03"
   },
   "88": {
     "chaosValue": 1,
-    "id": 113828,
+    "id": "incursion-scarab-of-champions",
     "name": "Incursion Scarab of Champions",
-    "icon": "455660faacee1beb17307de0199aaf796d774a1e676cd8c14e8da0aae96d8885"
+    "icon": "79ced3aaa94ac4bd342c3b0b17b60b98a91f2b74cf65eea602a256597c6d43d5"
   },
   "87": {
     "chaosValue": 1,
-    "id": 113707,
+    "id": "113707",
     "name": "Incursion Scarab of Invasion",
     "icon": "70276a2337b806cc3702b49253dcf9daaceb2a84e17227b30a9555577d3952f1"
   },
   "89": {
-    "chaosValue": 5,
-    "id": 113830,
+    "chaosValue": 4.44,
+    "id": "incursion-scarab-of-timelines",
     "name": "Incursion Scarab of Timelines",
-    "icon": "3d645dc587e7ee2fdbdd7cec27ac9c93b0e6f289a302472b5a5155ca54108896"
+    "icon": "b966b00efb040e62909d2182f17ae872523f96b3d5494e0177189f6d6c11367f"
   },
   "27": {
-    "chaosValue": 1,
-    "id": 113744,
+    "chaosValue": 2.16,
+    "id": "influencing-scarab-of-hordes",
     "name": "Influencing Scarab of Hordes",
-    "icon": "2d4e28c5a6020cc4f12f75206af14282fbb5fdb84d88d6b9c4c2bf3dfdbed245"
+    "icon": "c6fe0f6c521d9014dad18be1c6ea778adeefe4161d73cac955a5f90fde1cf1c6"
   },
   "28": {
-    "chaosValue": 1,
-    "id": 135055,
+    "chaosValue": 1.53,
+    "id": "influencing-scarab-of-interference",
     "name": "Influencing Scarab of Interference",
-    "icon": "281138f79a904da8b811d106139f5f16776135efeb5e37291f7ca50940b8951e"
+    "icon": "14a1e803082abb99b2f73476af2e3f9a7fc237d31e85248a12e76b9fb251f406"
   },
   "26": {
-    "chaosValue": 1,
-    "id": 113741,
+    "chaosValue": 0.45,
+    "id": "influencing-scarab-of-the-elder",
     "name": "Influencing Scarab of the Elder",
-    "icon": "d5477b422c18e464c990661e5b2f1de41c3c1d2d60b0e897a6e07fcc488248f2"
+    "icon": "ac1a6db138805529dc8b98cf49448cdae9ccf20cc15032b8901dacc66329c26a"
   },
   "25": {
     "chaosValue": 1,
-    "id": 113722,
+    "id": "influencing-scarab-of-the-shaper",
     "name": "Influencing Scarab of the Shaper",
-    "icon": "3d1aed188e21b98a768ff7b0327145114c5091753b22b43d9c44ca0ff064d176"
+    "icon": "f9939cc6ed26d0414b922de5099b308819d5a5e3d1735f65b03dcc389beab7ae"
   },
   "161": {
-    "chaosValue": 1,
-    "id": 125016,
+    "chaosValue": 0.8494,
+    "id": "kalguuran-scarab",
     "name": "Kalguuran Scarab",
-    "icon": "05916e374d79310e9b899ea1690e4bf48a78b89d2616d36850f8f147f4384a3e"
+    "icon": "2219a29d56ca08f6f9aaa894ce943d41ba35168f1ae1cbc301d6f05434bac014"
   },
   "164": {
     "chaosValue": 1,
-    "id": 135385,
+    "id": "135385",
     "name": "Kalguuran Scarab of Enriching",
     "icon": "b14dfaa140888ef199808d499de49451e8f7f4652fc7cc83c2a25ee82a7c8840"
   },
   "162": {
-    "chaosValue": 1,
-    "id": 125028,
+    "chaosValue": 0.5294,
+    "id": "kalguuran-scarab-of-guarded-riches",
     "name": "Kalguuran Scarab of Guarded Riches",
-    "icon": "1982b1f92d24810e59fd9b907ef807682098a6d3e62454762f7413d0dd25dcc3"
+    "icon": "bfc7a937b2424658a47c10da649bb681466a04c349a094c8438f4c99a4c8b80c"
   },
   "163": {
-    "chaosValue": 1.4,
-    "id": 125155,
+    "chaosValue": 1,
+    "id": "kalguuran-scarab-of-refinement",
     "name": "Kalguuran Scarab of Refinement",
-    "icon": "f3a12709d085e2c1d309124dff8245a3d01783d8b8eb514039d27179938017bf"
+    "icon": "e27d7f3093ce49a42ee93cb62f23844b2639c3f3cec8209530d08bf3cc9b5105"
   },
   "178": {
-    "chaosValue": 1,
-    "id": 113698,
+    "chaosValue": 0.9068,
+    "id": "legion-scarab",
     "name": "Legion Scarab",
-    "icon": "02562a38bc43c26ca9f34db55a40b0bc3e74e172973fcc60a6f313910251d3a8"
+    "icon": "4568651db5b710ab01d3b73f2a88a4446ca4c83252bf73df9cde91d0f33b9b51"
   },
   "181": {
     "chaosValue": 3.2,
-    "id": 113875,
+    "id": "113875",
     "name": "Legion Scarab of Eternal Conflict",
     "icon": "413d065e311ee7b92317790e4f5dff4666bbcb8e610436ae233bf7f7f9ffc5b1"
   },
   "179": {
-    "chaosValue": 1,
-    "id": 113862,
+    "chaosValue": 1.86,
+    "id": "legion-scarab-of-officers",
     "name": "Legion Scarab of Officers",
-    "icon": "a68a195cb4fccf265a0b85eac2598504358d73d789af6f01adf68141683d3060"
+    "icon": "a8dc693c2f875aa6663f1aa6a0847f54e161091ab8e448a1d724c4b4cde41e17"
   },
   "180": {
-    "chaosValue": 1.3,
-    "id": 134996,
+    "chaosValue": 1.43,
+    "id": "legion-scarab-of-treasures",
     "name": "Legion Scarab of Treasures",
-    "icon": "3953999b06326e30a8503a190b1f00a767720b8ff6283b3355f1bf35846d7cd4"
+    "icon": "8492a14239bb50d4cd625e18fac5f904b3370d2ecc174c6e8dca5a8345d9a31a"
   },
   "197": {
-    "chaosValue": 1,
-    "id": 113760,
+    "chaosValue": 3.07,
+    "id": "ritual-scarab-of-abundance",
     "name": "Ritual Scarab of Abundance",
-    "icon": "f3870e90f6010d82b85dbf7cdc5a5685b92dfef4eb864d3cae3aaa63bc7f2801"
+    "icon": "a379848d9540c4244d67e3a06ef63de6ea2f4291eb7ca7035b3785785b26343e"
   },
   "198": {
     "chaosValue": 1,
-    "id": 135387,
+    "id": "ritual-scarab-of-corpses",
     "name": "Ritual Scarab of Corpses",
-    "icon": "03a6d950946ed94707be27cfc7f2b64ebfdeae1e7309f5a05204c7ffeecf4fb6"
+    "icon": "36263df60d57877ffe1219a9127155828bfd613d978d2097d217a08b8cfdcd4c"
   },
   "195": {
-    "chaosValue": 1,
-    "id": 113695,
+    "chaosValue": 0.9701,
+    "id": "ritual-scarab-of-selectiveness",
     "name": "Ritual Scarab of Selectiveness",
-    "icon": "5eb2fa6b8f146bcd97c9215240dc2fcad7bc4d4b3054849cd0d87a947dd0f31a"
+    "icon": "d3028a37e988fe523fea18d5c15c02835cabb1dab9d04b351ed816b4464b5290"
   },
   "196": {
     "chaosValue": 1,
-    "id": 118274,
+    "id": "ritual-scarab-of-wisps",
     "name": "Ritual Scarab of Wisps",
-    "icon": "f26bf7b4e22af24d484ee07db918f99c4db5ada3e8c6ba345f966bfdb458df1b"
+    "icon": "451a4362b3116070d8b0d5f716a2095657608bdd91acfc8b40c95647304d58f7"
   },
   "82": {
-    "chaosValue": 1,
-    "id": 113712,
+    "chaosValue": 0.7019,
+    "id": "scarab-of-adversaries",
     "name": "Scarab of Adversaries",
-    "icon": "bda62035e312d6ca687ac407439f35ad5b48729ea0f190b6431acbf409cef0bb"
+    "icon": "7204463756ad29aa951e2603017fd9e71d72cebbac998586fe854f75d1670e71"
   },
   "99": {
     "chaosValue": 1,
-    "id": 118272,
+    "id": "scarab-of-divinity",
     "name": "Scarab of Divinity",
-    "icon": "538d105695fa2d74bac5fa073da0ad34fd57100f948047efd8799434709c8e7d"
+    "icon": "f5ae47237a6a2da36a4f8804592e9d391dca81b438ec931bb0cad080e5095be9"
   },
   "65": {
-    "chaosValue": 1,
-    "id": 113685,
+    "chaosValue": 0.7712,
+    "id": "scarab-of-monstrous-lineage",
     "name": "Scarab of Monstrous Lineage",
-    "icon": "5bd3c6cf8ff900763505921a67041a677a845658fee5ceae00406b2c2747c82c"
+    "icon": "564a74c4da604fbdaf66c70fe41239e259f9630753eca6d7e4602f9f5793f898"
   },
   "167": {
     "chaosValue": 5,
-    "id": 117974,
+    "id": "117974",
     "name": "Scarab of Radiant Storms",
     "icon": "c1213ab29bde04f4b5d3d77887569ae4e8a2727e1bad44dbc988fd76560d5009"
   },
   "184": {
-    "chaosValue": 1,
-    "id": 113859,
+    "chaosValue": 5.5,
+    "id": "scarab-of-stability",
     "name": "Scarab of Stability",
-    "icon": "78c2bb4cb715d32652253d3d2ac32521e517ec058ab51e81bacb737d058a8095"
+    "icon": "c2618c293ed9b14b681b9deb0e7cd15a1bcee293c6085aaa76a2aa544b2abe1d"
   },
   "103": {
-    "chaosValue": 1,
-    "id": 113689,
+    "chaosValue": 0.8162,
+    "id": "sulphite-scarab",
     "name": "Sulphite Scarab",
-    "icon": "507dff9805f418907e7a20e956b6452693b96bbef2fd07b9fbf6a58e6f6097b7"
+    "icon": "26850cadaaa99bf818be8646fb9e6c0fdeaaa60eb318ff7d371093314e78f3ab"
   },
   "104": {
-    "chaosValue": 1,
-    "id": 113713,
+    "chaosValue": 2,
+    "id": "sulphite-scarab-of-fumes",
     "name": "Sulphite Scarab of Fumes",
-    "icon": "c177d23e1c16478e6266eb4e1cfe0681c13626c3cc241a26468d2bcb31bde03d"
-  },
-  "42": {
-    "chaosValue": 1,
-    "id": 118280,
-    "name": "Titanic Scarab",
-    "icon": "25def812cb435f8b7c546003e3e38998c3f6766cb6959b8cbe1009190559e471"
-  },
-  "44": {
-    "chaosValue": 1,
-    "id": 121389,
-    "name": "Titanic Scarab of Legend",
-    "icon": "062a44d616c2e072604505c56b224d819ce9a61816336561b99e1198d2533fbe"
-  },
-  "43": {
-    "chaosValue": 1,
-    "id": 121391,
-    "name": "Titanic Scarab of Treasures",
-    "icon": "a238c5b22eb0cb04540b4743e4475711016cd0a75d1befb30eef3366085dcede"
+    "icon": "62f2b385c214021ff96b621c7f14dbb44eea8358d46dc2aaf4036ee42cb7699c"
   },
   "212": {
-    "chaosValue": 0.62,
-    "id": 113708,
+    "chaosValue": 0.9223,
+    "id": "ultimatum-scarab",
     "name": "Ultimatum Scarab",
-    "icon": "b83c6e2a041081b2c1b276a46503c3a289ec16786b6374bd5fbbaa44d0764844"
+    "icon": "ba8a1e3523f064d8994833bc0686c24f27b146405323ff6e9fcb522c7888cb27"
   },
   "213": {
-    "chaosValue": 1,
-    "id": 113732,
+    "chaosValue": 4.11,
+    "id": "ultimatum-scarab-of-bribing",
     "name": "Ultimatum Scarab of Bribing",
-    "icon": "58a425b5d983b9c8ff4643fcd7dedb57b1aaac6b24e405ed23f1b4ea03dc4c31"
+    "icon": "e28015f4b9116d62e6d00012e351badab380a6f4e082f718fe2992800fa95167"
   },
   "215": {
-    "chaosValue": 5,
-    "id": 114031,
+    "chaosValue": 15.9,
+    "id": "ultimatum-scarab-of-catalysing",
     "name": "Ultimatum Scarab of Catalysing",
-    "icon": "2461b4bb521340174cab4af75fd6cb45e9ce9decd59ed522776a656f9953774d"
+    "icon": "97afb7777d48e87d00760536cec62b61e67581f1100d87ca28eba3bb9756e34c"
   },
   "216": {
-    "chaosValue": 1,
-    "id": 113771,
+    "chaosValue": 1.66,
+    "id": "ultimatum-scarab-of-inscription",
     "name": "Ultimatum Scarab of Inscription",
-    "icon": "5c30ccb61cb3c5675d9c8dbe8db1a0adfd56f8b264ec3a55500327b024bf7bf3"
+    "icon": "478c3e6d7640605e8414ed5785fe035c3a26bfe43537ec987ca90dd9fc43c93d"
   },
   "123": {
-    "chaosValue": 177.8,
-    "id": 113826,
+    "chaosValue": 18.81,
+    "id": "ambush-scarab-of-containment",
     "name": "Ambush Scarab of Containment",
-    "icon": "ef200d681b6c0c7cc6e230ee5a05026134486d5284e62d9c0d275e73f9668259"
+    "icon": "1e2be2b813eb3f8790aab12c8d23bc8ec3525f949a1a4dae62699798af2025ff"
   },
   "97": {
-    "chaosValue": 1,
-    "id": 117976,
+    "chaosValue": 6.43,
+    "id": "breach-scarab-of-resonant-cascade",
     "name": "Breach Scarab of Resonant Cascade",
-    "icon": "c7ee8bd0b43ac06981d36ea41cc3d29759c0d5cec5f5711c872d55238eb00bc6"
+    "icon": "09453e6488fd3ed6f1100e6cca27a873fbdc4b941b1832c19a17b8a5249d80e4"
   },
   "214": {
-    "chaosValue": 1.9,
-    "id": 113872,
+    "chaosValue": 12,
+    "id": "ultimatum-scarab-of-dueling",
     "name": "Ultimatum Scarab of Dueling",
-    "icon": "2ebc642a5a272fb01e77cc4082f496701801e0012792e63601a392d5adaa033e"
+    "icon": "39f3499d00ca35b308624486893018cf3d3f00d1ba9f0aac8b516e2f924217d8"
   },
   "171": {
-    "chaosValue": 1,
-    "id": 113740,
+    "chaosValue": 0.8692,
+    "id": "domination-scarab",
     "name": "Domination Scarab",
-    "icon": "72028444a2fc25e9d01b42dc1eec315bd27d1ac41cffa9884d25942b245f3a84"
+    "icon": "2bee51ebe468cd165bf0abba71ff217826af27801c187ceda64ee9c2df530491"
   },
   "172": {
     "chaosValue": 1,
-    "id": 118279,
+    "id": "118279",
     "name": "Domination Scarab of Apparitions",
     "icon": "039310cf4f9992acacbaba8aa9a95eaafd49c1318527d97fdee9f30ad8b6b23c"
   },
   "173": {
     "chaosValue": 1,
-    "id": 118284,
+    "id": "domination-scarab-of-evolution",
     "name": "Domination Scarab of Evolution",
-    "icon": "221f3fe7c6947f665d2497281c30a46c3d8387aaf61a61ac14ebb2ccf10652e7"
+    "icon": "55a1ecdfc9e6a463e660a4377179e36278c61c45dabf77cabe42357905c0e3e1"
   },
   "174": {
-    "chaosValue": 2.4,
-    "id": 113761,
+    "chaosValue": 6.65,
+    "id": "domination-scarab-of-terrors",
     "name": "Domination Scarab of Terrors",
-    "icon": "2496bc51cd6f953ff3b95cc026333146496a5e13ad31b1827497c70665e2d2a3"
+    "icon": "56f8a028fa949bcf025068ddfb79c8b4d606e0eb4d29729f99b260021321062d"
   },
   "188": {
-    "chaosValue": 1,
-    "id": 113687,
+    "chaosValue": 3.36,
+    "id": "essence-scarab",
     "name": "Essence Scarab",
-    "icon": "8e0c13d7d35a575bf60eaf02467001a0bcef97f48b0ed53e2c324ef6ac503998"
+    "icon": "590e5d0b73dc9affca6ca101d0c719fb5cc42f88f345a0d435c3d38b6e714a64"
   },
   "189": {
-    "chaosValue": 1,
-    "id": 113745,
+    "chaosValue": 8.88,
+    "id": "essence-scarab-of-ascent",
     "name": "Essence Scarab of Ascent",
-    "icon": "dec0e1fdc2204408c4d70c861d010ccba229b0877184388636882611e9f5867f"
+    "icon": "884d730f09552d8113eac2f14bf816bee5ac4d72cdb1ac9e738b7f6757b111f9"
   },
   "190": {
     "chaosValue": 1,
-    "id": 113690,
+    "id": "essence-scarab-of-stability",
     "name": "Essence Scarab of Stability",
-    "icon": "5e8d2c327d52b1982b27108e09a0fbce372d4da5b089bb84d9b2a1878e6746d2"
+    "icon": "0f62d5f1fe675e16705b0b06ec7b0eb46885d2a18d1962478eb35f27d6d26598"
   },
   "192": {
-    "chaosValue": 2.3,
-    "id": 117973,
+    "chaosValue": 12.18,
+    "id": "essence-scarab-of-adaptation",
     "name": "Essence Scarab of Adaptation",
-    "icon": "99c5b3a955fead8b4510cc07d9cbbc009fca26416cea45b1a5d12f32575ae913"
+    "icon": "0a0b95db2c16df0ca5d1e6685e4563f1cad98f44f3292c8688071d3a8371a608"
   },
   "191": {
-    "chaosValue": 6,
-    "id": 113945,
+    "chaosValue": 26.02,
+    "id": "essence-scarab-of-calcification",
     "name": "Essence Scarab of Calcification",
-    "icon": "143f1156e68710a5702c7c6480cd25b6e15001c316222e5cef4bf633a3ed073f"
+    "icon": "9aed3f582098f0fab83de6394d3d85f5f5d0e1b4392a33b282db6d9545c08baa"
   },
   "134": {
-    "chaosValue": 4.1,
-    "id": 114030,
+    "chaosValue": 13,
+    "id": "horned-scarab-of-awakening",
     "name": "Horned Scarab of Awakening",
-    "icon": "76937bd4ca7525e140ae05101f69ab033e47d95597974d00105f7f1cf1167ec7"
+    "icon": "6c99f118fc3c4e84d40d6a678e39c884d99954ff21ef323df4c91c3d6a1ca53f"
   },
   "83": {
-    "chaosValue": 5,
-    "id": 113922,
+    "chaosValue": 18.82,
+    "id": "horned-scarab-of-bloodlines",
     "name": "Horned Scarab of Bloodlines",
-    "icon": "6ac7a51ed1e8801d101d472a9fc17ae2d4b26e6e27ca52ba2ed5e0817acdd323"
+    "icon": "9db96765a26c99ef54e9e89ae8cf71054a057041d06a011c442f84e66231b2e4"
   },
   "168": {
-    "chaosValue": 10.42,
-    "id": 113900,
+    "chaosValue": 5,
+    "id": "horned-scarab-of-glittering",
     "name": "Horned Scarab of Glittering",
-    "icon": "9fdfca4878949f22d8615657f6357f1497401044a5cc21fbdedd92e2c0f5bcbc"
+    "icon": "4b4b25360dcffa9fbd01dab12a22be0f215a02842f022b90f0ef01d1fab9a3f0"
   },
   "100": {
     "chaosValue": 1,
-    "id": 113873,
+    "id": "113873",
     "name": "Horned Scarab of Nemeses",
     "icon": "57e085a5ea4473b5e214d2b746816d4e920d8efb4376b9a64997d3337540a4f4"
   },
   "185": {
-    "chaosValue": 2.3,
-    "id": 113860,
+    "chaosValue": 5.14,
+    "id": "horned-scarab-of-pandemonium",
     "name": "Horned Scarab of Pandemonium",
-    "icon": "e1f0bb150d7199c11b7a13ecbba7c78a4e6a7eb1646d8837196e71b7897970ce"
+    "icon": "53584aa21975ab60b716f543a160cfb8ca74f859a6abcedc23ce9df48b42d6bb"
   },
   "117": {
     "chaosValue": 175.5,
-    "id": 113919,
+    "id": "113919",
     "name": "Horned Scarab of Preservation",
     "icon": "480daababeb0cb0e79fecc2069bcad79d6e9e39715aea137ab2ee75b3657adb0"
   },
   "151": {
-    "chaosValue": 2,
-    "id": 113896,
+    "chaosValue": 1,
+    "id": "horned-scarab-of-tradition",
     "name": "Horned Scarab of Tradition",
-    "icon": "b977d915dcbb6323d34a2e515166eef5bbc56a0127eb528f2e64182fa4e57a65"
+    "icon": "12868ac41246d1225f40a56348eb3e4a3fc260a0c92ac251431bdd32e622c852"
   },
   "205": {
     "chaosValue": 1,
-    "id": 113720,
+    "id": "113720",
     "name": "Torment Scarab",
     "icon": "0afb45b3cecc816646a67391e7f9ccf9992e97056bcdbc1857a63a9c3127e2b7"
   },
   "206": {
     "chaosValue": 1,
-    "id": 113692,
+    "id": "113692",
     "name": "Torment Scarab of Peculiarity",
     "icon": "2b63e32c5989a1ab4a8f2cf8a75e47e4673baa06fc23e60a53344358bb763155"
   },
   "207": {
     "chaosValue": 1,
-    "id": 117972,
+    "id": "117972",
     "name": "Torment Scarab of Possession",
     "icon": "001574f29a6f4e75b8e73944b68900c4e5ff5578fb9f254bd4011907361736e1"
   },
   "150": {
-    "chaosValue": 1,
-    "id": 117971,
+    "chaosValue": 0.875,
+    "id": "scarab-of-wisps",
     "name": "Scarab of Wisps",
-    "icon": "fd5ac7e8c621a32af6c14ecbfb089a262412522cd794e0b7acec5e8fc15c4921"
+    "icon": "b1a52b873a4dfdf8cd5d5f68e7bd710bc2ff73f13a74d8ca4689faefdf5e5a92"
   },
   "116": {
-    "chaosValue": 1,
-    "id": 135384,
+    "chaosValue": 2.12,
+    "id": "scarab-of-the-dextral",
     "name": "Scarab of the Dextral",
-    "icon": "c8199a0dce7ebba3d36a76a13610ee3454d49f59d7075512f80188540b9a7b32"
+    "icon": "c437e351c022b80032bb5395931e0fa39fde87055ea2022625bde7a62cc8972d"
   },
   "133": {
-    "chaosValue": 1,
-    "id": 134960,
+    "chaosValue": 2.81,
+    "id": "scarab-of-the-sinistral",
     "name": "Scarab of the Sinistral",
-    "icon": "53a0613fca5fe41c9328e8db41c782f3d334ae99112c65af93e97c50eb357024"
+    "icon": "bd08777daa3856c5f03b31ba1cf85f089bba5115b8fd5e7bbbec12acb09befa2"
+  },
+  "30": {
+    "chaosValue": 0.3333,
+    "id": "titanic-scarab",
+    "name": "Titanic Scarab",
+    "icon": "b4191c2a6c59f7e7c6a505f78cc3cb1cd4a941a148f91b2756ef0288c0992548"
+  },
+  "32": {
+    "chaosValue": 0.5,
+    "id": "titanic-scarab-of-legend",
+    "name": "Titanic Scarab of Legend",
+    "icon": "e6c4e10c62f7de4a4bd92947d6d14a11a95e51671aafb81a4d6a963bfed5ab20"
+  },
+  "31": {
+    "chaosValue": 1,
+    "id": "121391",
+    "name": "Titanic Scarab of Treasures",
+    "icon": "a238c5b22eb0cb04540b4743e4475711016cd0a75d1befb30eef3366085dcede"
+  },
+  "42": {
+    "chaosValue": 2.65,
+    "id": "trarthan-scarab",
+    "name": "Trarthan Scarab",
+    "icon": "5a260177159a64d16bc6d9800317b15b16f56a0ece1a3ca9923d7b3b332db0f0"
+  },
+  "43": {
+    "chaosValue": 2.66,
+    "id": "trarthan-scarab-of-infamy",
+    "name": "Trarthan Scarab of Infamy",
+    "icon": "8f43c846d4b9a5d6f391bcc7385bf8194b1f5fd2cac9a9bed4deac26c184fa2b"
+  },
+  "44": {
+    "chaosValue": 6.24,
+    "id": "trarthan-scarab-of-renown",
+    "name": "Trarthan Scarab of Renown",
+    "icon": "6d778b298d40da7a2424f86dcba4ca1eefa3c2e4d961d6a1ff1f27b4f2efd05d"
+  },
+  "45": {
+    "chaosValue": 3.38,
+    "id": "trarthan-scarab-of-surprising-alliances",
+    "name": "Trarthan Scarab of Surprising Alliances",
+    "icon": "bd8ccf901ef6b8ac5374d05fe906d921c86e638e5956923796e74ed67176d49b"
+  },
+  "61": {
+    "chaosValue": 1.27,
+    "id": "abyss-scarab-of-crystals",
+    "name": "Abyss Scarab of Crystals",
+    "icon": "6d3947136936abff1af11f2d49e980b101eac4cc1cd7684f123bb3930513027a"
+  },
+  "63": {
+    "chaosValue": 1,
+    "id": "abyss-scarab-of-the-consort",
+    "name": "Abyss Scarab of the Consort",
+    "icon": "eecd16dc32d2d8c212e26330865f91e1589d0086b3970ea908c1bcdfa532eb3a"
   }
 }.map((key, value) =>
     MapEntry(int.parse(key), PoeNinjaItem.fromMap(item: value)));

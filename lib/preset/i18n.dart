@@ -1319,4 +1319,64 @@ Map<String, dynamic> SCARAB = {
     "regexEn": "infu",
     "regexKr": "입의.탐"
   },
+  "Trarthan Scarab": {
+    "label": "트라투스 갑충석",
+    "value": "Trarthan Scarab",
+    "desc": "지도 조각",
+    "descEn": "Map Fragment",
+    "class": "트라투스",
+    "classEn": "Trarthan",
+    "regexEn": "han.*b",
+    "regexKr": "^트라"
+  },
+  "Trarthan Scarab of Infamy": {
+    "label": "악명의 트라투스 갑충석",
+    "value": "Trarthan Scarab of Infamy",
+    "desc": "지도 조각",
+    "descEn": "Map Fragment",
+    "class": "트라투스",
+    "classEn": "Trarthan",
+    "regexEn": "famy",
+    "regexKr": "악명"
+  },
+  "Trarthan Scarab of Renown": {
+    "label": "명성의 트라투스 갑충석",
+    "value": "Trarthan Scarab of Renown",
+    "desc": "지도 조각",
+    "descEn": "Map Fragment",
+    "class": "트라투스",
+    "classEn": "Trarthan",
+    "regexEn": "nown",
+    "regexKr": "명성"
+  },
+  "Trarthan Scarab of Surprising Alliances": {
+    "label": "의외의 동맹의 트라투스 갑충석",
+    "value": "Trarthan Scarab of Surprising Alliances",
+    "desc": "지도 조각",
+    "descEn": "Map Fragment",
+    "class": "트라투스",
+    "classEn": "Trarthan",
+    "regexEn": "surp",
+    "regexKr": "의외"
+  },
+  "Abyss Scarab of Crystals": {
+    "label": "수정의 심연 갑충석",
+    "value": "Abyss Scarab of Crystals",
+    "desc": "지도 조각",
+    "descEn": "Map Fragment",
+    "class": "심연",
+    "classEn": "Abyss",
+    "regexEn": "crys",
+    "regexKr": "수정"
+  },
+  "Abyss Scarab of the Consort": {
+    "label": "배우자의 심연 갑충석",
+    "value": "Abyss Scarab of the Consort",
+    "desc": "지도 조각",
+    "descEn": "Map Fragment",
+    "class": "심연",
+    "classEn": "Abyss",
+    "regexEn": "sort",
+    "regexKr": "배우"
+  },
 };
