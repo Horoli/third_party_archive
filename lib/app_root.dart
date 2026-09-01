@@ -7,7 +7,7 @@ class AppRoot extends StatefulWidget {
   State<AppRoot> createState() => AppRootState();
 }
 
-class AppRootState extends State<AppRoot> {
+class AppRootState extends State<AppRoot> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -48,10 +48,24 @@ class AppRootState extends State<AppRoot> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _recordVisit());
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _recordVisit();
+    }
+  }
+
+  void _recordVisit() {
+    unawaited(postVisit().catchError((_) {}));
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }

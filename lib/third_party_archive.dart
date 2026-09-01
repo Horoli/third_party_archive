@@ -64,6 +64,7 @@ part 'service/get_skill_gem.dart';
 part 'service/get_selected_gem_tag.dart';
 part 'service/get_poe_ninja.dart';
 part 'service/get_scarab_table.dart';
+part 'service/post_visit.dart';
 
 part 'widget/tile_third_party.dart';
 part 'widget/league_information.dart';

@@ -7,6 +7,7 @@ const String TAG = '${VERSION}/tag';
 const String DASHBOARD = '${VERSION}/dashboard';
 const String THIRD_PARTY = '${VERSION}/third_party';
 const String USER_ACTION = '${VERSION}/user_action';
+const String VISIT = '${VERSION}/usage/visit';
 const String BUILD = '${VERSION}/build';
 const String POE_NINJA = '${VERSION}/poe_ninja';
 const String POE_NINJA_SCARAB = '${VERSION}/poe_ninja/scarab';
