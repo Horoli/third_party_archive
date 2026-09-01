@@ -17,7 +17,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
 
   List<PoeNinjaItem> get data => getScarab.result.value.data['filteredData'];
 
-  Map<int, PoeNinjaItem> scarabLocation = SCARAB_LOCATION.MAP;
+  Map<int, PoeNinjaItem> scarabLocation = Map.from(SCARAB_LOCATION.MAP);
 
   // 선택된 갑충석들의 ID를 저장하는 Set
   Set<String> selectedScarabIds = {};
@@ -746,6 +746,7 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
   void initState() {
     super.initState();
     getScarab.get().then((_) {
+      if (!mounted) return;
       _syncScarabLocationWithServer();
     });
   }
@@ -755,13 +756,15 @@ class PageScarabPriceTableState extends State<PageScarabPriceTable> {
     final serverData =
         getScarab.result.value.data?['filteredData'] as List<PoeNinjaItem>?;
     if (serverData == null) return;
+    final serverLayout =
+        getScarab.result.value.data?['layout'] as Map<int, PoeNinjaItem>?;
 
     final Map<String, PoeNinjaItem> serverMap = {
       for (var item in serverData) item.name: item,
     };
 
     final updatedLocation = <int, PoeNinjaItem>{};
-    for (final entry in scarabLocation.entries) {
+    for (final entry in (serverLayout ?? scarabLocation).entries) {
       final serverItem = serverMap[entry.value.name];
       if (serverItem != null) {
         updatedLocation[entry.key] = serverItem;

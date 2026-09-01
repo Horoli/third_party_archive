@@ -18,8 +18,9 @@ class LeagueInformationState extends State<LeagueInformation> {
   late final Timer setTimer;
   late DateTime startDate =
       TZ.TZDateTime.from(DateTime.parse(league.period['start']), GDetroit);
-  late DateTime endDate =
-      TZ.TZDateTime.from(DateTime.parse(league.period['end']), GDetroit);
+  late DateTime? endDate = league.period['end'] == null
+      ? null
+      : TZ.TZDateTime.from(DateTime.parse(league.period['end']), GDetroit);
   @override
   Widget build(context) {
     final TimeCalculator timeCal = TimeCalculator(
@@ -30,7 +31,8 @@ class LeagueInformationState extends State<LeagueInformation> {
     bool startConditions = league.period['startState'] == 'Announce' ||
         league.period['startState'] == 'Starts in';
 
-    bool endConditions = league.period['endState'] != 'unknown';
+    bool endConditions =
+        endDate != null && league.period['endState'] != 'unknown';
 
     return LayoutBuilder(builder: (context, BoxConstraints constraints) {
       // maxHeight가 90미만이면 빈 Container 출력
@@ -69,7 +71,7 @@ class LeagueInformationState extends State<LeagueInformation> {
                   if (endConditions)
                     Column(
                       children: [
-                        Text('${timeCal.convert(endDate)}'),
+                        Text('${timeCal.convert(endDate!)}'),
                         Text('${league.period['endState']} : '),
                         Text('${timeCal.basedOnNowToEnd()}'),
                       ],
@@ -104,7 +106,7 @@ class LeagueInformationState extends State<LeagueInformation> {
 
 class TimeCalculator {
   DateTime start;
-  DateTime end;
+  DateTime? end;
   TimeCalculator({
     required this.start,
     required this.end,
@@ -136,7 +138,7 @@ class TimeCalculator {
   }
 
   String basedOnNowToEnd() {
-    int difference = end.difference(_now).inSeconds;
+    int difference = end!.difference(_now).inSeconds;
     return _getString(difference);
   }
 }

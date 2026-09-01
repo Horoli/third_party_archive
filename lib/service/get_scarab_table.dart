@@ -10,32 +10,46 @@ class GetScarabTable extends GetxController {
   List<PoeNinjaItem> overFourScarabItems = [];
   List<PoeNinjaItem> underOneScarabItems = [];
   List<PoeNinjaItem> overOneScarabItems = []; // 1c 이상 전체 리스트 추가
-  
+
   // 1~4c 사이의 데이터를 뭉치(Chunk) 단위로 관리
-  List<List<PoeNinjaItem>> oneToFourScarabChunks = []; 
-  
+  List<List<PoeNinjaItem>> oneToFourScarabChunks = [];
+
   Map<String, dynamic> chaosValueMap = {};
 
   Future<RestfulResult> get() async {
     Uri uri = isLocal
         ? Uri.http(URL.LOCAL_URL, URL.POE_NINJA_SCARAB)
         : Uri.https(URL.FORIEGN_URL, URL.POE_NINJA_SCARAB);
-    
+
     http.Response rep = await http.get(uri).catchError((error) => throw error);
     Map rawData = jsonDecode(rep.body);
-    
-    List<PoeNinjaItem> scarabs = List.from(rawData['data']['filteredData'] ?? [])
+
+    final Map responseData = Map.from(rawData['data'] ?? {});
+    List<PoeNinjaItem> scarabs = List.from(responseData['filteredData'] ?? [])
         .map((item) => PoeNinjaItem.fromMap(item: item))
         .toList();
+    Map<int, PoeNinjaItem>? scarabLayout;
+    if (responseData['layout'] is Map) {
+      scarabLayout = Map.from(responseData['layout']).map(
+        (slot, item) => MapEntry(
+          int.parse(slot.toString()),
+          PoeNinjaItem.fromMap(item: Map.from(item)),
+        ),
+      );
+    }
 
-    _processScarabData(scarabs);
+    _processScarabData(scarabs, scarabLayout?.values);
 
     result.value = RestfulResult(
       statusCode: rawData['statusCode'] ?? '',
       message: rawData['message'] ?? '',
       data: {
-        'updateDate': rawData['data']['date'],
+        'updateDate': responseData['date'],
         'filteredData': scarabs,
+        'season': responseData['season'],
+        'league': responseData['league'],
+        'layout': scarabLayout,
+        'layoutUpdatedAt': responseData['layoutUpdatedAt'],
       },
     );
 
@@ -43,7 +57,10 @@ class GetScarabTable extends GetxController {
     return result.value;
   }
 
-  void _processScarabData(List<PoeNinjaItem> convertData) {
+  void _processScarabData(
+    List<PoeNinjaItem> convertData,
+    Iterable<PoeNinjaItem>? layoutItems,
+  ) {
     overFortyScarabItems = [];
     overTenScarabItems = [];
     overFourScarabItems = [];
@@ -52,9 +69,12 @@ class GetScarabTable extends GetxController {
     List<PoeNinjaItem> tempOneToFour = [];
     chaosValueMap = {};
 
-    final mappedNames = SCARAB_LOCATION.MAP.values.map((e) => e.name).toSet();
+    final mappedNames = (layoutItems ?? SCARAB_LOCATION.MAP.values)
+        .map((item) => item.name)
+        .toSet();
 
-    selectableItems = convertData.where((se) => !mappedNames.contains(se.name)).toList();
+    selectableItems =
+        convertData.where((se) => !mappedNames.contains(se.name)).toList();
 
     for (PoeNinjaItem item in convertData) {
       chaosValueMap[item.id] = item.chaosValue;
@@ -80,7 +100,8 @@ class GetScarabTable extends GetxController {
     oneToFourScarabChunks = [];
     for (var i = 0; i < tempOneToFour.length; i += 35) {
       oneToFourScarabChunks.add(
-        tempOneToFour.sublist(i, i + 35 > tempOneToFour.length ? tempOneToFour.length : i + 35)
+        tempOneToFour.sublist(i,
+            i + 35 > tempOneToFour.length ? tempOneToFour.length : i + 35),
       );
     }
 
